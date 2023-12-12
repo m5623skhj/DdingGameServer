@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="RIO">
+      <UniqueIdentifier>{66796bda-689b-4aa9-9e8c-6968ef126e3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{20f9bbf6-f035-4cd3-badd-2ef61d4263e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib">
+      <UniqueIdentifier>{94eae068-f5f6-49f9-8614-dfd9ab01db2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="etc">
+      <UniqueIdentifier>{8dc995e6-b106-4aff-bfd4-b2e59f762a50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DeadlockChecker">
+      <UniqueIdentifier>{9e76a435-76ee-4f65-9dba-3e757be9a4a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Protocol">
+      <UniqueIdentifier>{4b2ea87c-ea0c-4375-a12f-fff316a4773d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PacketManager">
+      <UniqueIdentifier>{979f810d-a2f9-4926-988d-9d61ef3b2977}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="BroadCaster">
+      <UniqueIdentifier>{30a9dc39-01c3-44c0-b46d-00aa6abb91f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DBClient">
+      <UniqueIdentifier>{6cada8fa-1815-46c5-8be0-f34a374e7014}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DBJob">
+      <UniqueIdentifier>{6739a7af-e656-48b1-ac8d-29b244fda6f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DBJob\DBJobClass">
+      <UniqueIdentifier>{e26def02-6873-4431-9e6c-987bc2696b58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DBJob\UserDBJobs">
+      <UniqueIdentifier>{ca4f2c63-cc08-42a5-af4d-fd49e7d67ba0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="main">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Logger">
+      <UniqueIdentifier>{c0638793-3d2b-42d4-bba4-a448ae555e71}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="RIOServer.cpp">
+      <Filter>RIO</Filter>
+    </ClCompile>
+    <ClCompile Include="RIOSession.cpp">
+      <Filter>RIO</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="ScopeLock.cpp">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="DeadlockChecker.cpp">
+      <Filter>DeadlockChecker</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketHandler.cpp">
+      <Filter>Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="PacketManager.cpp">
+      <Filter>PacketManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Broadcaster.cpp">
+      <Filter>BroadCaster</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiLanClient.cpp">
+      <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="DBClient.cpp">
+      <Filter>DBClient</Filter>
+    </ClCompile>
+    <ClCompile Include="ProcedureReplyHandler.cpp">
+      <Filter>DBClient</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalUtil.cpp">
+      <Filter>etc</Filter>
+    </ClCompile>
+    <ClCompile Include="DBJob.cpp">
+      <Filter>DBJob\DBJobClass</Filter>
+    </ClCompile>
+    <ClCompile Include="DBJobUtil.cpp">
+      <Filter>DBJob\DBJobClass</Filter>
+    </ClCompile>
+    <ClCompile Include="Logger.cpp">
+      <Filter>Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="LogClass.cpp">
+      <Filter>Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="DBHelper.cpp">
+      <Filter>DBClient</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\Common\Log.cpp">
+      <Filter>Include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\Common\NetServerSerializeBuffer.cpp">
+      <Filter>Include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\Common\Parse.cpp">
+      <Filter>Include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\Common\PreCompile.cpp">
+      <Filter>Include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\Common\Ringbuffer.cpp">
+      <Filter>Include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\Common\LanServerSerializeBuf.cpp">
+      <Filter>Include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\Common\SerializationBuffer.cpp">
+      <Filter>Include</Filter>
+    </ClCompile>
+    <ClCompile Include="StartDBJob.cpp">
+      <Filter>DBJob\UserDBJobs</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="RIOServer.h">
+      <Filter>RIO</Filter>
+    </ClInclude>
+    <ClInclude Include="RIOSession.h">
+      <Filter>RIO</Filter>
+    </ClInclude>
+    <ClInclude Include="ScopeLock.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="EnumType.h">
+      <Filter>etc</Filter>
+    </ClInclude>
+    <ClInclude Include="DefineType.h">
+      <Filter>etc</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildConfig.h">
+      <Filter>etc</Filter>
+    </ClInclude>
+    <ClInclude Include="DeadlockChecker.h">
+      <Filter>DeadlockChecker</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="PacketManager.h">
+      <Filter>PacketManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Broadcaster.h">
+      <Filter>BroadCaster</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiLanClient.h">
+      <Filter>lib</Filter>
+    </ClInclude>
+    <ClInclude Include="DBClient.h">
+      <Filter>DBClient</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DBConnector\DBConnector\StoredProcedure.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcedureReplyHandler.h">
+      <Filter>DBClient</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalUtil.h">
+      <Filter>etc</Filter>
+    </ClInclude>
+    <ClInclude Include="DBJob.h">
+      <Filter>DBJob\DBJobClass</Filter>
+    </ClInclude>
+    <ClInclude Include="DBJobUtil.h">
+      <Filter>DBJob\DBJobClass</Filter>
+    </ClInclude>
+    <ClInclude Include="Logger.h">
+      <Filter>Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="LogClass.h">
+      <Filter>Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="DBHelper.h">
+      <Filter>DBClient</Filter>
+    </ClInclude>
+    <ClInclude Include="StartDBJob.h">
+      <Filter>DBJob\UserDBJobs</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
