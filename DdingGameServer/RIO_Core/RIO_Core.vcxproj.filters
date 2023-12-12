@@ -48,6 +48,9 @@
     <Filter Include="Logger">
       <UniqueIdentifier>{c0638793-3d2b-42d4-bba4-a448ae555e71}</UniqueIdentifier>
     </Filter>
+    <Filter Include="IOCPTimer">
+      <UniqueIdentifier>{adcbddd8-2276-4715-bb31-7451833cce10}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="RIOServer.cpp">
@@ -125,6 +128,9 @@
     <ClCompile Include="StartDBJob.cpp">
       <Filter>DBJob\UserDBJobs</Filter>
     </ClCompile>
+    <ClCompile Include="IOCPTimer.cpp">
+      <Filter>IOCPTimer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RIOServer.h">
@@ -189,6 +195,9 @@
     </ClInclude>
     <ClInclude Include="StartDBJob.h">
       <Filter>DBJob\UserDBJobs</Filter>
+    </ClInclude>
+    <ClInclude Include="IOCPTimer.h">
+      <Filter>IOCPTimer</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

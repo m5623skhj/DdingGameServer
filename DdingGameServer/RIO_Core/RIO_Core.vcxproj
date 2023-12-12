@@ -151,6 +151,7 @@
     <ClCompile Include="DBJobUtil.cpp" />
     <ClCompile Include="DeadlockChecker.cpp" />
     <ClCompile Include="GlobalUtil.cpp" />
+    <ClCompile Include="IOCPTimer.cpp" />
     <ClCompile Include="LogClass.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="MultiLanClient.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="DefineType.h" />
     <ClInclude Include="EnumType.h" />
     <ClInclude Include="GlobalUtil.h" />
+    <ClInclude Include="IOCPTimer.h" />
     <ClInclude Include="LogClass.h" />
     <ClInclude Include="Logger.h" />
     <ClInclude Include="MultiLanClient.h" />
