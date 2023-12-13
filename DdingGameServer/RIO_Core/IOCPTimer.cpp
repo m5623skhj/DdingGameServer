@@ -67,6 +67,13 @@ void IOCPTimerManager::RunTimerThread()
 			break;
 		}
 		
+		if (successGQCS == false)
+		{
+			int errorCode = GetLastError();
+			std::cout << "IOCPTimerManager : GQCS() failed with error code " << errorCode << std::endl; 
+			continue;
+		}
+
 		std::shared_ptr<IOCPTimer> timer = nullptr;
 		{
 			std::lock_guard<std::mutex> lock(timerMapLock);
