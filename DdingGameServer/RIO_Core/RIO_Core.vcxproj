@@ -162,6 +162,7 @@
     <ClCompile Include="RIOServer.cpp" />
     <ClCompile Include="RIOSession.cpp" />
     <ClCompile Include="StartDBJob.cpp" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\DBConnector\DBConnector\StoredProcedure.h" />
@@ -185,6 +186,7 @@
     <ClInclude Include="RIOServer.h" />
     <ClInclude Include="RIOSession.h" />
     <ClInclude Include="StartDBJob.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ScriptToObject\ScriptToObject\ScriptToObject\ScriptToObject.vcxproj">
