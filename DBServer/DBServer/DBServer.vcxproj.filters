@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\BuildConfig">
+      <UniqueIdentifier>{d44db45e-ad8c-40e8-b968-ea85d748e492}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\DBServer">
+      <UniqueIdentifier>{184c7011-eed7-4775-9a33-b6283f87d7fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\GoogleTest">
+      <UniqueIdentifier>{6b893539-bf9d-4b4b-8928-ab8eb4461ede}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Include">
+      <UniqueIdentifier>{d5198460-cb3f-4f0e-b8b5-585a55937603}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Protocol">
+      <UniqueIdentifier>{8cd5aa40-a86d-40c1-bd5d-12b7d8a7807f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\ODBC">
+      <UniqueIdentifier>{1bf19dba-8653-4a59-988d-25ff62ba8df2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Reflection">
+      <UniqueIdentifier>{1077f5c3-97fa-43b9-9e14-03c51f935daf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\StoredProcedure">
+      <UniqueIdentifier>{5895db3d-10ad-459c-a299-ce1e4574fe25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Types">
+      <UniqueIdentifier>{f3ed7409-b0fa-4fa2-a108-dc9c2989f193}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Path.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="BuildConfg.h">
+      <Filter>소스 파일\BuildConfig</Filter>
+    </ClInclude>
+    <ClInclude Include="DBServer.h">
+      <Filter>소스 파일\DBServer</Filter>
+    </ClInclude>
+    <ClInclude Include="GoogleTest.h">
+      <Filter>소스 파일\GoogleTest</Filter>
+    </ClInclude>
+    <ClInclude Include="ODBCConnector.h">
+      <Filter>소스 파일\ODBC</Filter>
+    </ClInclude>
+    <ClInclude Include="ODBCConst.h">
+      <Filter>소스 파일\ODBC</Filter>
+    </ClInclude>
+    <ClInclude Include="ODBCMetaData.h">
+      <Filter>소스 파일\ODBC</Filter>
+    </ClInclude>
+    <ClInclude Include="ODBCUtil.h">
+      <Filter>소스 파일\ODBC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DdingGameServer\RIO_Core\Protocol.h">
+      <Filter>소스 파일\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="Property.h">
+      <Filter>소스 파일\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="PropertyMacro.h">
+      <Filter>소스 파일\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="Reflection.h">
+      <Filter>소스 파일\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeInfo.h">
+      <Filter>소스 파일\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="TypeInfoMacro.h">
+      <Filter>소스 파일\Reflection</Filter>
+    </ClInclude>
+    <ClInclude Include="ProcedureType.h">
+      <Filter>소스 파일\StoredProcedure</Filter>
+    </ClInclude>
+    <ClInclude Include="StoredProcedure.h">
+      <Filter>소스 파일\StoredProcedure</Filter>
+    </ClInclude>
+    <ClInclude Include="Type.h">
+      <Filter>소스 파일\Types</Filter>
+    </ClInclude>
+    <ClInclude Include="DBServerProtocol.h">
+      <Filter>소스 파일\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DdingGameServer\RIO_Core\EnumType.h">
+      <Filter>소스 파일\Include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DBServer.cpp">
+      <Filter>소스 파일\DBServer</Filter>
+    </ClCompile>
+    <ClCompile Include="PakcetHandler.cpp">
+      <Filter>소스 파일\DBServer</Filter>
+    </ClCompile>
+    <ClCompile Include="DBConnectorTest.cpp">
+      <Filter>소스 파일\GoogleTest</Filter>
+    </ClCompile>
+    <ClCompile Include="GoogleTest.cpp">
+      <Filter>소스 파일\GoogleTest</Filter>
+    </ClCompile>
+    <ClCompile Include="ReflectionTest.cpp">
+      <Filter>소스 파일\GoogleTest</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\Common\LanServer.cpp">
+      <Filter>소스 파일\Include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\Common\LanServerSerializeBuf.cpp">
+      <Filter>소스 파일\Include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\Common\Log.cpp">
+      <Filter>소스 파일\Include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\Common\Parse.cpp">
+      <Filter>소스 파일\Include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\Common\PreCompile.cpp">
+      <Filter>소스 파일\Include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\Common\Ringbuffer.cpp">
+      <Filter>소스 파일\Include</Filter>
+    </ClCompile>
+    <ClCompile Include="ODBCConnector.cpp">
+      <Filter>소스 파일\ODBC</Filter>
+    </ClCompile>
+    <ClCompile Include="ODBCMetaData.cpp">
+      <Filter>소스 파일\ODBC</Filter>
+    </ClCompile>
+    <ClCompile Include="ODBCUtil.cpp">
+      <Filter>소스 파일\ODBC</Filter>
+    </ClCompile>
+    <ClCompile Include="TypeInfo.cpp">
+      <Filter>소스 파일\Reflection</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

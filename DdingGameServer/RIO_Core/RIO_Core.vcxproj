@@ -165,7 +165,7 @@
     <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\DBConnector\DBConnector\StoredProcedure.h" />
+    <ClInclude Include="..\..\DBServer\DBServer\StoredProcedure.h" />
     <ClInclude Include="Broadcaster.h" />
     <ClInclude Include="BuildConfig.h" />
     <ClInclude Include="DBClient.h" />
