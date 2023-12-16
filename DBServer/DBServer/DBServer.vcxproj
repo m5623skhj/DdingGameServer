@@ -77,6 +77,7 @@
     <IncludePath>C:\Program Files\MariaDB 10.5\include\mysql;$(IncludePath)</IncludePath>
     <ReferencePath>C:\Program Files\MariaDB 10.5\lib;$(ReferencePath)</ReferencePath>
     <LibraryPath>C:\Program Files\MySQL\MySQL Server 8.0\lib;$(LibraryPath)</LibraryPath>
+    <OutDir>..\..\bin</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
