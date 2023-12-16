@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{15c0deac-d441-4365-a330-070d9b86ca95}</ProjectGuid>
+    <ProjectGuid>{3f9f94b2-78a5-4643-9dd5-d0da057b0e01}</ProjectGuid>
     <RootNamespace>DBServer</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
@@ -71,7 +71,9 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)\..\bin\</OutDir>
+    <LibraryPath>C:\Program Files\MySQL\MySQL Server 8.0\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\Program Files\MariaDB 10.5\include\mysql;$(IncludePath)</IncludePath>
     <ReferencePath>C:\Program Files\MariaDB 10.5\lib;$(ReferencePath)</ReferencePath>
     <LibraryPath>C:\Program Files\MySQL\MySQL Server 8.0\lib;$(LibraryPath)</LibraryPath>
@@ -110,10 +112,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\User\Desktop\Common;C:\Users\User\source\repos\DdingGameServer\DBServer\DBServer\googletest-main\googletest\include;C:\Users\User\source\repos\DdingGameServer\DBServer\DBServer\googletest-main\googlemock\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\User\source\repos\DdingGameServer\DBServer\DBServer\googletest-main\googletest\include;C:\Users\User\Desktop\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Create</PrecompiledHeader>
-      <PrecompiledHeaderFile>PreCompile.h</PrecompiledHeaderFile>
+      <PrecompiledHeaderFile>Precompile.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,14 +131,38 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\Users\User\source\repos\DdingGameServer\DBServer\DBServer\googletest-main\googletest\include;C:\Users\User\Desktop\Common;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>Create</PrecompiledHeader>
+      <PrecompiledHeaderFile>Precompile.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>libmySQL.lib;gtest.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\..\Desktop\Common\LanServer.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\Common\LanServerSerializeBuf.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\Common\Log.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\Common\Parse.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\Common\PreCompile.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\Common\Ringbuffer.cpp" />
+    <ClCompile Include="DBConnectorTest.cpp" />
+    <ClCompile Include="DBServer.cpp" />
+    <ClCompile Include="GoogleTest.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="ODBCConnector.cpp" />
+    <ClCompile Include="ODBCMetaData.cpp" />
+    <ClCompile Include="ODBCUtil.cpp" />
+    <ClCompile Include="PakcetHandler.cpp" />
+    <ClCompile Include="ReflectionTest.cpp" />
+    <ClCompile Include="TypeInfo.cpp" />
+  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\DdingGameServer\RIO_Core\EnumType.h" />
     <ClInclude Include="..\..\DdingGameServer\RIO_Core\Protocol.h" />
@@ -157,24 +183,6 @@
     <ClInclude Include="Type.h" />
     <ClInclude Include="TypeInfo.h" />
     <ClInclude Include="TypeInfoMacro.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\Desktop\Common\LanServer.cpp" />
-    <ClCompile Include="..\..\..\..\..\Desktop\Common\LanServerSerializeBuf.cpp" />
-    <ClCompile Include="..\..\..\..\..\Desktop\Common\Log.cpp" />
-    <ClCompile Include="..\..\..\..\..\Desktop\Common\Parse.cpp" />
-    <ClCompile Include="..\..\..\..\..\Desktop\Common\PreCompile.cpp" />
-    <ClCompile Include="..\..\..\..\..\Desktop\Common\Ringbuffer.cpp" />
-    <ClCompile Include="DBConnectorTest.cpp" />
-    <ClCompile Include="DBServer.cpp" />
-    <ClCompile Include="GoogleTest.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="ODBCConnector.cpp" />
-    <ClCompile Include="ODBCMetaData.cpp" />
-    <ClCompile Include="ODBCUtil.cpp" />
-    <ClCompile Include="PakcetHandler.cpp" />
-    <ClCompile Include="ReflectionTest.cpp" />
-    <ClCompile Include="TypeInfo.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

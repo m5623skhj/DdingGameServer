@@ -142,11 +142,13 @@ ProcedureResult DBServer::ProcedureHandleImpl(UINT64 requestSessionId, PACKET_ID
 		g_Dump.Crash();
 	}
 
+	/*
 	switch (packetId)
 	{
 	default:
 		break;
 	}
+	*/
 
 	connector.FreeConnection(conn.value());
 	return ProcedureResult(isSuccess, packet);
