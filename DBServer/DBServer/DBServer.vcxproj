@@ -71,13 +71,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <LibraryPath>C:\Program Files\MySQL\MySQL Server 8.0\lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>C:\Program Files\MySQL\MySQL Server 8.0\lib;$(ProjectDit)\ForDBServerLib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(ProjectDir)\..\..\bin\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>C:\Program Files\MariaDB 10.5\include\mysql;$(IncludePath)</IncludePath>
     <ReferencePath>C:\Program Files\MariaDB 10.5\lib;$(ReferencePath)</ReferencePath>
-    <LibraryPath>C:\Program Files\MySQL\MySQL Server 8.0\lib;$(LibraryPath)</LibraryPath>
-    <OutDir>..\..\bin</OutDir>
+    <LibraryPath>C:\Program Files\MySQL\MySQL Server 8.0\lib;$(ProjectDir)\ForDBServerLib;$(LibraryPath)</LibraryPath>
+    <OutDir>$(ProjectDir)\..\..\bin\</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -121,8 +122,13 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libmySQL.lib;gtest.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libmySQL.lib;$(ProjectDir)\ForDBServerLib\gtest.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)\OptionFile" "$(ProjectDir)\..\..\bin\OptionFile" /E /I /Y
+xcopy "$(ProjectDir)\ForDBServerLib" "$(ProjectDir)\..\..\bin\ForDBServerLib" /E /I /Y
+copy "$(ProjectDir)\gtest.dll" "$(ProjectDir)\..\..\bin\gtest.dll</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -145,6 +151,11 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>libmySQL.lib;gtest.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(ProjectDir)\OptionFile" "$(ProjectDir)\..\..\bin\OptionFile" /E /I /Y
+xcopy "$(ProjectDir)\ForDBServerLib" "$(ProjectDir)\..\..\bin\ForDBServerLib" /E /I /Y
+copy "$(ProjectDir)\gtest.dll" "$(ProjectDir)\..\..\bin\gtest.dll</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\..\Desktop\Common\LanServer.cpp" />
