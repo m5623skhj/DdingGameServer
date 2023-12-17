@@ -152,7 +152,7 @@ copy "$(ProjectDir)\gtest.dll" "$(ProjectDir)\..\..\bin\gtest.dll</Command>
       <AdditionalDependencies>libmySQL.lib;gtest.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)\OptionFile" "$(ProjectDir)\..\..\bin\OptionFile" /E /I /Y
+      <Command>xcopy "$(ProjectDir)\OptionFile" "$(ProjectDir)\..\..\bin\DBServerOptionFile" /E /I /Y
 xcopy "$(ProjectDir)\ForDBServerLib" "$(ProjectDir)\..\..\bin\ForDBServerLib" /E /I /Y
 copy "$(ProjectDir)\gtest.dll" "$(ProjectDir)\..\..\bin\gtest.dll</Command>
     </PostBuildEvent>
