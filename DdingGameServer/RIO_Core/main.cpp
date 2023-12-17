@@ -11,10 +11,10 @@ int main()
 	{
 		PacketManager::GetInst().Init();
 	}
-	DBClient::GetInstance().Start(L"OptionFile/DBClientOptionFile.txt");
+	DBClient::GetInstance().Start(L"RIO_CoreOptionFile/DBClientOptionFile.txt");
 	
 	RIOServer& server = RIOServer::GetInst();
-	server.StartServer(L"OptionFile/ServerOption.txt");
+	server.StartServer(L"RIO_CoreOptionFile/ServerOption.txt");
 
 	while (true)
 	{

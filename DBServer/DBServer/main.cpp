@@ -63,7 +63,7 @@ int main()
     ODBCConnector& connector = ODBCConnector::GetInst();
     do
     {
-        if (connector.ConnectDB(L"OptionFile/DBConnectFile.txt") == false)
+        if (connector.ConnectDB(L"DBServerOptionFile/DBConnectFile.txt") == false)
         {
             cout << "---------------------" << endl;
             cout << "ConnectDB() failed" << endl;
@@ -142,7 +142,7 @@ int main()
     }
     */
 
-    DBServer dbServer(L"OptionFile/DBServerOptionFile.txt");
+    DBServer dbServer(L"DBServerOptionFile/DBServerOptionFile.txt");
 
     while (true)
     {

@@ -140,7 +140,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)\..\OptionFile" "$(ProjectDir)\..\..\bin\ScriptToObjectOptionFile" /E /I /Y</Command>
+      <Command>xcopy "$(ProjectDir)\ScriptToOBjectOptionFile" "$(ProjectDir)\..\..\bin\ScriptToObjectOptionFile" /E /I /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

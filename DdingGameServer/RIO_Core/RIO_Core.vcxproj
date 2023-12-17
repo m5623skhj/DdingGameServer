@@ -142,7 +142,7 @@
       <AdditionalLibraryDirectories>$(SolutionDir)\bin\</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(ProjectDir)\OptionFile" "$(ProjectDir)\..\..\bin\RIO_CoreOptionFile" /E /I /Y</Command>
+      <Command>xcopy "$(ProjectDir)\RIO_CoreOptionFile" "$(ProjectDir)\..\..\bin\RIO_CoreOptionFile" /E /I /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
