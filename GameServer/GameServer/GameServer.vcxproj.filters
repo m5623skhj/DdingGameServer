@@ -19,6 +19,9 @@
     <Filter Include="소스 파일\Include">
       <UniqueIdentifier>{c4da72a1-f6b6-4d2d-9e68-499c5cfd493a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\etc">
+      <UniqueIdentifier>{cf255868-f48e-452e-9465-021ae4be9191}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -33,10 +36,19 @@
     <ClCompile Include="PCPacketHandler.cpp">
       <Filter>소스 파일\PC</Filter>
     </ClCompile>
+    <ClCompile Include="PCManager.cpp">
+      <Filter>소스 파일\PC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PC.h">
       <Filter>소스 파일\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="PCManager.h">
+      <Filter>소스 파일\PC</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServerDefine.h">
+      <Filter>소스 파일\etc</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

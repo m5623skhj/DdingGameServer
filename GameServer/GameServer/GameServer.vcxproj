@@ -22,6 +22,7 @@
     <ClCompile Include="..\..\..\..\..\Desktop\Common\NetServerSerializeBuffer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PC.cpp" />
+    <ClCompile Include="PCManager.cpp" />
     <ClCompile Include="PCPacketHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -33,7 +34,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameServerDefine.h" />
     <ClInclude Include="PC.h" />
+    <ClInclude Include="PCManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
