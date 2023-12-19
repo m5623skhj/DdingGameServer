@@ -17,10 +17,7 @@ public :
 	PCManager& GetInst();
 
 public:
-	// TODO :
-	// SessionId나 PCId 둘 중 하나로만 Add, Delete 해도 두 개 모두에 들어갔으면 좋겠음
-	void AddPCBySessionId(SessionId sessionId, std::shared_ptr<PC> pc);
-	void AddPCByPCId(PCId pcId, std::shared_ptr<PC> pc);
+	void AddPC(SessionId sessionId);
 
 	void DeletePCBySessionId(SessionId sessionId);
 	void DeletePCByPCId(PCId pcId);
@@ -34,4 +31,6 @@ private:
 
 	std::unordered_map<PCId, std::shared_ptr<PC>> pcIdToPCMap;
 	std::mutex pcIdToPCMapLock;
+
+	std::atomic<PCId> pcIdGenerator = 1;
 };
