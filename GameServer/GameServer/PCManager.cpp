@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "PCManager.h"
 #include "PC.h"
+#include "../../DdingGameServer/RIO_Core/RIOSession.h"
 
 PCManager& PCManager::GetInst()
 {
@@ -8,9 +9,9 @@ PCManager& PCManager::GetInst()
 	return instance;
 }
 
-void PCManager::AddPC(SessionId inSessionId)
+void PCManager::AddPC(RIOSession& session)
 {
-	auto pc = std::make_shared<PC>(inSessionId, ++pcIdGenerator);
+	auto pc = std::make_shared<PC>(session, ++pcIdGenerator);
 	if (pc == nullptr)
 	{
 		g_Dump.Crash();
@@ -18,7 +19,7 @@ void PCManager::AddPC(SessionId inSessionId)
 
 	{
 		std::lock_guard lock(sessionIdToPCMapLock);
-		sessionIdToPCMap.insert({ inSessionId, pc });
+		sessionIdToPCMap.insert({ session.GetSessionId(), pc});
 	}
 	{
 		std::lock_guard lock(pcIdToPCMapLock);

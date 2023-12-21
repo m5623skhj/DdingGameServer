@@ -5,6 +5,7 @@
 #include "GameServerDefine.h"
 #include "../../DdingGameServer/RIO_Core/DefineType.h"
 
+class RIOSession;
 class PC;
 
 class PCManager
@@ -14,10 +15,10 @@ private:
 	~PCManager() = default;
 
 public :
-	PCManager& GetInst();
+	static PCManager& GetInst();
 
 public:
-	void AddPC(SessionId sessionId);
+	void AddPC(RIOSession& session);
 
 	void DeletePCBySessionId(SessionId sessionId);
 	void DeletePCByPCId(PCId pcId);
