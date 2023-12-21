@@ -17,7 +17,7 @@ private:
 public:
 	static DataObjectGenerator& GetInst();
 
-	void AddDataClass(std::string_view dataClassName, DataObjectConstructor constructor);
+	bool AddDataClass(std::string_view dataClassName, DataObjectConstructor constructor);
 
 	template <DataBased T>
 	T* MakeDataObject(std::string_view dataClassName)
@@ -63,9 +63,9 @@ public:
 		return data->second;
 	}
 
-	void AddData(DataKeyType key, DataValueType* value)
+	bool AddData(DataKeyType key, DataValueType* value)
 	{
-		dataMap.insert({ key, value });
+		return dataMap.insert({ key, value }).second;
 	}
 
 	bool PostLoad()

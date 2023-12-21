@@ -10,7 +10,7 @@ public:
 	}
 
 	virtual void LoadFromJson(const nlohmann::json& jsonObject) = 0;
-	virtual void AddDataToDataContainer() = 0;
+	virtual bool AddDataToDataContainer() = 0;
 
 	virtual constexpr std::string_view GetObjectTypeName() = 0;
 	virtual bool PostLoad() = 0;

@@ -1,5 +1,6 @@
 #pragma once
 #include "DataUtil.h"
+#include <iostream>
 
 #pragma region DataObjectGenerator
 
@@ -16,9 +17,12 @@ DataObjectGenerator::GetInst().MakeDataObject<className>(typeName)
 #define SET_DATA_OBJECT(classType, key) \
 SET_DATA_KEY_TYPE(decltype(key)); \
 SET_OBJECT_TYPE_NAME(classType); \
-virtual void AddDataToDataContainer() override \
+virtual bool AddDataToDataContainer() override \
 { \
-	ADD_DATA(classType, key, this); \
+	if(ADD_DATA(classType, key, this) == false) \
+	{\
+		std::cout << "Duplicated key error : " << key << std::endl;\
+	}\
 }
 
 #define SET_DATA_KEY_TYPE(type) using DataKeyType = type

@@ -57,11 +57,15 @@ namespace JsonUtil
 			return false;
 		}
 
+		bool returnValue = true;
 		for (auto& object : objectList.value())
 		{
-			object->AddDataToDataContainer();
+			if (object->AddDataToDataContainer() == false)
+			{
+				returnValue = false;
+			}
 		}
 
-		return true;
+		return returnValue;
 	}
 }

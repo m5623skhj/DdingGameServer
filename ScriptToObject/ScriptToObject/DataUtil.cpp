@@ -12,7 +12,7 @@ DataObjectGenerator& DataObjectGenerator::GetInst()
 	return instance;
 }
 
-void DataObjectGenerator::AddDataClass(std::string_view dataClassName, DataObjectConstructor constructor)
+bool DataObjectGenerator::AddDataClass(std::string_view dataClassName, DataObjectConstructor constructor)
 {
-	constructorMap.insert({ dataClassName, constructor });
+	return constructorMap.insert({ dataClassName, constructor }).second;
 }
