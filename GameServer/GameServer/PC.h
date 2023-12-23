@@ -1,14 +1,15 @@
 #pragma once
+#include "Creature.h"
 #include "GameServerDefine.h"
 #include <memory>
 #include "../../DdingGameServer/RIO_Core/DefineType.h"
 #include "../../DdingGameServer/RIO_Core/RIOSession.h"
 
-class PC
+class PC : public Creature
 {
 public:
 	PC() = delete;
-	~PC() = default;
+	virtual ~PC() = default;
 	explicit PC(RIOSession& inSession, PCId inPCId);
 
 public:
