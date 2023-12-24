@@ -18,20 +18,18 @@ public :
 	static PCManager& GetInst();
 
 public:
-	void AddPC(RIOSession& session);
+	void InsertPC(RIOSession& session, PCDBID id);
 
-	void DeletePCBySessionId(SessionId sessionId);
-	void DeletePCByPCId(PCId pcId);
+	void ErasePCBySessionId(SessionId sessionId);
+	void ErasePCByPCId(PCDBID pcId);
 
 	std::shared_ptr<PC> FindPCBySessionId(SessionId sessionId);
-	std::shared_ptr<PC> FindPCByPCId(PCId pcId);
+	std::shared_ptr<PC> FindPCByPCId(PCDBID pcId);
 
 private:
 	std::unordered_map<SessionId, std::shared_ptr<PC>> sessionIdToPCMap;
 	std::mutex sessionIdToPCMapLock;
 
-	std::unordered_map<PCId, std::shared_ptr<PC>> pcIdToPCMap;
+	std::unordered_map<PCDBID, std::shared_ptr<PC>> pcIdToPCMap;
 	std::mutex pcIdToPCMapLock;
-
-	std::atomic<PCId> pcIdGenerator = 1;
 };

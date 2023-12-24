@@ -9,9 +9,9 @@ PCManager& PCManager::GetInst()
 	return instance;
 }
 
-void PCManager::AddPC(RIOSession& session)
+void PCManager::InsertPC(RIOSession& session, PCDBID id)
 {
-	auto pc = std::make_shared<PC>(session, ++pcIdGenerator);
+	auto pc = std::make_shared<PC>(session, id);
 	if (pc == nullptr)
 	{
 		g_Dump.Crash();
@@ -27,9 +27,9 @@ void PCManager::AddPC(RIOSession& session)
 	}
 }
 
-void PCManager::DeletePCBySessionId(SessionId sessionId)
+void PCManager::ErasePCBySessionId(SessionId sessionId)
 {
-	PCId pcId = INVALID_PC_ID;
+	PCDBID pcId = INVALID_PC_ID;
 	{
 		std::lock_guard lock(sessionIdToPCMapLock);
 		auto iter = sessionIdToPCMap.find(sessionId);
@@ -54,7 +54,7 @@ void PCManager::DeletePCBySessionId(SessionId sessionId)
 	}
 }
 
-void PCManager::DeletePCByPCId(PCId pcId)
+void PCManager::ErasePCByPCId(PCDBID pcId)
 {
 	SessionId sessionId = INVALID_SESSION_ID;
 	{
@@ -93,7 +93,7 @@ std::shared_ptr<PC> PCManager::FindPCBySessionId(SessionId sessionId)
 	return findIter->second;
 }
 
-std::shared_ptr<PC> PCManager::FindPCByPCId(PCId pcId)
+std::shared_ptr<PC> PCManager::FindPCByPCId(PCDBID pcId)
 {
 	std::lock_guard<std::mutex> lock(pcIdToPCMapLock);
 	auto findIter = pcIdToPCMap.find(pcId);
