@@ -163,9 +163,6 @@
     <ClCompile Include="LogClass.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="MultiLanClient.cpp" />
-    <ClCompile Include="PacketHandler.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="PacketManager.cpp" />
     <ClCompile Include="ProcedureReplyHandler.cpp" />
     <ClCompile Include="ScopeLock.cpp" />

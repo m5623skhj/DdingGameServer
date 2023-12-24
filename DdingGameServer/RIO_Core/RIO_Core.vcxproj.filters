@@ -68,9 +68,6 @@
     <ClCompile Include="DeadlockChecker.cpp">
       <Filter>DeadlockChecker</Filter>
     </ClCompile>
-    <ClCompile Include="PacketHandler.cpp">
-      <Filter>Protocol</Filter>
-    </ClCompile>
     <ClCompile Include="PacketManager.cpp">
       <Filter>PacketManager</Filter>
     </ClCompile>
