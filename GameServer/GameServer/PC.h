@@ -2,8 +2,8 @@
 #include "Creature.h"
 #include "GameServerDefine.h"
 #include <memory>
-#include "../../DdingGameServer/RIO_Core/DefineType.h"
-#include "../../DdingGameServer/RIO_Core/RIOSession.h"
+#include "DefineType.h"
+#include "RIOSession.h"
 
 class PC : public Creature
 {

@@ -1,7 +1,7 @@
 #include "PreCompile.h"
 #include "PCManager.h"
 #include "PC.h"
-#include "../../DdingGameServer/RIO_Core/RIOSession.h"
+#include "RIOSession.h"
 
 PCManager& PCManager::GetInst()
 {

@@ -3,7 +3,7 @@
 #include <memory>
 #include <mutex>
 #include "GameServerDefine.h"
-#include "../../DdingGameServer/RIO_Core/DefineType.h"
+#include "DefineType.h"
 
 class RIOSession;
 class PC;
