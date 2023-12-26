@@ -13,6 +13,13 @@ public:
 	void SubtractHP(int subtractHP);
 	void Revive(int newHP);
 
+public:
+	virtual void OnEnterWorld() = 0;
+	virtual void OnLeaveWorld() = 0;
+	virtual void OnDamaged() = 0;
+	virtual void OnDied() = 0;
+	virtual void OnRevived() = 0;
+
 protected:
 	int maxHP;
 	int nowHP;

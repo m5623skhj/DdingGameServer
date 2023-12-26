@@ -13,6 +13,11 @@ void Creature::SetHP(int newHP)
 	{
 		nowHP = maxHP;
 	}
+	else if (nowHP < 0)
+	{
+		nowHP = 0;
+		OnDied();
+	}
 }
 
 void Creature::AddHP(int addHP)
@@ -41,6 +46,7 @@ void Creature::SubtractHP(int subtractHP)
 	{
 		nowHP = 0;
 		isAlive = false;
+		OnDied();
 	}
 }
 
@@ -53,4 +59,5 @@ void Creature::Revive(int newHP)
 
 	nowHP = newHP;
 	isAlive = true;
+	OnRevived();
 }

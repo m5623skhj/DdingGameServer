@@ -19,11 +19,28 @@ void PCManager::InsertPC(RIOSession& session, PCDBID id)
 
 	{
 		std::lock_guard lock(sessionIdToPCMapLock);
-		sessionIdToPCMap.insert({ session.GetSessionId(), pc});
+		const auto& insertResult = sessionIdToPCMap.insert({ session.GetSessionId(), pc});
+		if (insertResult.second == false)
+		{
+			// ¼¼¼Ç Id°¡ °ãÄ¥ ÀÏÀº ¾ø°ÚÁö¸¸, µð¹ö±ë ¿ëÀ¸·Î Crash¸¦ µÒ
+			g_Dump.Crash();
+		}
 	}
 	{
 		std::lock_guard lock(pcIdToPCMapLock);
-		pcIdToPCMap.insert({ pc->GetPCId(), pc});
+		const auto& insertResult = pcIdToPCMap.insert({ pc->GetPCId(), pc});
+		if (insertResult.second == false)
+		{
+			auto duplicatedPCIter = pcIdToPCMap.find(pc->GetPCId());
+			if (duplicatedPCIter == pcIdToPCMap.end())
+			{
+				// ÀÌ·² °æ¿ì´Â ¾ø°ÚÁö¸¸, µð¹ö±ë ¿ëÀ¸·Î Crash¸¦ µÒ
+				g_Dump.Crash();
+			}
+			duplicatedPCIter->second->Disconnect();
+			session.Disconnect();
+			return;
+		}
 	}
 }
 

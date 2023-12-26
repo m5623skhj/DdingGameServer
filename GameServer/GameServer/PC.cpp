@@ -26,3 +26,33 @@ void PC::SendPacketAndDisconnect(NetBuffer& packet)
 {
 	session.SendPacketAndDisconnect(packet);
 }
+
+void PC::Disconnect()
+{
+	session.Disconnect();
+}
+
+void PC::OnEnterWorld()
+{
+
+}
+
+void PC::OnLeaveWorld()
+{
+
+}
+
+void PC::OnDamaged()
+{
+
+}
+
+void PC::OnDied()
+{
+
+}
+
+void PC::OnRevived()
+{
+
+}
