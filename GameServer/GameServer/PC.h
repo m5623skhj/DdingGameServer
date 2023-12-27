@@ -31,6 +31,11 @@ public:
 	virtual void OnDied();
 	virtual void OnRevived();
 
+public:
+	bool LoadFromDB();
+	bool OnLoadFromDB();
+	void FinalizeOnLoadFromDB();
+
 private:
 	PCDBID pcDBID;
 

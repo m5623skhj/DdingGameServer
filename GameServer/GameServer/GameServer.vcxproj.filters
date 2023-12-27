@@ -54,6 +54,9 @@
     <ClCompile Include="GameObjectManager.cpp">
       <Filter>소스 파일\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="PCDBLoader.cpp">
+      <Filter>소스 파일\PC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PC.h">

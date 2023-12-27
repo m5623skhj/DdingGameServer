@@ -27,6 +27,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="PC.cpp" />
+    <ClCompile Include="PCDBLoader.cpp" />
     <ClCompile Include="PCManager.cpp" />
     <ClCompile Include="PCPacketHandler.cpp" />
   </ItemGroup>
