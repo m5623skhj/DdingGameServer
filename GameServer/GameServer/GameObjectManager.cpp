@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "GameObjectManager.h"
 #include "GameObject.h"
+#include <type_traits>
 
 GameObjectManager& GameObjectManager::GetInst()
 {
@@ -30,4 +31,17 @@ std::shared_ptr<GameObject> GameObjectManager::FindObject(GameObjectId gameObjec
 	}
 
 	return findIter->second;
+}
+
+template<typename T>
+std::shared_ptr<T> GameObjectManager::FindObject(GameObjectId gameObjectId)
+{
+	std::lock_guard lock(objectMapLock);
+	auto findIter = objectMap.find(gameObjectId);
+	if (findIter == objectMap.end())
+	{
+		return nullptr;
+	}
+
+	return dynamic_cast<std::shared_ptr<T>>(findIter->second);
 }

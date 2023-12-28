@@ -19,6 +19,8 @@ public:
 	void InsertGameObject(std::shared_ptr<GameObject> object);
 	void EraseGameObject(GameObjectId gameObjectId);
 	std::shared_ptr<GameObject> FindObject(GameObjectId gameObjectId);
+	template<typename T>
+	std::shared_ptr<T> FindObject(GameObjectId gameObjectId);
 	GameObjectId GenerateObjectId() { return ++objectIdGenerator; }
 
 private:
