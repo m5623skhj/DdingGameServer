@@ -9,6 +9,7 @@
 #include "../../DdingGameServer/RIO_Core/DefineType.h"
 
 class DBJobStart;
+struct DBConnection;
 
 struct BatchedDBJob
 {
@@ -57,7 +58,7 @@ private:
 	void AddItemForJobStart(UINT64 requestSessionId, DBJobKey jobKey, PACKET_ID packetId, CSerializationBuf* recvBuffer);
 	void DoBatchedJob(UINT64 requestSessionId, DBJobKey jobKey, std::shared_ptr<BatchedDBJob> batchedJob);
 	ProcedureResult ProcedureHandleImpl(UINT64 requestSessionId, PACKET_ID packetId, CSerializationBuf* recvBuffer);
-	bool DBJobHandleImpl(UINT64 requestSessionId, UINT64 userSessionId, PACKET_ID packetId, CSerializationBuf* recvBuffer);
+	bool DBJobHandleImpl(UINT64 requestSessionId, UINT64 userSessionId, PACKET_ID packetId, DBConnection& conn, CSerializationBuf* recvBuffer);
 
 #pragma region BatchedDBJob
 private:
