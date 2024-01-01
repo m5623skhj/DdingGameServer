@@ -22,7 +22,9 @@ virtual bool AddDataToDataContainer() override \
 	if(ADD_DATA(classType, key, this) == false) \
 	{\
 		std::cout << "Duplicated key error : " << key << std::endl;\
+		return false;\
 	}\
+	return true;\
 }
 
 #define SET_DATA_KEY_TYPE(type) using DataKeyType = type
