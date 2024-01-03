@@ -3,7 +3,7 @@
 
 namespace Configuration
 {
-	const std::string configurationFilePath = "\\ScriptToObjectOptionFile\\Config.json";
+	const std::string configurationFilePath = "ScriptToObjectOptionFile\\Config.json";
 
 	struct Config
 	{

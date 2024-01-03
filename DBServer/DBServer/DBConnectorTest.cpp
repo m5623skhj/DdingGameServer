@@ -13,7 +13,7 @@ TEST(DBConnectorTest, DBInitializeTest)
 {
 	ODBCConnector& connector = ODBCConnector::GetInst();
 
-	ASSERT_EQ(connector.ConnectDB(L"OptionFile/DBConnectFile.txt"), true);
+	ASSERT_EQ(connector.ConnectDB(L"DBServerOptionFile/DBConnectFile.txt"), true);
 	EXPECT_EQ(connector.InitDB(), true);
 
 	connector.DisconnectDB();
@@ -28,7 +28,7 @@ TEST(DBConnectorTest, ProcedureParameterTest)
 
 	ODBCConnector& connector = ODBCConnector::GetInst();
 
-	ASSERT_EQ(connector.ConnectDB(L"OptionFile/DBConnectFile.txt"), true);
+	ASSERT_EQ(connector.ConnectDB(L"DBServerOptionFile/DBConnectFile.txt"), true);
 	EXPECT_EQ(connector.InitDB(), true);
 
 	std::vector<ProcedureName> notMatchedProcedureList;
