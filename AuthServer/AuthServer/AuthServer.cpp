@@ -1,6 +1,16 @@
 #include "PreCompile.h"
 #include "AuthServer.h"
 
+bool AuthLanServer::Start(const std::wstring& optionFile)
+{
+	if (CLanServer::Start(optionFile.c_str()) == false)
+	{
+		return false;
+	}
+
+	return true;
+}
+
 void AuthLanServer::OnClientJoin(UINT64 OutClientID)
 {
 
@@ -40,6 +50,17 @@ void AuthLanServer::OnError(st_Error* OutError)
 {
 
 }
+
+bool AuthNetServer::Start(const std::wstring& optionFile)
+{
+	if (CNetServer::Start(optionFile.c_str()) == false)
+	{
+		return false;
+	}
+
+	return true;
+}
+
 
 void AuthNetServer::OnClientJoin(UINT64 OutClientID)
 {
@@ -84,4 +105,15 @@ void AuthNetServer::OnError(st_Error* OutError)
 void AuthNetServer::GQCSFailed(int LastError, UINT64 ClientID)
 {
 
+}
+
+bool AuthServer::StartAuthServer(const std::wstring& lanServerOptionFile, const std::wstring& netServerOptionFile)
+{
+	if (authLanServer.Start(lanServerOptionFile) == false ||
+		authNetServer.Start(netServerOptionFile) == false)
+	{
+		return false;
+	}
+
+	return true;
 }

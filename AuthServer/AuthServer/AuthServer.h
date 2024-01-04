@@ -5,6 +5,10 @@
 
 class AuthLanServer : public CLanServer
 {
+public:
+	bool Start(const std::wstring& optionFile);
+
+private:
 	virtual void OnClientJoin(UINT64 OutClientID);
 	virtual void OnClientLeave(UINT64 ClientID);
 	virtual bool OnConnectionRequest();
@@ -19,6 +23,10 @@ class AuthLanServer : public CLanServer
 
 class AuthNetServer : public CNetServer
 {
+public:
+	bool Start(const std::wstring& optionFile);
+
+private:
 	virtual void OnClientJoin(UINT64 OutClientID);
 	virtual void OnClientLeave(UINT64 ClientID);
 	virtual bool OnConnectionRequest(const WCHAR* IP);
@@ -45,4 +53,10 @@ public:
 		static AuthServer instance;
 		return instance;
 	}
+
+	bool StartAuthServer(const std::wstring& lanServerOptionFile, const std::wstring& netServerOptionFile);
+
+private:
+	AuthLanServer authLanServer;
+	AuthNetServer authNetServer;
 };
