@@ -58,8 +58,12 @@ public:
 	virtual void OnClientLeaved() {}
 
 public:
+	// NetBuffer로 SendPacket을 시도할 때는, NetBuffer::Alloc()로 만들어진 패킷만 가능합니다.
+	// 위의 방법이 아닌, 임의로 만들어진 패킷에 대해서는 정의되지 않은 동작을 일으킬 수 있습니다.
 	void SendPacket(NetBuffer& packet);
 	void SendPacket(IGameAndClientPacket& packet);
+	// NetBuffer로 SendPacketAndDisconnect을 시도할 때는, NetBuffer::Alloc()로 만들어진 패킷만 가능합니다.
+	// 위의 방법이 아닌, 임의로 만들어진 패킷에 대해서는 정의되지 않은 동작을 일으킬 수 있습니다.
 	void SendPacketAndDisconnect(NetBuffer& packet);
 	void SendPacketAndDisconnect(IGameAndClientPacket& packet);
 	void Disconnect();
