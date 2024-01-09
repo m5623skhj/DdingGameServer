@@ -3,6 +3,7 @@
 #include <vector>
 #include <thread>
 #include <unordered_map>
+#include <optional>
 #include "DefineType.h"
 #include "EnumType.h"
 #include "NetServerSerializeBuffer.h"
@@ -18,6 +19,12 @@ struct TickSet
 {
 	UINT64 nowTick = 0;
 	UINT64 beforeTick = 0;
+};
+
+struct IOContextResult
+{
+	IOContext* ioContext;
+	std::shared_ptr<RIOSession> session;
 };
 
 class RIOSession;
@@ -49,7 +56,7 @@ private:
 	FORCEINLINE void SleepRemainingFrameTime(OUT TickSet& tickSet);
 
 	ULONG RIODequeueCompletion(RIO_CQ& rioCQ, RIORESULT* rioResults);
-	IOContext* GetIOCompletedContext(RIORESULT& rioResult);
+	std::optional<IOContextResult> GetIOCompletedContext(RIORESULT& rioResult);
 
 	IO_POST_ERROR IOCompleted(IOContext& context, ULONG transferred, RIOSession& session, BYTE threadId);
 

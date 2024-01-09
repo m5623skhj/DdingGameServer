@@ -147,17 +147,12 @@ public:
 #pragma region PacketHandler
 #define REGISTER_PACKET(PacketType){\
 	RegisterPacket<PacketType>();\
+	RegisterPacketHandler<PacketType>();\
 }
-
-#define REGISTER_HANDLER(PacketType)\
-	RegisterPacketHandler<PacketType>();
 
 #define DECLARE_HANDLE_PACKET(PacketType)\
 	static bool HandlePacket(RIOSession& session, PacketType& packet);\
 
-#define REGISTER_ALL_HANDLER()\
-	REGISTER_HANDLER(Ping)\
-	
 #define DECLARE_ALL_HANDLER()\
 	DECLARE_HANDLE_PACKET(Ping)\
 

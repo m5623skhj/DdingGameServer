@@ -191,34 +191,34 @@ ULONG RIOServer::RIODequeueCompletion(RIO_CQ& rioCQ, RIORESULT* rioResults)
 	return numOfResults;
 }
 
-IOContext* RIOServer::GetIOCompletedContext(RIORESULT& rioResult)
+std::optional<IOContextResult> RIOServer::GetIOCompletedContext(RIORESULT& rioResult)
 {
 	IOContext* context = reinterpret_cast<IOContext*>(rioResult.RequestContext);
 	if (context == nullptr)
 	{
-		return nullptr;
+		return nullopt;
 	}
 
-	std::shared_ptr<RIOSession> session;
-	SessionId sessionId = context->ownerSessionId;
+	IOContextResult result;
 	{
-		SCOPE_READ_LOCK(sessionMapLock);
-		auto iter = sessionMap.find(sessionId);
-		 if (iter == sessionMap.end())
-		 {
-			 return nullptr;
-		 }
-
-		 session = iter->second;
+		auto session = GetSession(context->ownerSessionId);
+		if (session == nullptr)
+		{
+			contextPool.Free(context);
+			return nullopt;
+		}
+		result.session = session;
 	}
 
-	if (rioResult.BytesTransferred == 0 || session->ioCancle == true)
+	if (rioResult.BytesTransferred == 0 || result.session->ioCancle == true)
 	{
-		IOCountDecrement(*session);
-		return nullptr;
+		contextPool.Free(context);
+		IOCountDecrement(*result.session);
+		return nullopt;
 	}
 
-	return context;
+	result.ioContext = context;
+	return result;
 }
 
 IO_POST_ERROR RIOServer::IOCompleted(IOContext& context, ULONG transferred, RIOSession& session, BYTE threadId)
@@ -334,31 +334,24 @@ void RIOServer::Worker(BYTE inThreadId)
 		for (ULONG i = 0; i < numOfResults; ++i)
 		{
 			IO_POST_ERROR result = IO_POST_ERROR::SUCCESS;
-			auto context = GetIOCompletedContext(rioResults[i]);
-			if (context == nullptr)
+			auto contextResult = GetIOCompletedContext(rioResults[i]);
+			if (contextResult == nullopt)
 			{
 				continue;
 			}
 
-			auto session = GetSession(context->ownerSessionId);
-			if (session == nullptr)
-			{
-				contextPool.Free(context);
-				continue;
-			}
-
-			result = IOCompleted(*context, rioResults[i].BytesTransferred, *session, inThreadId);
+			result = IOCompleted(*contextResult->ioContext, rioResults[i].BytesTransferred, *contextResult->session, inThreadId);
 			if (result == IO_POST_ERROR::INVALID_OPERATION_TYPE)
 			{
 				continue;
 			}
-			contextPool.Free(context);
+			contextPool.Free(contextResult->ioContext);
 
 			if (result == IO_POST_ERROR::IS_DELETED_SESSION)
 			{
 				continue;
 			}
-			IOCountDecrement(*session);
+			IOCountDecrement(*contextResult->session);
 		}
 
 #if USE_SLEEP_FOR_FRAME
