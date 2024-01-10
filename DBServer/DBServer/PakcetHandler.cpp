@@ -161,31 +161,15 @@ bool DBServer::DBJobHandleImpl(UINT64 requestSessionId, UINT64 userSessionId, PA
 	bool isSuccess = false;
 
 	ODBCConnector& connector = ODBCConnector::GetInst();
+
+	/*
 	switch (packetId)
 	{
-	case PACKET_ID::GAME2DB_TEST:
-	{
-		auto procedure = connector.GetProcedureInfo("test");
-		if (procedure == nullptr)
-		{
-			break;
-		}
-
-		SP::test t;
-		*recvBuffer >> t.id3;
-		recvBuffer->ReadBuffer((char*)t.teststring.GetCString(), sizeof(t.teststring));
-
-		if (connector.CallSPDirectWithSPObject(conn.stmtHandle, procedure, t) == false)
-		{
-			break;
-		}
-
-		break;
-	}
 	default:
 		cout << "Invalid packet id : " << static_cast<UINT>(packetId) << endl;
 		break;
 	}
+	*/
 
 	return isSuccess;
 }
