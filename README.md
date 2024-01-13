@@ -1,3 +1,13 @@
+# DdingGameServer
+
+## 제작 기간 : 2023.12.12 ~
+
+1. 개요
+
+---
+
+1. 개요
+
 [RIOCore](https://github.com/m5623skhj/RIOServerTest), [DBServer](https://github.com/m5623skhj/DBConnector)등을 이용하여 제작한 게임서버 입니다.
 
 솔루션을 빌드하게 되면, 솔루션의 상위 폴더에 bin 폴더가 생성되며, 해당 폴더에 빌드된 바이너리 들이 생성됩니다.
