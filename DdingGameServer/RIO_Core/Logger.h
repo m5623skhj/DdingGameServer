@@ -29,7 +29,7 @@ private:
 
 private:
 	std::thread loggerThread;
-	// 0. LogginHandle
+	// 0. LogHandle
 	// 1. StopHandle
 	HANDLE loggerEventHandles[2];
 #pragma endregion Thread

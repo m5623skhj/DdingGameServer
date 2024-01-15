@@ -2,6 +2,9 @@
 #include "Logger.h"
 #include "RIOServer.h"
 
+#define LOG_HANDLE  WAIT_OBJECT_0
+#define STOP_HANDLE WAIT_OBJECT_0 + 1
+
 Logger::Logger()
 {
 	for (int i = 0; i < 2; ++i)
@@ -64,11 +67,11 @@ void Logger::Worker()
 	while (true)
 	{
 		auto result = WaitForMultipleObjects(2, loggerEventHandles, FALSE, INFINITE);
-		if (result == WAIT_OBJECT_0)
+		if (result == LOG_HANDLE)
 		{
 			WriteLogImpl(waitingLogList);
 		}
-		else if (result == WAIT_OBJECT_0 + 1)
+		else if (result == STOP_HANDLE)
 		{
 			// 10초간 일단 대기해봄
 			Sleep(10000);
