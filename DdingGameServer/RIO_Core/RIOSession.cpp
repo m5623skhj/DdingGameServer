@@ -6,6 +6,7 @@
 #include "BuildConfig.h"
 #include "DefineType.h"
 #include "EnumType.h"
+#include "DBClient.h"
 
 void IOContext::InitContext(SessionId inOwnerSessionId, RIO_OPERATION_TYPE inIOType)
 {
@@ -47,6 +48,11 @@ bool RIOSession::InitSession(const RIO_EXTENSION_FUNCTION_TABLE& rioFunctionTabl
 	}
 
 	return true;
+}
+
+void RIOSession::OnClientEntered(const std::wstring_view& enteredClientIP)
+{
+	UNREFERENCED_PARAMETER(enteredClientIP);
 }
 
 void RIOSession::SendPacket(IGameAndClientPacket& packet)

@@ -54,7 +54,7 @@ private:
 	bool InitSession(const RIO_EXTENSION_FUNCTION_TABLE& rioFunctionTable, RIO_NOTIFICATION_COMPLETION& rioNotiCompletion, RIO_CQ& rioRecvCQ, RIO_CQ& rioSendCQ);
 
 public:
-	virtual void OnClientEntered(const std::wstring_view& enteredClientIP) { UNREFERENCED_PARAMETER(enteredClientIP); }
+	virtual void OnClientEntered(const std::wstring_view& enteredClientIP);
 	virtual void OnClientLeaved() {}
 
 public:

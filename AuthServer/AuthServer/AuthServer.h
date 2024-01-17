@@ -59,4 +59,7 @@ public:
 private:
 	AuthLanServer authLanServer;
 	AuthNetServer authNetServer;
+
+	// DB와 통신할 채널이 하나 필요할 듯 함
+	// 인증서버인 만큼, 여러개가 필요하진 않아 보이고, 1개만 있어도 충분할 듯
 };
