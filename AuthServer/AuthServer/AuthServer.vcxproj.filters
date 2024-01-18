@@ -19,6 +19,9 @@
     <Filter Include="소스 파일\AuthServer">
       <UniqueIdentifier>{0f26f10e-6589-420e-8d54-6ba32668f632}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Protocol">
+      <UniqueIdentifier>{c4d27dfa-6748-4815-934b-f90499275728}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -55,6 +58,9 @@
   <ItemGroup>
     <ClInclude Include="AuthServer.h">
       <Filter>소스 파일\AuthServer</Filter>
+    </ClInclude>
+    <ClInclude Include="AuthProtocol.h">
+      <Filter>소스 파일\Protocol</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
