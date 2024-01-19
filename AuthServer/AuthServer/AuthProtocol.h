@@ -1,6 +1,6 @@
 #pragma once
 
-namespace AuthPtorocol
+namespace AuthProtocol
 {
 	enum
 	{
@@ -8,8 +8,9 @@ namespace AuthPtorocol
 		/////////////////////////////////////
 		// LoginRequest
 		// {
-		//		char[10] Id
-		//		char[20] password
+		//		WORD packetType;
+		//		char[10] id;
+		//		char[20] password;
 		// }
 		/////////////////////////////////////
 		C2Auth_LoginRequest = 10000,
@@ -19,6 +20,7 @@ namespace AuthPtorocol
 		/////////////////////////////////////
 		// LoginResponse
 		// {
+		//		WORD packetType;
 		//		bool isSuccess;
 		//		WCHAR characterNameList[5][20];
 		//		char gameServerIP[16];

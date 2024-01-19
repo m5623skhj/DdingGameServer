@@ -2,6 +2,7 @@
 
 #include "LanServer.h"
 #include "NetServer.h"
+#include <string>
 
 class AuthLanServer : public CLanServer
 {
@@ -13,7 +14,7 @@ private:
 	virtual void OnClientLeave(UINT64 ClientID);
 	virtual bool OnConnectionRequest();
 
-	virtual void OnRecv(UINT64 ReceivedSessionID, CSerializationBuf* OutReadBuf);
+	virtual void OnRecv(UINT64 sessionId, CSerializationBuf* receivedBuffer);
 	virtual void OnSend(UINT64 ClientID, int sendsize);
 
 	virtual void OnWorkerThreadBegin();
@@ -31,7 +32,7 @@ private:
 	virtual void OnClientLeave(UINT64 ClientID);
 	virtual bool OnConnectionRequest(const WCHAR* IP);
 
-	virtual void OnRecv(UINT64 ReceivedSessionID, CNetServerSerializationBuf* OutReadBuf);
+	virtual void OnRecv(UINT64 sessionId, CNetServerSerializationBuf* receivedBuffer);
 	virtual void OnSend(UINT64 ClientID, int sendsize);
 
 	virtual void OnWorkerThreadBegin();
@@ -55,6 +56,10 @@ public:
 	}
 
 	bool StartAuthServer(const std::wstring& lanServerOptionFile, const std::wstring& netServerOptionFile);
+
+public:
+	void HandleC2AuthPacket(UINT64 sessionId, WORD packetType, CNetServerSerializationBuf& recvBuffer);
+	void HandleGame2AuthPacket(UINT64 sessionId, WORD packetType, CSerializationBuf& recvBuffer);
 
 private:
 	AuthLanServer authLanServer;

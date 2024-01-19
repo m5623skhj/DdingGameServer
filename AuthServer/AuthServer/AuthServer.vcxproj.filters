@@ -54,6 +54,9 @@
     <ClCompile Include="..\..\..\..\..\Desktop\Common\Log.cpp">
       <Filter>소스 파일\Include</Filter>
     </ClCompile>
+    <ClCompile Include="PacketHandler.cpp">
+      <Filter>소스 파일\AuthServer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AuthServer.h">
