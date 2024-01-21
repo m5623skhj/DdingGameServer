@@ -29,5 +29,11 @@ namespace AuthProtocol
 		/////////////////////////////////////
 		Auth2C_LoginResponse = 20000,
 #pragma endregion Auth2C
+
+#pragma region Auth2Game
+#pragma endregion Auth2Game
+
+#pragma region Game2Auth
+#pragma endregion Game2Auth
 	};
 }

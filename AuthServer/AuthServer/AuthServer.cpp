@@ -20,7 +20,7 @@ void AuthLanServer::OnClientJoin(UINT64 OutClientID)
 
 void AuthLanServer::OnClientLeave(UINT64 ClientID)
 {
-
+	AuthServer::GetInst().OnGameServerDisconnected(ClientID);
 }
 
 bool AuthLanServer::OnConnectionRequest()
@@ -74,7 +74,6 @@ void AuthNetServer::OnClientJoin(UINT64 OutClientID)
 
 void AuthNetServer::OnClientLeave(UINT64 ClientID)
 {
-
 }
 
 bool AuthNetServer::OnConnectionRequest(const WCHAR* IP)
@@ -124,4 +123,38 @@ bool AuthServer::StartAuthServer(const std::wstring& lanServerOptionFile, const 
 	}
 
 	return true;
+}
+
+void AuthServer::OnGameServerConnected(UINT64 sessionId)
+{
+
+}
+
+void AuthServer::OnGameServerDisconnected(UINT64 sessionId)
+{
+	{
+		std::unique_lock<std::shared_mutex> lock(gameServerMapLock);
+		auto iter = gameServerMap.find(sessionId);
+		if (iter == gameServerMap.end())
+		{
+			return;
+		}
+
+		GameServerId disconnectedServerId = iter->second;
+		gameServerMap.erase(sessionId);
+		{
+			std::unique_lock<std::shared_mutex> innerLock(userInfoMapLock);
+			for(auto it = userInfoMap.begin(); it != userInfoMap.end();)
+			{
+				if (it->second.nowInServerId == disconnectedServerId)
+				{
+					it = userInfoMap.erase(it);
+				}
+				else
+				{
+					++it;
+				}
+			}
+		}
+	}
 }

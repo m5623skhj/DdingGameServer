@@ -3,6 +3,9 @@
 #include "LanServer.h"
 #include "NetServer.h"
 #include <string>
+#include <unordered_map>
+#include <set>
+#include <shared_mutex>
 
 class AuthLanServer : public CLanServer
 {
@@ -42,6 +45,9 @@ private:
 	virtual void GQCSFailed(int LastError, UINT64 ClientID);
 };
 
+using UserId = UINT64;
+using GameServerId = UINT64;
+
 class AuthServer
 {
 private:
@@ -61,10 +67,24 @@ public:
 	void HandleC2AuthPacket(UINT64 sessionId, WORD packetType, CNetServerSerializationBuf& recvBuffer);
 	void HandleGame2AuthPacket(UINT64 sessionId, WORD packetType, CSerializationBuf& recvBuffer);
 
+	void OnGameServerConnected(UINT64 sessionId);
+	void OnGameServerDisconnected(UINT64 sessionId);
+
 private:
 	AuthLanServer authLanServer;
 	AuthNetServer authNetServer;
 
-	// DB와 통신할 채널이 하나 필요할 듯 함
-	// 인증서버인 만큼, 여러개가 필요하진 않아 보이고, 1개만 있어도 충분할 듯
+private:
+	struct UserInfo
+	{
+		UserId userId = 0;
+		GameServerId nowInServerId = 0;
+		// PCList?
+	};
+
+	std::unordered_map<UserId, UserInfo> userInfoMap;
+	std::shared_mutex userInfoMapLock;
+
+	std::unordered_map<UINT64, GameServerId> gameServerMap;
+	std::shared_mutex gameServerMapLock;
 };
