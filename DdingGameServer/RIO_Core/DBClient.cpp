@@ -37,8 +37,10 @@ void DBClient::OnConnectionComplete()
 
 }
 
-void DBClient::OnRecv(CSerializationBuf* OutReadBuf)
+void DBClient::OnRecv(UINT64 sessionId, CSerializationBuf* OutReadBuf)
 {
+	UNREFERENCED_PARAMETER(sessionId);
+
 	CSerializationBuf& buffer = *OutReadBuf;
 	UINT recvPacketId = 0;
 	buffer >> recvPacketId;
@@ -46,9 +48,9 @@ void DBClient::OnRecv(CSerializationBuf* OutReadBuf)
 	ProcedureReplyHandler::GetInst().SPReplyHandle(recvPacketId, buffer);
 }
 
-void DBClient::OnSend()
+void DBClient::OnSend(UINT64 sessionId)
 {
-
+	UNREFERENCED_PARAMETER(sessionId);
 }
 
 void DBClient::OnWorkerThreadBegin()
@@ -66,7 +68,7 @@ void DBClient::OnError(st_Error* OutError)
 
 }
 
-void DBClient::OnDisconnect()
+void DBClient::OnDisconnect(UINT64 sessionId)
 {
 
 }

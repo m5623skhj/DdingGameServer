@@ -187,7 +187,7 @@ bool CMultiLanClient::LanClientOptionParsing(const WCHAR *szOptionFileName)
 
 bool CMultiLanClient::ReleaseSession(Session& session)
 {
-	OnDisconnect();
+	OnDisconnect(session.m_SessionId);
 	session.bIsConnect = false;
 
 	int SendBufferRestSize = session.m_SendIOData.lBufferCount;
@@ -298,7 +298,7 @@ UINT CMultiLanClient::Worker()
 					RecvSerializeBuf.m_iWrite += retval;
 
 					RingBufferRestSize -= (retval + sizeof(WORD));
-					OnRecv(&RecvSerializeBuf);
+					OnRecv(session->m_SessionId, &RecvSerializeBuf);
 					CSerializationBuf::Free(&RecvSerializeBuf);
 				}
 
@@ -315,7 +315,7 @@ UINT CMultiLanClient::Worker()
 
 				session->m_SendIOData.lBufferCount -= BufferCount;
 
-				OnSend();
+				OnSend(session->m_SessionId);
 				InterlockedExchange(&session->m_SendIOData.IOMode, NONSENDING); // 여기 다시 생각해 볼 것
 				cPostRetval = SendPost(*session);
 			}
