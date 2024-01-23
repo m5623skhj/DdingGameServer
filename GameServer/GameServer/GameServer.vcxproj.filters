@@ -28,6 +28,9 @@
     <Filter Include="소스 파일\Creature">
       <UniqueIdentifier>{3a8a36fc-ffe7-4279-85a3-38365e2f1585}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\AuthClient">
+      <UniqueIdentifier>{f989ee14-28a2-423b-889b-1bcfb0d4139c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -57,6 +60,15 @@
     <ClCompile Include="PCDBLoader.cpp">
       <Filter>소스 파일\PC</Filter>
     </ClCompile>
+    <ClCompile Include="AuthClient.cpp">
+      <Filter>소스 파일\AuthClient</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\Common\LanClient.cpp">
+      <Filter>소스 파일\Include</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\..\Desktop\Common\LanServerSerializeBuf.cpp">
+      <Filter>소스 파일\Include</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PC.h">
@@ -76,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="GameObjectManager.h">
       <Filter>소스 파일\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="AuthClient.h">
+      <Filter>소스 파일\AuthClient</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
