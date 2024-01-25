@@ -91,4 +91,9 @@ private:
 
 	std::unordered_map<UINT64, GameServerId> gameServerMap;
 	std::shared_mutex gameServerMapLock;
+
+#pragma region AuthProtocolHandler
+private:
+	void GameServerRegisterRequest(UINT64 sessionId, GameServerId gameServerId);
+#pragma endregion AuthProtocolHandler
 };

@@ -31,34 +31,44 @@ void AuthServer::HandleGame2AuthPacket(UINT64 sessionId, WORD packetType, CSeria
 	{
 	case AuthProtocol::Game2Auth_Register:
 	{
-		CSerializationBuf* packet = CSerializationBuf::Alloc();
-		WORD pakcetType = AuthProtocol::Auth2Game_RegisterSuccess;
-		*packet << packetType;
-		bool isConnected = true;
 		GameServerId gameServerId = 0;
 		recvBuffer >> gameServerId;
-		{
-			std::unique_lock<std::shared_mutex> lock(gameServerMapLock);
-			for (const auto& item : gameServerMap)
-			{
-				if (item.second == gameServerId)
-				{
-					std::cout << "Duplicated game server id : " << gameServerId << std::endl;
-					isConnected = false;
-					break;
-				}
-			}
 
-			if (isConnected == true)
-			{
-				gameServerMap.insert({ sessionId, gameServerId });
-			}
-		}
-		*packet << isConnected;
-		SendPacketToLanClient(sessionId, packet);
+		GameServerRegisterRequest(sessionId, gameServerId);
 	}
 		break;
 	default:
 		break;
 	}
 }
+
+#pragma region AuthProtocolHandler
+void AuthServer::GameServerRegisterRequest(UINT64 sessionId, GameServerId gameServerId)
+{
+	CSerializationBuf* packet = CSerializationBuf::Alloc();
+	WORD packetType = AuthProtocol::Auth2Game_RegisterSuccess;
+	*packet << packetType;
+
+	bool isConnected = true;
+	{
+		std::unique_lock<std::shared_mutex> lock(gameServerMapLock);
+		for (const auto& item : gameServerMap)
+		{
+			if (item.second == gameServerId)
+			{
+				std::cout << "Duplicated game server id : " << gameServerId << std::endl;
+				isConnected = false;
+				break;
+			}
+		}
+
+		if (isConnected == true)
+		{
+			gameServerMap.insert({ sessionId, gameServerId });
+		}
+	}
+	*packet << isConnected;
+	SendPacketToLanClient(sessionId, packet);
+}
+
+#pragma endregion AuthProtocolHandler
