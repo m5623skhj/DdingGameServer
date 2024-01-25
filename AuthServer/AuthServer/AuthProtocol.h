@@ -31,9 +31,23 @@ namespace AuthProtocol
 #pragma endregion Auth2C
 
 #pragma region Auth2Game
+		/////////////////////////////////////
+		// RegisterSuccess
+		// {
+		//		bool isConnected;
+		// }
+		/////////////////////////////////////
+		Auth2Game_RegisterSuccess = 30000,
 #pragma endregion Auth2Game
 
 #pragma region Game2Auth
+		/////////////////////////////////////
+		// RegisterGameServer
+		// {
+		//		WORD gameServerId;
+		// }
+		/////////////////////////////////////
+		Game2Auth_Register = 40000,
 #pragma endregion Game2Auth
 	};
 }

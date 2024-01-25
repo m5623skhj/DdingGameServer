@@ -46,7 +46,7 @@ private:
 };
 
 using UserId = UINT64;
-using GameServerId = UINT64;
+using GameServerId = WORD;
 
 class AuthServer
 {
@@ -69,6 +69,10 @@ public:
 
 	void OnGameServerConnected(UINT64 sessionId);
 	void OnGameServerDisconnected(UINT64 sessionId);
+
+private:
+	bool SendPacketToLanClient(UINT64 sessionId, CSerializationBuf* packet);
+	bool SendPacketToNetClient(UINT64 sessionId, CNetServerSerializationBuf* packet);
 
 private:
 	AuthLanServer authLanServer;

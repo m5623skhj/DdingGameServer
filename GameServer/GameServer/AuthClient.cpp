@@ -27,7 +27,12 @@ bool AuthClient::Start(const std::wstring& optionFile)
 
 void AuthClient::OnConnectionComplete()
 {
+	CSerializationBuf* packet = CSerializationBuf::Alloc();
+	WORD packetType = AuthProtocol::Game2Auth_Register;
 
+	*packet << packetType/* << gameServerId*/;
+
+	SendPacket(packet);
 }
 
 void AuthClient::OnRecv(CSerializationBuf* OutReadBuf)
@@ -37,6 +42,15 @@ void AuthClient::OnRecv(CSerializationBuf* OutReadBuf)
 
 	switch (packetType)
 	{
+	case AuthProtocol::Game2Auth_Register:
+		*OutReadBuf >> isConnected;
+		if (isConnected == false)
+		{
+			std::cout << "Failed to connect to the auth server" << std::endl;
+			g_Dump.Crash();
+		}
+		std::cout << "Successed to connect to auth server" << std::endl;
+		break;
 	default:
 		break;
 	}

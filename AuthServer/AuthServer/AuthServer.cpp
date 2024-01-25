@@ -158,3 +158,13 @@ void AuthServer::OnGameServerDisconnected(UINT64 sessionId)
 		}
 	}
 }
+
+bool AuthServer::SendPacketToLanClient(UINT64 sessionId, CSerializationBuf* packet)
+{
+	return authLanServer.SendPacket(sessionId, packet);
+}
+
+bool AuthServer::SendPacketToNetClient(UINT64 sessionId, CNetServerSerializationBuf* packet)
+{
+	return authNetServer.SendPacket(sessionId, packet);
+}

@@ -29,5 +29,5 @@ public:
 	virtual void OnDisconnect();
 
 private:
-
+	bool isConnected = false;
 };
