@@ -2,6 +2,7 @@
 #include "AuthServer.h"
 #include "AuthProtocol.h"
 #include "LanServerSerializeBuf.h"
+#include "AuthQuery.h"
 
 void AuthServer::HandleC2AuthPacket(UINT64 sessionId, WORD packetType, CNetServerSerializationBuf& recvBuffer)
 {

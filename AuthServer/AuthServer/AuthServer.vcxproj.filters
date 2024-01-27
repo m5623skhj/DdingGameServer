@@ -22,6 +22,9 @@
     <Filter Include="소스 파일\Protocol">
       <UniqueIdentifier>{c4d27dfa-6748-4815-934b-f90499275728}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\DBQuery">
+      <UniqueIdentifier>{d4395146-dc15-49ed-9601-265231f3e846}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -64,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="AuthProtocol.h">
       <Filter>소스 파일\Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="AuthQuery.h">
+      <Filter>소스 파일\DBQuery</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
