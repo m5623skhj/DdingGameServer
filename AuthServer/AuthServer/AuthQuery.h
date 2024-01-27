@@ -18,6 +18,14 @@ public:
 
 #pragma region Query
 public:
+	///////////////////////////////
+	// ExampleSPName
+	// input :
+	//			(type) first parameter
+	//			(type) second parameter
+	// output :
+	//			void
+	///////////////////////////////
 	//const std::string exampleQuery = "{CALL ExampleSPName(?, ?)}";
 #pragma endregion Query
 };
