@@ -125,12 +125,14 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
       <PrecompiledHeaderFile>PreCompile.h</PrecompiledHeaderFile>
       <Optimization>Disabled</Optimization>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(ProjectDir)\AuthServerOptionFile" "$(ProjectDir)\..\..\bin\AuthServerOptionFile" /E /I /Y</Command>
@@ -145,11 +147,13 @@
     <ClCompile Include="..\..\..\..\..\Desktop\Common\Parse.cpp" />
     <ClCompile Include="..\..\..\..\..\Desktop\Common\PreCompile.cpp" />
     <ClCompile Include="..\..\..\..\..\Desktop\Common\Ringbuffer.cpp" />
+    <ClCompile Include="AuthDBConnector.cpp" />
     <ClCompile Include="AuthServer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PacketHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AuthDBConnector.h" />
     <ClInclude Include="AuthProtocol.h" />
     <ClInclude Include="AuthQuery.h" />
     <ClInclude Include="AuthServer.h" />

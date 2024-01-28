@@ -22,8 +22,14 @@
     <Filter Include="소스 파일\Protocol">
       <UniqueIdentifier>{c4d27dfa-6748-4815-934b-f90499275728}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\DBQuery">
+    <Filter Include="소스 파일\AuthDB">
+      <UniqueIdentifier>{c409185d-2392-450e-93bb-46c04685ca9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\AuthDB\DBQuery">
       <UniqueIdentifier>{d4395146-dc15-49ed-9601-265231f3e846}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\AuthDB\AuthDBConnector">
+      <UniqueIdentifier>{99981102-b423-4826-b628-cf1838820846}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +66,9 @@
     <ClCompile Include="PacketHandler.cpp">
       <Filter>소스 파일\AuthServer</Filter>
     </ClCompile>
+    <ClCompile Include="AuthDBConnector.cpp">
+      <Filter>소스 파일\AuthDB\AuthDBConnector</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AuthServer.h">
@@ -69,7 +78,10 @@
       <Filter>소스 파일\Protocol</Filter>
     </ClInclude>
     <ClInclude Include="AuthQuery.h">
-      <Filter>소스 파일\DBQuery</Filter>
+      <Filter>소스 파일\AuthDB\DBQuery</Filter>
+    </ClInclude>
+    <ClInclude Include="AuthDBConnector.h">
+      <Filter>소스 파일\AuthDB\AuthDBConnector</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
