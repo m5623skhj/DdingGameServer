@@ -3,7 +3,7 @@
 
 namespace LocalUtil
 {
-	bool SQLIsSuccess(SQLRETURN returnValue)
+	FORCEINLINE bool SQLIsSuccess(SQLRETURN returnValue)
 	{
 		if (returnValue == SQL_SUCCESS || returnValue == SQL_SUCCESS_WITH_INFO)
 		{
@@ -13,7 +13,7 @@ namespace LocalUtil
 		return false;
 	}
 
-	void PrintSQLErrorMessage(SQLHSTMT stmtHandle)
+	FORCEINLINE void PrintSQLErrorMessage(SQLHSTMT stmtHandle)
 	{
 		SQLWCHAR SqlState[6];
 		SQLWCHAR Msg[SQL_MAX_MESSAGE_LENGTH];
@@ -28,7 +28,7 @@ namespace LocalUtil
 		}
 	}
 
-	bool DBSendQueryDirect(const std::wstring& query, SQLHSTMT& stmtHandle)
+	FORCEINLINE bool DBSendQueryDirect(const std::wstring& query, SQLHSTMT& stmtHandle)
 	{
 		if (LocalUtil::SQLIsSuccess(SQLExecDirect(stmtHandle, (SQLWCHAR*)query.c_str(), SQL_NTS)) == false)
 		{
