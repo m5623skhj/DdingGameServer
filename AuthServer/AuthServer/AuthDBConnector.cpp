@@ -12,6 +12,37 @@ namespace LocalUtil
 
 		return false;
 	}
+
+	void PrintSQLErrorMessage(SQLHSTMT stmtHandle)
+	{
+		SQLWCHAR SqlState[6];
+		SQLWCHAR Msg[SQL_MAX_MESSAGE_LENGTH];
+		SQLINTEGER NativeError;
+		SQLSMALLINT MsgLen;
+		SQLRETURN rc;
+
+		rc = SQLGetDiagRec(SQL_HANDLE_STMT, stmtHandle, 1, SqlState, &NativeError, Msg, sizeof(Msg), &MsgLen);
+		std::wstring errorMessage = Msg;
+		if (SQL_SUCCEEDED(rc)) {
+			std::wcout << L"SQL error message : " << errorMessage << std::endl;
+		}
+	}
+
+	bool DBSendQueryDirect(const std::wstring& query, SQLHSTMT& stmtHandle)
+	{
+		if (LocalUtil::SQLIsSuccess(SQLExecDirect(stmtHandle, (SQLWCHAR*)query.c_str(), SQL_NTS)) == false)
+		{
+			LocalUtil::PrintSQLErrorMessage(stmtHandle);
+			return false;
+		}
+
+		return true;
+	}
+}
+
+bool DBConnection::SendQuery(const std::wstring& query)
+{
+	return LocalUtil::DBSendQueryDirect(query, stmtHandle);
 }
 
 DBConnectionPool::~DBConnectionPool()

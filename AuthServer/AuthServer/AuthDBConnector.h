@@ -9,6 +9,8 @@ struct DBConnection
 {
 	SQLHDBC dbcHandle;
 	SQLHSTMT stmtHandle;
+
+	bool SendQuery(const std::wstring& query);
 };
 
 class DBConnectionPool
