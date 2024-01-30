@@ -1,10 +1,21 @@
 #include "PreCompile.h"
 #include <iostream>
 #include "AuthServer.h"
+#include "AuthDBConnector.h"
 
 int main()
 {
 	const std::wstring folderPath = L"AuthServerOptionFile/";
+
+	AuthDBConnector& connector = AuthDBConnector::GetInst();
+	if (connector.ConnectDB(folderPath + L"DBConnectFile.txt") == false)
+	{
+		std::cout << "---------------------" << std::endl;
+		std::cout << "ConnectDB() failed" << std::endl;
+		std::cout << "---------------------" << std::endl << std::endl << std::endl;
+
+		return 0;
+	}
 
 	if (AuthServer::GetInst().StartAuthServer(folderPath + L"LanServerOptionFile.txt", folderPath + L"NetServerOptionFile.txt") == false)
 	{
