@@ -9,8 +9,8 @@ namespace AuthProtocol
 		// LoginRequest
 		// {
 		//		WORD packetType;
-		//		char[10] id;
-		//		char[20] password;
+		//		std::string id;
+		//		std::string password;
 		// }
 		/////////////////////////////////////
 		C2Auth_LoginRequest = 10000,

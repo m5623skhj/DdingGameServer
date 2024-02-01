@@ -10,14 +10,20 @@ void AuthServer::HandleC2AuthPacket(UINT64 sessionId, WORD packetType, CNetServe
 	switch (packetType)
 	{
 	case AuthProtocol::C2Auth_LoginRequest:
-		ClientLogin(sessionId);
+	{
+		std::string id, password;
+		recvBuffer.ReadBuffer(id);
+		recvBuffer.ReadBuffer(password);
+
+		ClientLogin(sessionId, id, password);
 		break;
+	}
 	default:
 		break;
 	}
 }
 
-void AuthServer::ClientLogin(UINT64 sessionId)
+void AuthServer::ClientLogin(UINT64 sessionId, std::string_view id, std::string_view password)
 {
 	// OAuth를 사용해야하나?
 	// id는 상관 없는데, 패스워드는 암호화 시키긴 해야하는데 어떻게 관리해야할지?

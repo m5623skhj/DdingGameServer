@@ -94,7 +94,7 @@ private:
 
 #pragma region C2AuthProtocolHandler
 private:
-	void ClientLogin(UINT64 sessionId);
+	void ClientLogin(UINT64 sessionId, std::string_view id, std::string_view password);
 #pragma endregion C2AuthProtocolHandler
 
 #pragma region Auth2GameProtocolHandler
