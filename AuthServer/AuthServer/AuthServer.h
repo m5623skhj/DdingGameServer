@@ -61,7 +61,7 @@ public:
 		return instance;
 	}
 
-	bool StartAuthServer(const std::wstring& lanServerOptionFile, const std::wstring& netServerOptionFile);
+	bool StartAuthServer(const std::wstring& lanServerOptionFile, const std::wstring& netServerOptionFile, const std::wstring& dbOptionFile);
 
 public:
 	void HandleC2AuthPacket(UINT64 sessionId, WORD packetType, CNetServerSerializationBuf& recvBuffer);

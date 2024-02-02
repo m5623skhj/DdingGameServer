@@ -17,7 +17,9 @@ int main()
 		return 0;
 	}
 
-	if (AuthServer::GetInst().StartAuthServer(folderPath + L"LanServerOptionFile.txt", folderPath + L"NetServerOptionFile.txt") == false)
+	if (AuthServer::GetInst().StartAuthServer(folderPath + L"LanServerOptionFile.txt"
+		, folderPath + L"NetServerOptionFile.txt"
+		, folderPath + L"DBConnectFile.txt") == false)
 	{
 		std::cout << "Auth server start failed" << std::endl;
 		return 0;

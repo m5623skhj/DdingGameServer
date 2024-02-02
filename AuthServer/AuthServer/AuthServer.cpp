@@ -2,6 +2,7 @@
 #include "AuthServer.h"
 #include "LanServerSerializeBuf.h"
 #include "NetServerSerializeBuffer.h"
+#include "AuthDBConnector.h"
 
 bool AuthLanServer::Start(const std::wstring& optionFile)
 {
@@ -114,11 +115,18 @@ void AuthNetServer::GQCSFailed(int LastError, UINT64 ClientID)
 
 }
 
-bool AuthServer::StartAuthServer(const std::wstring& lanServerOptionFile, const std::wstring& netServerOptionFile)
+bool AuthServer::StartAuthServer(const std::wstring& lanServerOptionFile, const std::wstring& netServerOptionFile, const std::wstring& dbOptionFile)
 {
+	if (AuthDBConnector::GetInst().ConnectDB(dbOptionFile) == false)
+	{
+		std::cout << "StartAuthServer() ConnectDB() failed" << std::endl;
+		return false;
+	}
+
 	if (authLanServer.Start(lanServerOptionFile) == false ||
 		authNetServer.Start(netServerOptionFile) == false)
 	{
+		std::cout << "StartAuthServer() server start failed" << std::endl;
 		return false;
 	}
 
