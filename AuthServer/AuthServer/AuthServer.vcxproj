@@ -148,12 +148,14 @@
     <ClCompile Include="..\..\..\..\..\Desktop\Common\PreCompile.cpp" />
     <ClCompile Include="..\..\..\..\..\Desktop\Common\Ringbuffer.cpp" />
     <ClCompile Include="AuthDBConnector.cpp" />
+    <ClCompile Include="AuthDBThread.cpp" />
     <ClCompile Include="AuthServer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PacketHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AuthDBConnector.h" />
+    <ClInclude Include="AuthDBThread.h" />
     <ClInclude Include="AuthProtocol.h" />
     <ClInclude Include="AuthQuery.h" />
     <ClInclude Include="AuthServer.h" />

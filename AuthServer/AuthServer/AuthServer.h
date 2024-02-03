@@ -53,6 +53,8 @@ class AuthServer
 private:
 	AuthServer() = default;
 	~AuthServer() = default;
+	AuthServer(const AuthServer& other) = delete;
+	AuthServer& operator=(const AuthServer& other) = delete;
 
 public:
 	static AuthServer& GetInst()
@@ -91,6 +93,9 @@ private:
 
 	std::unordered_map<UINT64, GameServerId> gameServerMap;
 	std::shared_mutex gameServerMapLock;
+
+	std::set<UINT64> dbProcessingSessionList;
+	std::shared_mutex dbProcessingSessionListLock;
 
 #pragma region C2AuthProtocolHandler
 private:
