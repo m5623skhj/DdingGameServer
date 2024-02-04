@@ -77,6 +77,7 @@ void Logger::Worker()
 			Sleep(10000);
 
 			WriteLogImpl(waitingLogList);
+			SetEvent(loggerEventHandles[1]);
 			break;
 		}
 		else
