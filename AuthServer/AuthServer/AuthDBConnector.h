@@ -56,6 +56,9 @@ public:
 
 public:
 	bool ConnectDB(const std::wstring& optionFileName);
+	void DisconnectDB();
+
+	std::optional<DBConnection> GetConnection();
 
 private:
 	bool OptionParsing(const std::wstring& optionFileName);

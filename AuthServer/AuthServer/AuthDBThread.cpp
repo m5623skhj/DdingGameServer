@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "AuthDBThread.h"
+#include "AuthDBConnector.h"
 
 #define DB_JOB_HANDLE  WAIT_OBJECT_0
 #define STOP_HANDLE WAIT_OBJECT_0 + 1
@@ -51,7 +52,7 @@ void AuthDBThreadManager::Worker()
 		auto result = WaitForMultipleObjects(2, dbJobEventHandles, FALSE, INFINITE);
 		if (result == DB_JOB_HANDLE)
 		{
-			DBJobHandler();
+			DBJobHandle();
 		}
 		else if (result == STOP_HANDLE)
 		{
@@ -65,13 +66,13 @@ void AuthDBThreadManager::Worker()
 	}
 }
 
-void AuthDBThreadManager::DBJobHandler()
+void AuthDBThreadManager::DBJobHandle()
 {
 	while (true)
 	{
 		if (auto job = GetDBJobObject())
 		{
-			// call sp procedure
+			CallSP(job);
 		}
 		else
 		{
@@ -92,4 +93,49 @@ std::shared_ptr<DBJobObject> AuthDBThreadManager::GetDBJobObject()
 	dbJobList.pop();
 
 	return job;
+}
+
+void AuthDBThreadManager::CallSP(std::shared_ptr<DBJobObject> dbJob)
+{
+	if (dbJob == nullptr)
+	{
+		return;
+	}
+
+	auto conn = AuthDBConnector::GetInst().GetConnection();
+	if (conn == std::nullopt)
+	{
+		std::cout << "Invalid db connection" << std::endl;
+		g_Dump.Crash();
+	}
+
+	if (conn->SendQuery(dbJob->query) == true)
+	{
+		// 실패 처리
+	}
+	
+	DBJobResultHandler(*conn);
+}
+
+void AuthDBThreadManager::DBJobResultHandler(DBConnection& conn)
+{
+	// 쿼리 타입을 알아야 하는데 현재 시점에서는 쿼리만 알 수 있는데?
+	// if sp result is empty
+	/*
+		
+	*/
+	// else 
+	/*
+		resultList;
+		while(SQLFetch(conn->stmtHandle) == SQL_SUCCESS)
+		{
+			resultList.emplace_back(queryResult);
+		}
+	*/
+}
+
+void AuthDBThreadManager::InsertDBJob(std::shared_ptr<DBJobObject> dbJob)
+{
+	std::lock_guard<std::mutex> lock(dbJobListLock);
+	dbJobList.push(dbJob);
 }

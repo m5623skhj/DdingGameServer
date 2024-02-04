@@ -26,6 +26,6 @@ public:
 	// output :
 	//			void
 	///////////////////////////////
-	//const std::string exampleQuery = "{CALL ExampleSPName(?, ?)}";
+	//const std::wstring exampleQuery = "{CALL ExampleSPName(?, ?)}";
 #pragma endregion Query
 };

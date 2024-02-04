@@ -159,6 +159,7 @@
     <ClInclude Include="AuthProtocol.h" />
     <ClInclude Include="AuthQuery.h" />
     <ClInclude Include="AuthServer.h" />
+    <ClInclude Include="Type.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

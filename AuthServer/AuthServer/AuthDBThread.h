@@ -4,11 +4,15 @@
 #include <mutex>
 #include <list>
 #include <queue>
+#include "Type.h"
+
+struct DBConnection;
 
 struct DBJobObject
 {
+	ClientType clientType;
 	UINT64 sessionId;
-	std::string query;
+	std::wstring query;
 };
 
 class AuthDBThreadManager
@@ -33,8 +37,13 @@ public:
 private:
 	void Worker();
 
-	void DBJobHandler();
+	void DBJobHandle();
 	std::shared_ptr<DBJobObject> GetDBJobObject();
+	void CallSP(std::shared_ptr<DBJobObject> dbJob);
+	void DBJobResultHandler(DBConnection& conn);
+
+public:
+	void InsertDBJob(std::shared_ptr<DBJobObject> dbJob);
 
 private:
 	bool isStarted = false;

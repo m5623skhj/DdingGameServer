@@ -206,8 +206,20 @@ bool AuthDBConnector::ConnectDB(const std::wstring& optionFileName)
 	}
 
 	return true;
+}
 
-	return true;
+void AuthDBConnector::DisconnectDB()
+{
+	connectionPool.Cleanup();
+
+	SQLFreeHandle(SQL_HANDLE_STMT, defaultConnection.stmtHandle);
+	SQLDisconnect(defaultConnection.dbcHandle);
+	SQLFreeHandle(SQL_HANDLE_DBC, defaultConnection.dbcHandle);
+}
+
+std::optional<DBConnection> AuthDBConnector::GetConnection()
+{
+	return connectionPool.GetConnection();
 }
 
 bool AuthDBConnector::OptionParsing(const std::wstring& optionFileName)

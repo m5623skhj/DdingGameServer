@@ -34,6 +34,9 @@
     <Filter Include="소스 파일\AuthDB\AuthDBThread">
       <UniqueIdentifier>{24b0fcea-709f-4502-b14e-d423840d36a9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\AuthCommon">
+      <UniqueIdentifier>{537ff46a-65f0-4ecd-b814-c4edecbc9f76}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -91,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="AuthDBThread.h">
       <Filter>소스 파일\AuthDB\AuthDBThread</Filter>
+    </ClInclude>
+    <ClInclude Include="Type.h">
+      <Filter>소스 파일\AuthCommon</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
