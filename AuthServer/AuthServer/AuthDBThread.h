@@ -3,6 +3,7 @@
 #include <thread>
 #include <mutex>
 #include <list>
+#include <queue>
 
 struct DBJobObject
 {
@@ -32,10 +33,18 @@ public:
 private:
 	void Worker();
 
+	void DBJobHandler();
+	std::shared_ptr<DBJobObject> GetDBJobObject();
+
 private:
 	bool isStarted = false;
 
 private:
-	HANDLE iocpHandle;
+	// 0. DBJobHandle
+	// 1. StopHandle
+	HANDLE dbJobEventHandles[2];
 	std::list<std::thread> workerThreads;
+
+	std::queue<std::shared_ptr<DBJobObject>> dbJobList;
+	std::mutex dbJobListLock;
 };
