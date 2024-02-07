@@ -149,6 +149,7 @@
     <ClCompile Include="..\..\..\..\..\Desktop\Common\Ringbuffer.cpp" />
     <ClCompile Include="AuthDBConnector.cpp" />
     <ClCompile Include="AuthDBThread.cpp" />
+    <ClCompile Include="AuthQuery.cpp" />
     <ClCompile Include="AuthServer.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PacketHandler.cpp" />
