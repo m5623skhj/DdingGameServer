@@ -109,15 +109,15 @@ void AuthDBThreadManager::CallSP(std::shared_ptr<DBJobObject> dbJob)
 		g_Dump.Crash();
 	}
 
-	if (conn->SendQuery(dbJob->query) == true)
+	if (conn->SendQuery(dbJob->queryObject.query) == true)
 	{
 		// 실패 처리
 	}
 	
-	DBJobResultHandler(*conn);
+	DBJobResultHandler(*conn, *dbJob);
 }
 
-void AuthDBThreadManager::DBJobResultHandler(DBConnection& conn)
+void AuthDBThreadManager::DBJobResultHandler(DBConnection& conn, const DBJobObject& jobObject)
 {
 	// 쿼리 타입을 알아야 하는데 현재 시점에서는 쿼리만 알 수 있는데?
 	// if sp result is empty

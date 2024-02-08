@@ -5,6 +5,7 @@
 #include <list>
 #include <queue>
 #include "Type.h"
+#include "AuthQuery.h"
 
 struct DBConnection;
 
@@ -12,7 +13,7 @@ struct DBJobObject
 {
 	ClientType clientType;
 	UINT64 sessionId;
-	std::wstring query;
+	QueryObject queryObject;
 };
 
 class AuthDBThreadManager
@@ -40,7 +41,7 @@ private:
 	void DBJobHandle();
 	std::shared_ptr<DBJobObject> GetDBJobObject();
 	void CallSP(std::shared_ptr<DBJobObject> dbJob);
-	void DBJobResultHandler(DBConnection& conn);
+	void DBJobResultHandler(DBConnection& conn, const DBJobObject& jobObject);
 
 public:
 	void InsertDBJob(std::shared_ptr<DBJobObject> dbJob);
