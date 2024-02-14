@@ -1,14 +1,22 @@
 #pragma once
 #include <string>
 
+enum QueryType : unsigned short
+{
+	InvalidQueryType = 0,
+};
+
 struct QueryObject
 {
 	QueryObject() = delete;
-	QueryObject(const std::wstring_view queryString, bool isNeedResult)
-		: query(queryString), needResult(isNeedResult)
+	QueryObject(const std::wstring_view queryString, QueryType inQueryType, bool isNeedResult)
+		: query(queryString)
+		, queryType(inQueryType)
+		, needResult(isNeedResult)
 	{}
 
 	const std::wstring query;
+	QueryType queryType;
 	bool needResult;
 };
 
@@ -36,6 +44,7 @@ public:
 	//			(type) second parameter
 	// output :
 	//			void
+	// QueryType = ExampleQueryType;
 	///////////////////////////////
 	// const QueryObject exampleQueryObject;
 #pragma endregion Query

@@ -81,6 +81,9 @@
     <ClCompile Include="AuthQuery.cpp">
       <Filter>소스 파일\AuthDB\DBQuery</Filter>
     </ClCompile>
+    <ClCompile Include="NeedDBResultHandler.cpp">
+      <Filter>소스 파일\AuthDB\AuthDBThread</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AuthServer.h">

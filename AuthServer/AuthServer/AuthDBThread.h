@@ -57,4 +57,11 @@ private:
 
 	std::queue<std::shared_ptr<DBJobObject>> dbJobList;
 	std::mutex dbJobListLock;
+
+#pragma region NeedDBResultHandler
+private:
+	void NotNeedDBResultHandler();
+	void NeedDBResultHandler(DBConnection& conn, const DBJobObject& jobObject);
+
+#pragma endregion NeedDBResultHandler
 };

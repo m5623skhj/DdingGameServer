@@ -119,19 +119,14 @@ void AuthDBThreadManager::CallSP(std::shared_ptr<DBJobObject> dbJob)
 
 void AuthDBThreadManager::DBJobResultHandler(DBConnection& conn, const DBJobObject& jobObject)
 {
-	// 쿼리 타입을 알아야 하는데 현재 시점에서는 쿼리만 알 수 있는데?
-	// if sp result is empty
-	/*
-		
-	*/
-	// else 
-	/*
-		resultList;
-		while(SQLFetch(conn->stmtHandle) == SQL_SUCCESS)
-		{
-			resultList.emplace_back(queryResult);
-		}
-	*/
+	if (jobObject.queryObject.needResult == true)
+	{
+		NeedDBResultHandler(conn, jobObject);
+	}
+	else
+	{
+		NotNeedDBResultHandler();
+	}
 }
 
 void AuthDBThreadManager::InsertDBJob(std::shared_ptr<DBJobObject> dbJob)

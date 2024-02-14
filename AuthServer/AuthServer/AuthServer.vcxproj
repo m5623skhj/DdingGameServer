@@ -151,6 +151,7 @@
     <ClCompile Include="AuthDBThread.cpp" />
     <ClCompile Include="AuthQuery.cpp" />
     <ClCompile Include="AuthServer.cpp" />
+    <ClCompile Include="NeedDBResultHandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PacketHandler.cpp" />
   </ItemGroup>
