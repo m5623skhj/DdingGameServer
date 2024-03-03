@@ -6,6 +6,8 @@
 #include <queue>
 #include "Type.h"
 #include "AuthQuery.h"
+#include <functional>
+#include <unordered_map>
 
 struct DBConnection;
 
@@ -15,6 +17,8 @@ struct DBJobObject
 	UINT64 sessionId;
 	QueryObject queryObject;
 };
+
+using DBJobHandler = std::function<void()>;
 
 class AuthDBThreadManager
 {
@@ -62,6 +66,9 @@ private:
 private:
 	void NotNeedDBResultHandler();
 	void NeedDBResultHandler(DBConnection& conn, const DBJobObject& jobObject);
+	DBJobHandler GetDBJobHandler(QueryType queryType);
 
+private:
+	std::unordered_map<QueryType, DBJobHandler> dbJobHandlerMap;
 #pragma endregion NeedDBResultHandler
 };
