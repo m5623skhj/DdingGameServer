@@ -18,7 +18,7 @@ struct DBJobObject
 	QueryObject queryObject;
 };
 
-using DBJobHandler = std::function<void()>;
+using DBJobHandler = std::function<void(const DBJobObject&)>;
 
 class AuthDBThreadManager
 {
@@ -71,4 +71,9 @@ private:
 private:
 	std::unordered_map<QueryType, DBJobHandler> dbJobHandlerMap;
 #pragma endregion NeedDBResultHandler
+
+#pragma region DeclareResultHandler
+private:
+
+#pragma endregion DeclareResultHandler
 };

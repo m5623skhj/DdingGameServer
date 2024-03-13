@@ -9,10 +9,9 @@ void AuthDBThreadManager::NotNeedDBResultHandler()
 
 void AuthDBThreadManager::NeedDBResultHandler(DBConnection& conn, const DBJobObject& jobObject)
 {
-	switch (jobObject.queryObject.queryType)
+	auto dbJobHandler = GetDBJobHandler(jobObject.queryObject.queryType);
+	if (dbJobHandler == nullptr)
 	{
-	case QueryType::InvalidQueryType:
-	default:
 		std::cout << "Invalid query type. Check query type" << std::endl;
 		_LOG(LOG_LEVEL::LOG_ERROR, L"Query Fail", L"QueryType : %d / Query : %ls / SessionId : %lld / ClientType : %d"
 			, jobObject.queryObject.queryType, jobObject.queryObject.query, jobObject.sessionId, jobObject.clientType);
@@ -20,6 +19,7 @@ void AuthDBThreadManager::NeedDBResultHandler(DBConnection& conn, const DBJobObj
 		return;
 	}
 
+	dbJobHandler(jobObject);
 	_LOG(LOG_LEVEL::LOG_DEBUG, L"Query Success", L"QueryType : %d / Query : %ls / SessionId : %lld / ClientType : %d"
 		, jobObject.queryObject.queryType, jobObject.queryObject.query, jobObject.sessionId, jobObject.clientType);
 }
