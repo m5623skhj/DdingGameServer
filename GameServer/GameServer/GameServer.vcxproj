@@ -26,6 +26,8 @@
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="GameServerImpl.cpp" />
+    <ClCompile Include="GameServerSessionImpl.cpp" />
     <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -48,8 +50,10 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GameServerDefine.h" />
+    <ClInclude Include="GameServerSessionImpl.h" />
     <ClInclude Include="PC.h" />
     <ClInclude Include="PCManager.h" />
+    <ClInclude Include="GameServerImpl.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

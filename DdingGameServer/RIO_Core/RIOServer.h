@@ -31,9 +31,9 @@ class RIOSession;
 
 class RIOServer
 {
-private:
+protected:
 	RIOServer();
-	~RIOServer() = default;
+	virtual ~RIOServer() = default;
 
 public:
 	static RIOServer& GetInst()
@@ -140,17 +140,18 @@ public:
 	void Disconnect(SessionId sessionId);
 
 private:
-	std::shared_ptr<RIOSession> GetNewSession(SOCKET enteredClientSocket, BYTE threadId);
+	virtual std::shared_ptr<RIOSession> GetNewSession(SOCKET enteredClientSocket, BYTE threadId);
 	bool MakeNewSession(SOCKET enteredClientSocket, const std::wstring_view& enteredClientIP);
 	FORCEINLINE bool ReleaseSession(OUT RIOSession& releaseSession);
 
 	FORCEINLINE void IOCountDecrement(RIOSession& session);
 
+protected:
+	SessionId nextSessionId = INVALID_SESSION_ID + 1;
+
 private:
 	std::unordered_map<SessionId, std::shared_ptr<RIOSession>> sessionMap;
 	SRWLOCK sessionMapLock;
-
-	SessionId nextSessionId = INVALID_SESSION_ID + 1;
 
 	UINT sessionCount = 0;
 

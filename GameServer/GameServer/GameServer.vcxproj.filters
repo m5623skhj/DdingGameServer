@@ -31,6 +31,9 @@
     <Filter Include="소스 파일\AuthClient">
       <UniqueIdentifier>{f989ee14-28a2-423b-889b-1bcfb0d4139c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\ServerImpl">
+      <UniqueIdentifier>{e197449d-198c-4673-accb-268b32076a81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -69,6 +72,12 @@
     <ClCompile Include="..\..\..\..\..\Desktop\Common\LanServerSerializeBuf.cpp">
       <Filter>소스 파일\Include</Filter>
     </ClCompile>
+    <ClCompile Include="GameServerImpl.cpp">
+      <Filter>소스 파일\ServerImpl</Filter>
+    </ClCompile>
+    <ClCompile Include="GameServerSessionImpl.cpp">
+      <Filter>소스 파일\ServerImpl</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PC.h">
@@ -91,6 +100,12 @@
     </ClInclude>
     <ClInclude Include="AuthClient.h">
       <Filter>소스 파일\AuthClient</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServerImpl.h">
+      <Filter>소스 파일\ServerImpl</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServerSessionImpl.h">
+      <Filter>소스 파일\ServerImpl</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
