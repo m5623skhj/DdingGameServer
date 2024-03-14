@@ -52,7 +52,7 @@ void Creature::SubtractHP(int subtractHP)
 
 void Creature::Revive(int newHP)
 {
-	if (isAlive == true)
+	if (isAlive == true || newHP < 0)
 	{
 		return;
 	}
