@@ -16,6 +16,7 @@ void Creature::SetHP(int newHP)
 	else if (nowHP < 0)
 	{
 		nowHP = 0;
+		isAlive = false;
 		OnDied();
 	}
 }
@@ -42,7 +43,7 @@ void Creature::SubtractHP(int subtractHP)
 	}
 
 	nowHP -= subtractHP;
-	if (nowHP < 0)
+	if (nowHP <= 0)
 	{
 		nowHP = 0;
 		isAlive = false;
