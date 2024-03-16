@@ -107,5 +107,8 @@
     <ClInclude Include="GameServerSessionImpl.h">
       <Filter>소스 파일\ServerImpl</Filter>
     </ClInclude>
+    <ClInclude Include="GameServerProtocol.h">
+      <Filter>소스 파일\ServerImpl</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

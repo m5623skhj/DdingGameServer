@@ -50,6 +50,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GameServerDefine.h" />
+    <ClInclude Include="GameServerProtocol.h" />
     <ClInclude Include="GameServerSessionImpl.h" />
     <ClInclude Include="PC.h" />
     <ClInclude Include="PCManager.h" />

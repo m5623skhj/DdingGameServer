@@ -4,6 +4,12 @@
 #include <unordered_map>
 #include <any>
 
+#if USING_EXTERNAL_PROTOCOL == 1
+
+#include "../../GameServer/GameServer/GameServerProtocol.h"
+
+#endif
+
 class CSerializationBuf;
 class CNetServerSerializationBuf;
 class IPacket;

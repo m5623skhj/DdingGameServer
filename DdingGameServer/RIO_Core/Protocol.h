@@ -8,6 +8,8 @@
 #include "LanServerSerializeBuf.h"
 #include <list>
 
+#define USING_EXTERNAL_PROTOCOL 1
+
 using PacketId = unsigned int;
 
 #define GET_PACKET_ID(packetId) virtual PacketId GetPacketId() const override { return static_cast<PacketId>(packetId); }
@@ -153,12 +155,17 @@ public:
 #define DECLARE_HANDLE_PACKET(PacketType)\
 	static bool HandlePacket(RIOSession& session, PacketType& packet);\
 
-#define DECLARE_ALL_HANDLER()\
+#if USING_EXTERNAL_PROTOCOL == 0
+
+#define DECLARE_ALL_HANDLER(){\
 	DECLARE_HANDLE_PACKET(Ping)\
+}
 
 #define REGISTER_PACKET_LIST(){\
 	REGISTER_PACKET(Ping)\
 }
+
+#endif
 
 #pragma endregion PacketHandler
 
@@ -169,10 +176,16 @@ public:
 #define DECLARE_DB_REPLY_HANDLER(PacketType)\
 	static bool AssemblePacket(PacketType& packet, OUT CSerializationBuf& recvPacket);\
 
-#define REGISTER_ALL_DB_REPLY_HANDLER()\
-	REGISTER_DB_REPLY_HANDLER(DBJobReply)\
+#if USING_EXTERNAL_PROTOCOL == 0
 
-#define DECLARE_ALL_DB_REPLY_HANDLER()\
+#define REGISTER_ALL_DB_REPLY_HANDLER(){\
+	REGISTER_DB_REPLY_HANDLER(DBJobReply)\
+}
+
+#define DECLARE_ALL_DB_REPLY_HANDLER(){\
 	DECLARE_DB_REPLY_HANDLER(DBJobReply)\
+}
+
+#endif
 
 #pragma endregion ForDB

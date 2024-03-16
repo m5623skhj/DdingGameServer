@@ -6,6 +6,12 @@
 #include <unordered_map>
 #include "NetServerSerializeBuffer.h"
 
+#if USING_EXTERNAL_PROTOCOL == 1
+
+#include "../../GameServer/GameServer/GameServerProtocol.h"
+
+#endif
+
 class RIOSession;
 
 using PacketHandler = std::function<bool(RIOSession&, NetBuffer&, std::any&)>;
