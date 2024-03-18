@@ -11,7 +11,7 @@
 
 using namespace std;
 
-void PrintError(const string_view errorFunctionName)
+void PrintError(const string_view&& errorFunctionName)
 {
 	DWORD errorCode = GetLastError();
 	cout << errorFunctionName << "() failed " << errorCode << endl;
@@ -24,7 +24,7 @@ void PrintError(const string_view errorFunctionName)
 	Logger::GetInstance().WriteLog(log);
 }
 
-void PrintError(const string_view errorFunctionName, DWORD errorCode)
+void PrintError(const string_view&& errorFunctionName, DWORD errorCode)
 {
 	cout << errorFunctionName << "() failed " << errorCode << endl;
 
