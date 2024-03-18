@@ -8,7 +8,7 @@ Broadcaster& Broadcaster::GetInst()
 	return instance;
 }
 
-void Broadcaster::BraodcastToAllSession(IGameAndClientPacket& packet)
+void Broadcaster::BraodcastToAllSession(IGameAndClientPacket&& packet)
 {
 	NetBuffer* buffer = NetBuffer::Alloc();
 	NetBuffer::AddRefCount(buffer);

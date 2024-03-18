@@ -22,7 +22,7 @@ public:
 	static Broadcaster& GetInst();
 
 public:
-	void BraodcastToAllSession(IGameAndClientPacket& packet);
+	void BraodcastToAllSession(IGameAndClientPacket&& packet);
 	//void BraodcastToAllSession(NetBuffer& packet);
 
 private:
