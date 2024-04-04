@@ -3,15 +3,24 @@
 #include "DataUtil.h"
 #include "Config.h"
 
-
-#define ADD_TO_CONTAINER(className, jsonFileName){ \
-	std::cout << "Start loading : " << jsonFileName << std::endl; \
-	if(AddToDataContainerFromJsonFile<className>(currentFolder + Configuration::Config::GetInst().jsonScriptFolderPath + jsonFileName) == false) \
+#define ADD_TO_CONTAINER(className){ \
+	std::cout << "Start loading : " << #className << ".json" << std::endl; \
+	if(AddToDataContainerFromJsonFile<className>(currentFolder + Configuration::Config::GetInst().jsonScriptFolderPath + #className + ".json") == false) \
 	{ \
-		std::cout << "Load failed : " << jsonFileName << std::endl; \
+		std::cout << "Load failed : " << #className << ".json" << std::endl; \
 		return false; \
 	} \
-	std::cout << "Load completed : " << jsonFileName << std::endl; \
+	std::cout << "Load completed : " << #className << ".json" << std::endl; \
+}
+
+#define ADD_TO_CONTAINER_WITH_FILE_NAME(className, fileName){ \
+	std::cout << "Start loading : " << fileName << std::endl; \
+	if(AddToDataContainerFromJsonFile<className>(currentFolder + Configuration::Config::GetInst().jsonScriptFolderPath + fileName) == false) \
+	{ \
+		std::cout << "Load failed : " << fileName << std::endl; \
+		return false; \
+	} \
+	std::cout << "Load completed : " << fileName << std::endl; \
 }
 
 #define POST_LOAD(className){ \
