@@ -8,6 +8,7 @@
 #include <memory>
 #include <fstream>
 #include "LogClass.h"
+#include "EnumType.h"
 
 class Logger
 {
@@ -47,6 +48,13 @@ private:
 
 	std::ofstream logFileStream;
 #pragma endregion LogWaitingQueue
+
+public:
+	LOG_LEVEL GetLogLevel() { return logLevel; }
+
+private:
+	// TODO : 컨피그 파일에서 읽어오도록 수정
+	LOG_LEVEL logLevel;
 };
 
 namespace LogHelper

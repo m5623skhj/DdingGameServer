@@ -44,3 +44,13 @@ enum class ERROR_CODE : unsigned short
 	SUCCESS = 0
 	, BATCHED_DB_JOB_SIZE_OVERFLOWED
 };
+
+enum class LOG_LEVEL : unsigned char
+{
+	Verbosse = 1,
+	Debug,
+	Info,
+	Warning,
+	Error,
+	Fatal,
+};
