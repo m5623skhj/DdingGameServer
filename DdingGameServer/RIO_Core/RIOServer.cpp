@@ -89,6 +89,7 @@ bool RIOServer::StartServer(const std::wstring& optionFileName)
 	{
 		return false;
 	}
+	ReserveRIOBuffer();
 
 	RunThreads();
 
@@ -641,6 +642,40 @@ bool RIOServer::InitializeRIO()
 	}
 
 	return true;
+}
+
+void RIOServer::ReserveRIOBuffer()
+{
+	recvRIOBufferPool = new CTLSMemoryPool<RecvRIOBuffer>(RIO_BUFFER_MEMORY_POOL_CHUNK_SIZE, false);
+	sendRIOBufferPool = new CTLSMemoryPool<SendRIOBuffer>(RIO_BUFFER_MEMORY_POOL_CHUNK_SIZE, false);
+
+	constexpr DWORD totalBufferSize = RIO_BUFFER_MEMORY_POOL_CHUNK_SIZE * df_CHUNK_ELEMENT_SIZE;
+	std::vector<RecvRIOBuffer*> recvBufferList;
+	recvBufferList.reserve(totalBufferSize);
+	while (recvRIOBufferPool->IsEmpty() == false)
+	{
+		auto buffer = recvRIOBufferPool->Alloc();
+		buffer->InitPointer();
+		buffer->recvBufferId = rioFunctionTable.RIORegisterBuffer(buffer->GetBufferPtr(), DEFAULT_RINGBUFFER_MAX);
+
+		recvBufferList.emplace_back(buffer);
+	}
+
+	std::vector<SendRIOBuffer*> sendBufferList;
+	sendBufferList.reserve(totalBufferSize);
+	while (sendRIOBufferPool->IsEmpty() == false)
+	{
+		auto buffer = sendRIOBufferPool->Alloc();
+		buffer->sendBufferId = rioFunctionTable.RIORegisterBuffer(buffer->rioSendBuffer, MAX_SEND_BUFFER_SIZE);
+	
+		sendBufferList.emplace_back(buffer);
+	}
+
+	for (int bufferIndex = 0; bufferIndex < totalBufferSize; ++bufferIndex)
+	{
+		recvRIOBufferPool->Free(recvBufferList[bufferIndex]);
+		sendRIOBufferPool->Free(sendBufferList[bufferIndex]);
+	}
 }
 
 void RIOServer::SendPacket(OUT RIOSession& session, OUT NetBuffer& packet)

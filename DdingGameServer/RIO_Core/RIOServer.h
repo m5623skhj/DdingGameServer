@@ -11,6 +11,7 @@
 
 #pragma comment(lib, "ws2_32.lib")
 
+const DWORD RIO_BUFFER_MEMORY_POOL_CHUNK_SIZE = 10;
 const DWORD SEND_BUFFER_SIZE = 2048;
 const DWORD RIO_PENDING_SEND = 8192;
 constexpr DWORD TOTAL_BUFFER_SIZE = SEND_BUFFER_SIZE * RIO_PENDING_SEND;
@@ -101,6 +102,13 @@ private:
 	OVERLAPPED rioCQOverlapped;
 
 	bool* workerOnList;
+
+private:
+	void ReserveRIOBuffer();
+
+private:
+	CTLSMemoryPool<RecvRIOBuffer>* recvRIOBufferPool = nullptr;
+	CTLSMemoryPool<SendRIOBuffer>* sendRIOBufferPool = nullptr;
 #pragma endregion rio
 
 #pragma region io

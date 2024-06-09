@@ -41,6 +41,24 @@ struct SendItem
 	IO_MODE ioMode = IO_MODE::IO_NONE_SENDING;
 };
 
+struct RecvRIOBuffer : CRingbuffer
+{
+public :
+	virtual ~RecvRIOBuffer()
+	{
+		InitPointer();
+	}
+
+public:
+	RIO_BUFFERID recvBufferId;
+};
+
+struct SendRIOBuffer
+{
+	char rioSendBuffer[MAX_SEND_BUFFER_SIZE];
+	RIO_BUFFERID sendBufferId;
+};
+
 class RIOSession
 {
 	friend RIOServer;
