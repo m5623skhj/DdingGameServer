@@ -378,15 +378,15 @@ void RIOServer::SleepRemainingFrameTime(OUT TickSet& tickSet)
 
 IO_POST_ERROR RIOServer::RecvCompleted(RIOSession& session, DWORD transferred)
 {
-	session.recvItem.recvRingBuffer.MoveWritePos(transferred);
-	int restSize = session.recvItem.recvRingBuffer.GetUseSize();
+	session.recvItem.recvBuffer->MoveWritePos(transferred);
+	int restSize = session.recvItem.recvBuffer->GetUseSize();
 	bool packetError = false;
 	IO_POST_ERROR result = IO_POST_ERROR::SUCCESS;
 
 	while (restSize > df_HEADER_SIZE)
 	{
 		NetBuffer& buffer = *NetBuffer::Alloc();
-		session.recvItem.recvRingBuffer.Peek((char*)(buffer.m_pSerializeBuffer), df_HEADER_SIZE);
+		session.recvItem.recvBuffer->Peek((char*)(buffer.m_pSerializeBuffer), df_HEADER_SIZE);
 		buffer.m_iRead = 0;
 
 		WORD payloadLength = GetPayloadLength(buffer, restSize);
@@ -401,9 +401,9 @@ IO_POST_ERROR RIOServer::RecvCompleted(RIOSession& session, DWORD transferred)
 			NetBuffer::Free(&buffer);
 			break;
 		}
-		session.recvItem.recvRingBuffer.RemoveData(df_HEADER_SIZE);
+		session.recvItem.recvBuffer->RemoveData(df_HEADER_SIZE);
 
-		int dequeuedSize = session.recvItem.recvRingBuffer.Dequeue(&buffer.m_pSerializeBuffer[buffer.m_iWrite], payloadLength);
+		int dequeuedSize = session.recvItem.recvBuffer->Dequeue(&buffer.m_pSerializeBuffer[buffer.m_iWrite], payloadLength);
 		buffer.m_iWrite += dequeuedSize;
 		if (buffer.Decode() == false)
 		{
@@ -644,6 +644,26 @@ bool RIOServer::InitializeRIO()
 	return true;
 }
 
+RecvRIOBuffer* RIOServer::GetRecvRIOBuffer()
+{
+	return recvRIOBufferPool->Alloc();
+}
+
+SendRIOBuffer* RIOServer::GetSendRIOBuffer()
+{
+	return sendRIOBufferPool->Alloc();
+}
+
+void RIOServer::ReleaseRIORecvBuffer(RecvRIOBuffer* releaseBuffer)
+{
+	recvRIOBufferPool->Free(releaseBuffer);
+}
+
+void RIOServer::ReleaseRIOSendBuffer(SendRIOBuffer* releaseBuffer)
+{
+	sendRIOBufferPool->Free(releaseBuffer);
+}
+
 void RIOServer::ReserveRIOBuffer()
 {
 	recvRIOBufferPool = new CTLSMemoryPool<RecvRIOBuffer>(RIO_BUFFER_MEMORY_POOL_CHUNK_SIZE, false);
@@ -694,12 +714,12 @@ void RIOServer::SendPacket(OUT RIOSession& session, OUT NetBuffer& packet)
 
 IO_POST_ERROR RIOServer::RecvPost(OUT RIOSession& session)
 {
-	int brokenSize = session.recvItem.recvRingBuffer.GetNotBrokenGetSize();
-	int restSize = session.recvItem.recvRingBuffer.GetNotBrokenPutSize() - brokenSize;
+	int brokenSize = session.recvItem.recvBuffer->GetNotBrokenGetSize();
+	int restSize = session.recvItem.recvBuffer->GetNotBrokenPutSize() - brokenSize;
 
 	auto context = contextPool.Alloc();
 	context->InitContext(session.sessionId, RIO_OPERATION_TYPE::OP_RECV);
-	context->BufferId = session.recvItem.recvBufferId;
+	context->BufferId = session.recvItem.recvBuffer->recvBufferId;
 	context->Length = restSize;
 	context->Offset = session.rioRecvOffset % DEFAULT_RINGBUFFER_MAX;
 	{
@@ -724,7 +744,7 @@ IO_POST_ERROR RIOServer::SendPost(OUT RIOSession& session)
 		}
 
 		if (session.sendItem.sendQueue.GetRestSize() == 0 &&
-			session.sendItem.reservedBuffer == nullptr)
+			session.sendItem.sendBuffer->rioSendBuffer == nullptr)
 		{
 			InterlockedExchange((UINT*)&session.sendItem.ioMode, (UINT)IO_MODE::IO_NONE_SENDING);
 			if (session.sendItem.sendQueue.GetRestSize() > 0)
@@ -737,7 +757,7 @@ IO_POST_ERROR RIOServer::SendPost(OUT RIOSession& session)
 		int contextCount = 1;
 		IOContext* context = contextPool.Alloc();
 		context->InitContext(session.sessionId, RIO_OPERATION_TYPE::OP_SEND);
-		context->BufferId = session.sendItem.sendBufferId;
+		context->BufferId = session.sendItem.sendBuffer->sendBufferId;
 		context->Offset = 0;
 		context->ioType = RIO_OPERATION_TYPE::OP_SEND;
 		context->Length = MakeSendStream(session, context);
@@ -761,7 +781,7 @@ ULONG RIOServer::MakeSendStream(OUT RIOSession& session, OUT IOContext* context)
 {
 	int totalSendSize = 0;
 	int bufferCount = session.sendItem.sendQueue.GetRestSize();
-	char* bufferPositionPointer = session.sendItem.rioSendBuffer;
+	char* bufferPositionPointer = session.sendItem.sendBuffer->rioSendBuffer;
 	
 	if (session.sendItem.reservedBuffer != nullptr)
 	{
@@ -797,7 +817,7 @@ ULONG RIOServer::MakeSendStream(OUT RIOSession& session, OUT IOContext* context)
 			break;
 		}
 
-		memcpy_s(&session.sendItem.rioSendBuffer[totalSendSize - useSize], MAX_SEND_BUFFER_SIZE - totalSendSize - useSize
+		memcpy_s(&session.sendItem.sendBuffer[totalSendSize - useSize], MAX_SEND_BUFFER_SIZE - totalSendSize - useSize
 			, netBufferPtr->GetBufferPtr(), useSize);
 	}
 

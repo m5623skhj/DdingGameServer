@@ -103,6 +103,12 @@ private:
 
 	bool* workerOnList;
 
+public:
+	RecvRIOBuffer* GetRecvRIOBuffer();
+	SendRIOBuffer* GetSendRIOBuffer();
+	void ReleaseRIORecvBuffer(RecvRIOBuffer* releaseBuffer);
+	void ReleaseRIOSendBuffer(SendRIOBuffer* releaseBuffer);
+
 private:
 	void ReserveRIOBuffer();
 

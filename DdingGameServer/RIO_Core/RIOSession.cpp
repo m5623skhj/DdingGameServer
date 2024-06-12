@@ -19,7 +19,7 @@ RIOSession::RIOSession(SOCKET inSocket, SessionId inSessionId, BYTE inThreadId)
 	, sessionId(inSessionId)
 	, threadId(inThreadId)
 {
-	sendItem.reservedBuffer = nullptr;
+	//sendItem.reservedBuffer = nullptr;
 }
 
 bool RIOSession::InitSession(const RIO_EXTENSION_FUNCTION_TABLE& rioFunctionTable, RIO_NOTIFICATION_COMPLETION& rioNotiCompletion, RIO_CQ& rioRecvCQ, RIO_CQ& rioSendCQ)
@@ -27,6 +27,9 @@ bool RIOSession::InitSession(const RIO_EXTENSION_FUNCTION_TABLE& rioFunctionTabl
 	u_long arg = 1;
 	ioctlsocket(socket, FIONBIO, &arg);
 
+	recvItem.recvBuffer = RIOServer::GetInst().GetRecvRIOBuffer();
+	sendItem.sendBuffer = RIOServer::GetInst().GetSendRIOBuffer();
+	/*
 	recvItem.recvRingBuffer.InitPointer();
 
 	recvItem.recvBufferId = rioFunctionTable.RIORegisterBuffer(recvItem.recvRingBuffer.GetBufferPtr(), DEFAULT_RINGBUFFER_MAX);
@@ -40,6 +43,7 @@ bool RIOSession::InitSession(const RIO_EXTENSION_FUNCTION_TABLE& rioFunctionTabl
 	{
 		return false;
 	}
+	*/
 
 	rioRQ = rioFunctionTable.RIOCreateRequestQueue(socket, 32, 1, 32, 1, rioRecvCQ, rioSendCQ, &sessionId);
 	if (rioRQ == RIO_INVALID_RQ)
@@ -126,6 +130,8 @@ void RIOSession::OnRecvPacket(NetBuffer& recvPacket)
 
 void RIOSession::OnSessionReleased(const RIO_EXTENSION_FUNCTION_TABLE& rioFunctionTable)
 {
-	rioFunctionTable.RIODeregisterBuffer(recvItem.recvBufferId);
-	rioFunctionTable.RIODeregisterBuffer(sendItem.sendBufferId);
+	//rioFunctionTable.RIODeregisterBuffer(recvItem.recvBufferId);
+	//rioFunctionTable.RIODeregisterBuffer(sendItem.sendBufferId);
+	RIOServer::GetInst().ReleaseRIORecvBuffer(recvItem.recvBuffer);
+	RIOServer::GetInst().ReleaseRIOSendBuffer(sendItem.sendBuffer);
 }

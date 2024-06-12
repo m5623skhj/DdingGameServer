@@ -24,26 +24,9 @@ struct IOContext : RIO_BUF
 	RIO_OPERATION_TYPE ioType = RIO_OPERATION_TYPE::OP_ERROR;
 };
 
-struct RecvItem
-{
-	WORD bufferCount = 0;
-	CRingbuffer recvRingBuffer;
-	RIO_BUFFERID recvBufferId;
-};
-
-struct SendItem
-{
-	WORD bufferCount = 0;
-	CLockFreeQueue<NetBuffer*> sendQueue;
-	char rioSendBuffer[MAX_SEND_BUFFER_SIZE];
-	NetBuffer* reservedBuffer = nullptr;
-	RIO_BUFFERID sendBufferId;
-	IO_MODE ioMode = IO_MODE::IO_NONE_SENDING;
-};
-
 struct RecvRIOBuffer : CRingbuffer
 {
-public :
+public:
 	virtual ~RecvRIOBuffer()
 	{
 		InitPointer();
@@ -57,6 +40,24 @@ struct SendRIOBuffer
 {
 	char rioSendBuffer[MAX_SEND_BUFFER_SIZE];
 	RIO_BUFFERID sendBufferId;
+};
+
+struct RecvItem
+{
+	RecvRIOBuffer* recvBuffer = nullptr;
+	//CRingbuffer recvRingBuffer;
+	//RIO_BUFFERID recvBufferId;
+};
+
+struct SendItem
+{
+	WORD bufferCount = 0;
+	CLockFreeQueue<NetBuffer*> sendQueue;
+	//char rioSendBuffer[MAX_SEND_BUFFER_SIZE];
+	SendRIOBuffer* sendBuffer = nullptr;
+	NetBuffer* reservedBuffer = nullptr;
+	//RIO_BUFFERID sendBufferId;
+	IO_MODE ioMode = IO_MODE::IO_NONE_SENDING;
 };
 
 class RIOSession
