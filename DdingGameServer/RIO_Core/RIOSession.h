@@ -42,13 +42,6 @@ struct SendRIOBuffer
 	RIO_BUFFERID sendBufferId;
 };
 
-struct RecvItem
-{
-	RecvRIOBuffer* recvBuffer = nullptr;
-	//CRingbuffer recvRingBuffer;
-	//RIO_BUFFERID recvBufferId;
-};
-
 struct SendItem
 {
 	WORD bufferCount = 0;
@@ -112,7 +105,7 @@ private:
 private:
 	LONG ioCount = 0;
 
-	RecvItem recvItem;
+	RecvRIOBuffer* recvBuffer = nullptr;
 	SendItem sendItem;
 
 	RIO_RQ rioRQ = RIO_INVALID_RQ;

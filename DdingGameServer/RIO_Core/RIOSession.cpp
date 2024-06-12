@@ -27,7 +27,7 @@ bool RIOSession::InitSession(const RIO_EXTENSION_FUNCTION_TABLE& rioFunctionTabl
 	u_long arg = 1;
 	ioctlsocket(socket, FIONBIO, &arg);
 
-	recvItem.recvBuffer = RIOServer::GetInst().GetRecvRIOBuffer();
+	recvBuffer = RIOServer::GetInst().GetRecvRIOBuffer();
 	sendItem.sendBuffer = RIOServer::GetInst().GetSendRIOBuffer();
 	/*
 	recvItem.recvRingBuffer.InitPointer();
@@ -132,6 +132,6 @@ void RIOSession::OnSessionReleased(const RIO_EXTENSION_FUNCTION_TABLE& rioFuncti
 {
 	//rioFunctionTable.RIODeregisterBuffer(recvItem.recvBufferId);
 	//rioFunctionTable.RIODeregisterBuffer(sendItem.sendBufferId);
-	RIOServer::GetInst().ReleaseRIORecvBuffer(recvItem.recvBuffer);
+	RIOServer::GetInst().ReleaseRIORecvBuffer(recvBuffer);
 	RIOServer::GetInst().ReleaseRIOSendBuffer(sendItem.sendBuffer);
 }

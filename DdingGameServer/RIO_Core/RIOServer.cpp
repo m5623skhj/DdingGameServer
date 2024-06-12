@@ -378,15 +378,15 @@ void RIOServer::SleepRemainingFrameTime(OUT TickSet& tickSet)
 
 IO_POST_ERROR RIOServer::RecvCompleted(RIOSession& session, DWORD transferred)
 {
-	session.recvItem.recvBuffer->MoveWritePos(transferred);
-	int restSize = session.recvItem.recvBuffer->GetUseSize();
+	session.recvBuffer->MoveWritePos(transferred);
+	int restSize = session.recvBuffer->GetUseSize();
 	bool packetError = false;
 	IO_POST_ERROR result = IO_POST_ERROR::SUCCESS;
 
 	while (restSize > df_HEADER_SIZE)
 	{
 		NetBuffer& buffer = *NetBuffer::Alloc();
-		session.recvItem.recvBuffer->Peek((char*)(buffer.m_pSerializeBuffer), df_HEADER_SIZE);
+		session.recvBuffer->Peek((char*)(buffer.m_pSerializeBuffer), df_HEADER_SIZE);
 		buffer.m_iRead = 0;
 
 		WORD payloadLength = GetPayloadLength(buffer, restSize);
@@ -401,9 +401,9 @@ IO_POST_ERROR RIOServer::RecvCompleted(RIOSession& session, DWORD transferred)
 			NetBuffer::Free(&buffer);
 			break;
 		}
-		session.recvItem.recvBuffer->RemoveData(df_HEADER_SIZE);
+		session.recvBuffer->RemoveData(df_HEADER_SIZE);
 
-		int dequeuedSize = session.recvItem.recvBuffer->Dequeue(&buffer.m_pSerializeBuffer[buffer.m_iWrite], payloadLength);
+		int dequeuedSize = session.recvBuffer->Dequeue(&buffer.m_pSerializeBuffer[buffer.m_iWrite], payloadLength);
 		buffer.m_iWrite += dequeuedSize;
 		if (buffer.Decode() == false)
 		{
@@ -714,12 +714,12 @@ void RIOServer::SendPacket(OUT RIOSession& session, OUT NetBuffer& packet)
 
 IO_POST_ERROR RIOServer::RecvPost(OUT RIOSession& session)
 {
-	int brokenSize = session.recvItem.recvBuffer->GetNotBrokenGetSize();
-	int restSize = session.recvItem.recvBuffer->GetNotBrokenPutSize() - brokenSize;
+	int brokenSize = session.recvBuffer->GetNotBrokenGetSize();
+	int restSize = session.recvBuffer->GetNotBrokenPutSize() - brokenSize;
 
 	auto context = contextPool.Alloc();
 	context->InitContext(session.sessionId, RIO_OPERATION_TYPE::OP_RECV);
-	context->BufferId = session.recvItem.recvBuffer->recvBufferId;
+	context->BufferId = session.recvBuffer->recvBufferId;
 	context->Length = restSize;
 	context->Offset = session.rioRecvOffset % DEFAULT_RINGBUFFER_MAX;
 	{
