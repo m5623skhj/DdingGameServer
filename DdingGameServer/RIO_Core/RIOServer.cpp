@@ -756,11 +756,17 @@ IO_POST_ERROR RIOServer::SendPost(OUT RIOSession& session)
 
 		int contextCount = 1;
 		IOContext* context = contextPool.Alloc();
+		ULONG sendStreamSize = MakeSendStream(session);
+		if (sendStreamSize == 0)
+		{
+			return IO_POST_ERROR::INVALID_SEND_BUFFER_SIZE;
+		}
+
 		context->InitContext(session.sessionId, RIO_OPERATION_TYPE::OP_SEND);
 		context->BufferId = session.sendItem.sendBuffer->sendBufferId;
 		context->Offset = 0;
 		context->ioType = RIO_OPERATION_TYPE::OP_SEND;
-		context->Length = MakeSendStream(session, context);
+		context->Length = sendStreamSize;
 
 		InterlockedIncrement(&session.ioCount);
 		{
@@ -777,7 +783,7 @@ IO_POST_ERROR RIOServer::SendPost(OUT RIOSession& session)
 	return IO_POST_ERROR::SUCCESS;
 }
 
-ULONG RIOServer::MakeSendStream(OUT RIOSession& session, OUT IOContext* context)
+ULONG RIOServer::MakeSendStream(OUT RIOSession& session)
 {
 	int totalSendSize = 0;
 	int bufferCount = session.sendItem.sendQueue.GetRestSize();
@@ -831,12 +837,11 @@ bool RIOServer::IsValidPacketSize(int bufferSize)
 		return true;
 	}
 
-	// 서버에서 Send를 할건데,
-	// MAX_SEND_BUFFER_SIZE 보다 크다면, 일단 패킷 설계 비정상으로 정의함
-	// TODO : 
-	// Bunch 로 수정
-	g_Dump.Crash();
+	PrintError(std::format("Invalid packet size to send items. bufferSize is {}", bufferSize));
 
+#if USE_CRASH_SEND_BUFFER_OVER
+	g_Dump.Crash();
+#endif
 	return false;
 }
 

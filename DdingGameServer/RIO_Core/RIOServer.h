@@ -125,7 +125,7 @@ private:
 	IO_POST_ERROR RecvPost(OUT RIOSession& session);
 	IO_POST_ERROR SendPost(OUT RIOSession& session);
 
-	ULONG MakeSendStream(OUT RIOSession& session, OUT IOContext* context);
+	ULONG MakeSendStream(OUT RIOSession& session);
 	bool IsValidPacketSize(int bufferSize);
 private:
 	CTLSMemoryPool<IOContext> contextPool;
