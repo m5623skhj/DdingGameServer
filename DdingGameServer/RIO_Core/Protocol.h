@@ -108,6 +108,24 @@ public:
 	GET_PACKET_ID(PACKET_ID::PONG);
 };
 
+class BunchPacketBegin : public IGameAndClientPacket
+{
+public:
+	GET_PACKET_ID(PACKET_ID::BUNCH_PACKET_BEGIN);
+};
+
+class BunchPacketEnd : public IGameAndClientPacket
+{
+public:
+	GET_PACKET_ID(PACKET_ID::BUNCH_PACKET_END);
+};
+
+class BunchPacket : public IGameAndClientPacket
+{
+public:
+	GET_PACKET_ID(PACKET_ID::BUNCH_PACKET);
+};
+
 #pragma endregion GameServer
 
 #pragma region DBServer

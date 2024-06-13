@@ -38,6 +38,9 @@ enum class PACKET_ID : unsigned int
 	, PONG
 	, GAME2DB_BATCHED_DB_JOB
 	, DB2GAME_BATCHED_DB_JOB
+	, BUNCH_PACKET_BEGIN
+	, BUNCH_PACKET_END
+	, BUNCH_PACKET
 };
 
 enum class ERROR_CODE : unsigned short
