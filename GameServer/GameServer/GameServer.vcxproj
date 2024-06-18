@@ -31,6 +31,7 @@
     <ClCompile Include="main.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="NPC.cpp" />
     <ClCompile Include="PC.cpp" />
     <ClCompile Include="PCDBLoader.cpp" />
     <ClCompile Include="PCManager.cpp" />
@@ -52,6 +53,7 @@
     <ClInclude Include="GameServerDefine.h" />
     <ClInclude Include="GameServerProtocol.h" />
     <ClInclude Include="GameServerSessionImpl.h" />
+    <ClInclude Include="NPC.h" />
     <ClInclude Include="PC.h" />
     <ClInclude Include="PCManager.h" />
     <ClInclude Include="GameServerImpl.h" />

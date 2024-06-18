@@ -34,6 +34,9 @@
     <Filter Include="소스 파일\ServerImpl">
       <UniqueIdentifier>{e197449d-198c-4673-accb-268b32076a81}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\NPC">
+      <UniqueIdentifier>{b6ca5d64-8050-4cc0-830a-60004bc04e10}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -78,6 +81,9 @@
     <ClCompile Include="GameServerSessionImpl.cpp">
       <Filter>소스 파일\ServerImpl</Filter>
     </ClCompile>
+    <ClCompile Include="NPC.cpp">
+      <Filter>소스 파일\NPC</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PC.h">
@@ -109,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="GameServerProtocol.h">
       <Filter>소스 파일\ServerImpl</Filter>
+    </ClInclude>
+    <ClInclude Include="NPC.h">
+      <Filter>소스 파일\NPC</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
