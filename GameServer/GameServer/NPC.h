@@ -8,7 +8,7 @@ class NPC : public Creature
 {
 public:
 	NPC() = default;
-	explicit NPC(GameObjectId inNPCObjectId);
+	virtual ~NPC() override = default;
 
 public:
 	virtual void OnEnterWorld() override;
