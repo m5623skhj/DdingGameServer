@@ -128,6 +128,9 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Timer</Filter>
     </ClCompile>
+    <ClCompile Include="DBJobLazyRunner.cpp">
+      <Filter>DBJob\DBJobClass</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="RIOServer.h">
@@ -195,6 +198,9 @@
     </ClInclude>
     <ClInclude Include="..\..\DBServer\DBServer\StoredProcedure.h">
       <Filter>Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="DBJobLazyRunner.h">
+      <Filter>DBJob\DBJobClass</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

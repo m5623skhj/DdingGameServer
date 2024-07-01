@@ -157,6 +157,7 @@
     <ClCompile Include="DBClient.cpp" />
     <ClCompile Include="DBHelper.cpp" />
     <ClCompile Include="DBJob.cpp" />
+    <ClCompile Include="DBJobLazyRunner.cpp" />
     <ClCompile Include="DBJobUtil.cpp" />
     <ClCompile Include="DeadlockChecker.cpp" />
     <ClCompile Include="GlobalUtil.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="DBClient.h" />
     <ClInclude Include="DBHelper.h" />
     <ClInclude Include="DBJob.h" />
+    <ClInclude Include="DBJobLazyRunner.h" />
     <ClInclude Include="DBJobUtil.h" />
     <ClInclude Include="DeadlockChecker.h" />
     <ClInclude Include="DefineType.h" />
