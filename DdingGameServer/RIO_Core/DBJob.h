@@ -37,6 +37,9 @@ public:
 	virtual void OnRollback() = 0;
 
 public:
+	virtual void Clear() {}
+
+public:
 	bool ExecuteJob(DBJobKey batchDBJobKey);
 	CSerializationBuf* GetJobBuffer();
 
