@@ -175,6 +175,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\DBServer\DBServer\StoredProcedure.h" />
+    <ClInclude Include="AccumulatableDBJob.h" />
     <ClInclude Include="Broadcaster.h" />
     <ClInclude Include="BuildConfig.h" />
     <ClInclude Include="DBClient.h" />

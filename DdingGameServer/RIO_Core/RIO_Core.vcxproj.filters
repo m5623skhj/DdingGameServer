@@ -202,5 +202,8 @@
     <ClInclude Include="DBJobLazyRunner.h">
       <Filter>DBJob\DBJobClass</Filter>
     </ClInclude>
+    <ClInclude Include="AccumulatableDBJob.h">
+      <Filter>DBJob\DBJobClass</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

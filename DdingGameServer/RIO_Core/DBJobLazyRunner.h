@@ -1,20 +1,27 @@
 #pragma once
+#include "EnumType.h"
+
+class BatchedDBJob;
 
 class DBJobLazyRunner
 {
 public:
+	DBJobLazyRunner(std::shared_ptr<BatchedDBJob> inOwner);
 	virtual ~DBJobLazyRunner() = default;
 	
 public:
 	virtual void CheckFireState() = 0;
-	void Fire();
+	ERROR_CODE Fire();
+
+protected:
+	std::shared_ptr<BatchedDBJob> batchedDBJob;
 };
 
 class DBJobAccumulateLazyRunner : public DBJobLazyRunner
 {
 public:
 	DBJobAccumulateLazyRunner() = delete;
-	explicit DBJobAccumulateLazyRunner(UINT inAccumulateCount);
+	explicit DBJobAccumulateLazyRunner(std::shared_ptr<BatchedDBJob> inOwner, UINT inAccumulateCount);
 	~DBJobAccumulateLazyRunner() override = default;
 
 public:
@@ -28,7 +35,7 @@ class DBJobTimeLazyRunner : public DBJobLazyRunner
 {
 public:
 	DBJobTimeLazyRunner() = delete;
-	explicit DBJobTimeLazyRunner(UINT64 inBeginTime, UINT64 inDelayMillisecond);
+	explicit DBJobTimeLazyRunner(std::shared_ptr<BatchedDBJob> inOwner, UINT64 inBeginTime, UINT64 inDelayMillisecond);
 	~DBJobTimeLazyRunner() override = default;
 
 public:

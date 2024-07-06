@@ -1,19 +1,27 @@
 #include "PreCompile.h"
 #include "DBJobLazyRunner.h"
+#include "AccumulatableDBJob.h"
+#include "DBJobUtil.h"
 
-void DBJobLazyRunner::Fire()
-{
-	// TODO : Fire db job
-}
-
-DBJobAccumulateLazyRunner::DBJobAccumulateLazyRunner(UINT inAccumulateCount)
-	: accumulateCount(inAccumulateCount)
+DBJobLazyRunner::DBJobLazyRunner(std::shared_ptr<BatchedDBJob> inbatchedDBJob)
+	: batchedDBJob(inbatchedDBJob)
 {
 }
 
+ERROR_CODE DBJobLazyRunner::Fire()
+{
+	return batchedDBJob->ExecuteBatchJob();
+}
 
-DBJobTimeLazyRunner::DBJobTimeLazyRunner(UINT64 inBeginTime, UINT64 inDelayMillisecond)
-	: beginTime(inBeginTime)
+DBJobAccumulateLazyRunner::DBJobAccumulateLazyRunner(std::shared_ptr<BatchedDBJob> inOwner, UINT inAccumulateCount)
+	: DBJobLazyRunner(inOwner)
+	, accumulateCount(inAccumulateCount)
+{
+}
+
+DBJobTimeLazyRunner::DBJobTimeLazyRunner(std::shared_ptr<BatchedDBJob> inOwner, UINT64 inBeginTime, UINT64 inDelayMillisecond)
+	: DBJobLazyRunner(inOwner)
+	, beginTime(inBeginTime)
 	, delayMillisecond(inDelayMillisecond)
 {
 }
