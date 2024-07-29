@@ -36,6 +36,9 @@ public:
 	bool OnLoadFromDB();
 	void FinalizeOnLoadFromDB();
 
+public:
+	void UpdateByPing();
+
 private:
 	PCDBID pcDBID;
 

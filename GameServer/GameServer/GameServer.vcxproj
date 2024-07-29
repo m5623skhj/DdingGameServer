@@ -34,6 +34,7 @@
     <ClCompile Include="NPC.cpp" />
     <ClCompile Include="PC.cpp" />
     <ClCompile Include="PCDBLoader.cpp" />
+    <ClCompile Include="PCLogic.cpp" />
     <ClCompile Include="PCManager.cpp" />
     <ClCompile Include="PCPacketHandler.cpp" />
   </ItemGroup>

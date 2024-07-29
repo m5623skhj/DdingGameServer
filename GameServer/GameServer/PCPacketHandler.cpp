@@ -11,6 +11,8 @@ bool PacketManager::HandlePacket(RIOSession& session, Ping& packet)
 		return false;
 	}
 
+	pc->UpdateByPing();
+
 	Pong pong;
 	pc->SendPacket(pong);
 
