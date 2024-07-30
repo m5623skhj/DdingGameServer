@@ -4,6 +4,8 @@
 #include <memory>
 #include "DefineType.h"
 #include "RIOSession.h"
+#include "DBJobLazyRunner.h"
+#include <list>
 
 class PC : public Creature
 {
@@ -38,6 +40,15 @@ public:
 
 public:
 	void UpdateByPing();
+
+public:
+	void DBJobLazyRunnerPush(DBJobLazyRunner&& lazyRunnerInst);
+
+private:
+	void FireLazyRunnerIfConditionMet();
+
+private:
+	std::list<DBJobLazyRunner> lazyRunnerHolder;
 
 private:
 	PCDBID pcDBID;
