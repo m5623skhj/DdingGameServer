@@ -14,22 +14,23 @@ void PC::UpdateByPing()
 
 void PC::DBJobLazyRunnerPush(DBJobTimeLazyRunner&& lazyRunnerInst)
 {
-	timeLazyRunnerHolder.push_back(lazyRunnerInst);
+	timeLazyRunnerHolder.push(lazyRunnerInst);
 }
 
 void PC::FireLazyRunnerIfConditionMet(const UINT64 now)
 {
-	for (auto& lazyRunner : timeLazyRunnerHolder)
+	while (not timeLazyRunnerHolder.empty())
 	{
+		auto lazyRunner = timeLazyRunnerHolder.top();
 		if (not lazyRunner.CheckFireState(now))
 		{
-			continue;
+			break;
 		}
+		timeLazyRunnerHolder.pop();
 
-		const auto& errorCode = lazyRunner.Fire();
-		if (not IsSuccess(errorCode))
+		if (not IsSuccess(lazyRunner.Fire()))
 		{
-			// logging ?
+			// logging?
 		}
 	}
 }

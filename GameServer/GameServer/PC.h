@@ -5,7 +5,7 @@
 #include "DefineType.h"
 #include "RIOSession.h"
 #include "DBJobLazyRunner.h"
-#include <list>
+#include <queue>
 
 class PC : public Creature
 {
@@ -48,7 +48,7 @@ private:
 	void FireLazyRunnerIfConditionMet(const UINT64 now);
 
 private:
-	std::list<DBJobTimeLazyRunner> timeLazyRunnerHolder;
+	std::priority_queue<DBJobTimeLazyRunner, std::vector<DBJobTimeLazyRunner>, std::less<DBJobTimeLazyRunner>> timeLazyRunnerHolder;
 
 private:
 	PCDBID pcDBID;
