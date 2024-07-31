@@ -10,6 +10,11 @@
 #include "Protocol.h"
 #include <optional>
 
+#define DEFINE_DB_JOB_CLASS_NAME(className)\
+	virtual const std::string_view GetDBJobClassName() const override {\
+		return std::string_view(#className);\
+	}
+
 class RIOSession;
 
 class DBJob
@@ -31,6 +36,9 @@ public:
 		forRollback = std::make_shared<T>(rollbackPacket);
 	}
 	virtual ~DBJob();
+
+public:
+	virtual const std::string_view GetDBJobClassName() const = 0;
 
 public:
 	virtual void OnCommit() = 0;
@@ -70,6 +78,9 @@ public:
 
 	void OnCommit();
 	void OnRollback();
+
+public:
+	std::vector<std::string_view> GetJobNameList() const;
 
 private:
 	std::list<std::shared_ptr<DBJob>> jobList;

@@ -13,6 +13,11 @@ ERROR_CODE DBJobLazyRunner::Fire()
 	return batchedDBJob->ExecuteBatchJob();
 }
 
+std::vector<std::string_view> DBJobLazyRunner::GetBatchedDBJobName() const
+{
+	return batchedDBJob->GetJobNameList();
+}
+
 DBJobAccumulateLazyRunner::DBJobAccumulateLazyRunner(std::shared_ptr<BatchedDBJob> inOwner, UINT inAccumulateCount)
 	: DBJobLazyRunner(inOwner)
 	, accumulateCount(inAccumulateCount)
@@ -24,14 +29,15 @@ DBJobTimeLazyRunner::DBJobTimeLazyRunner(std::shared_ptr<BatchedDBJob> inOwner, 
 	, beginTime(inBeginTime)
 	, delayMillisecond(inDelayMillisecond)
 {
+	minFireTime = beginTime + delayMillisecond;
 }
 
-void DBJobAccumulateLazyRunner::CheckFireState()
+bool DBJobAccumulateLazyRunner::CheckFireState(const UINT64 comparisonAccumulateCount) const
 {
-	// TODO : Check fire state
+	return accumulateCount > comparisonAccumulateCount;
 }
 
-void DBJobTimeLazyRunner::CheckFireState()
+bool DBJobTimeLazyRunner::CheckFireState(const UINT64 now) const
 {
-	// TODO : Check fire state
+	return minFireTime > now;
 }

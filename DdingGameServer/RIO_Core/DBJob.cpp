@@ -96,6 +96,19 @@ void BatchedDBJob::OnRollback()
 		job->OnRollback();
 	}
 }
+
+std::vector<std::string_view> BatchedDBJob::GetJobNameList() const
+{
+	std::vector<std::string_view> jobNameList;
+	jobNameList.reserve(jobList.size());
+
+	for (const auto& itor : jobList)
+	{
+		jobNameList.push_back(itor->GetDBJobClassName());
+	}
+
+	return jobNameList;
+}
 #pragma endregion DBJob
 
 #pragma region DBJobManager

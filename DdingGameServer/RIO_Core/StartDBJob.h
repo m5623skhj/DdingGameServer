@@ -10,4 +10,7 @@ public:
 
 	virtual void OnCommit() override;
 	virtual void OnRollback() override;
+
+public:
+	DEFINE_DB_JOB_CLASS_NAME(DBJob_StartDBJob);
 };

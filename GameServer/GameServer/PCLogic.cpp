@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "PC.h"
 #include "GlobalUtil.h"
+#include "Logger.h"
 
 void PC::UpdateByPing()
 {
@@ -28,9 +29,23 @@ void PC::FireLazyRunnerIfConditionMet(const UINT64 now)
 		}
 		timeLazyRunnerHolder.pop();
 
-		if (not IsSuccess(lazyRunner.Fire()))
+		if (auto error = lazyRunner.Fire(); not IsSuccess(error))
 		{
-			// logging?
+			std::ostringstream logStream;
+			logStream << "LazyRunner fire failed in PC tick. Error "
+				<< static_cast<UINT>(error)
+				<< ". DB job list: ";
+
+			const auto jobNameList = lazyRunner.GetBatchedDBJobName();
+			for (const auto& item : jobNameList)
+			{
+				logStream << item << " / ";
+			}
+
+			auto log = LogHelper::MakeLogObject<ServerLog>();
+			log->logString = logStream.str();
+			
+			Logger::GetInstance().WriteLog(log);
 		}
 	}
 }
