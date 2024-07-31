@@ -42,13 +42,13 @@ public:
 	void UpdateByPing();
 
 public:
-	void DBJobLazyRunnerPush(DBJobLazyRunner&& lazyRunnerInst);
+	void DBJobLazyRunnerPush(DBJobTimeLazyRunner&& lazyRunnerInst);
 
 private:
-	void FireLazyRunnerIfConditionMet();
+	void FireLazyRunnerIfConditionMet(const UINT64 now);
 
 private:
-	std::list<DBJobLazyRunner> lazyRunnerHolder;
+	std::list<DBJobTimeLazyRunner> timeLazyRunnerHolder;
 
 private:
 	PCDBID pcDBID;
