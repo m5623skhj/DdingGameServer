@@ -1,5 +1,7 @@
 #pragma once
 #include "GameObject.h"
+#include "EnumType.h"
+#include <unordered_map>
 
 class Creature : public GameObject
 {
@@ -25,4 +27,6 @@ protected:
 	int nowHP;
 
 	bool isAlive;
+
+	std::unordered_map<CREATURE_STAT, UINT> statMap;
 };

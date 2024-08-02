@@ -37,6 +37,9 @@
     <Filter Include="소스 파일\NPC">
       <UniqueIdentifier>{b6ca5d64-8050-4cc0-830a-60004bc04e10}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DBJobLazyRunner">
+      <UniqueIdentifier>{d192118f-7f59-4f91-9385-88ad1add4727}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -87,6 +90,9 @@
     <ClCompile Include="PCLogic.cpp">
       <Filter>소스 파일\PC</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\DdingGameServer\RIO_Core\DBJobLazyRunner.cpp">
+      <Filter>DBJobLazyRunner</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PC.h">
@@ -121,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="NPC.h">
       <Filter>소스 파일\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\DdingGameServer\RIO_Core\DBJobLazyRunner.h">
+      <Filter>DBJobLazyRunner</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
