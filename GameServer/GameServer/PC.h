@@ -11,7 +11,7 @@ class PC : public Creature
 {
 public:
 	PC() = delete;
-	virtual ~PC() = default;
+	virtual ~PC() override = default;
 	explicit PC(RIOSession& inSession, PCDBID inPCId);
 
 public:
@@ -27,11 +27,11 @@ public:
 	PCDBID GetPCId() const { return session.GetSessionId(); }
 
 public:
-	virtual void OnEnterWorld();
-	virtual void OnLeaveWorld();
-	virtual void OnDamaged();
-	virtual void OnDied();
-	virtual void OnRevived();
+	virtual void OnEnterWorld() override;
+	virtual void OnLeaveWorld() override;
+	virtual void OnDamaged() override;
+	virtual void OnDied() override;
+	virtual void OnRevived() override;
 
 public:
 	bool LoadFromDB();

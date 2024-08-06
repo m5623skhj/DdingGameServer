@@ -7,7 +7,7 @@ class Creature : public GameObject
 {
 public:
 	Creature() = default;
-	virtual ~Creature() = default;
+	virtual ~Creature() override = default;
 
 public:
 	void SetHP(int newHP);

@@ -29,7 +29,7 @@ void PC::FireLazyRunnerIfConditionMet(const UINT64 now)
 		}
 		timeLazyRunnerHolder.pop();
 
-		if (auto error = lazyRunner.Fire(); not IsSuccess(error))
+		if (const auto error = lazyRunner.Fire(); not IsSuccess(error))
 		{
 			std::ostringstream logStream;
 			logStream << "LazyRunner fire failed in PC tick. Error "
