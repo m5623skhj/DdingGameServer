@@ -43,6 +43,9 @@
     <Filter Include="소스 파일\Zone">
       <UniqueIdentifier>{8505553e-ab53-49b1-89f7-7b4d2f7da248}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Dungeon">
+      <UniqueIdentifier>{cba1fa87-0583-4b57-a572-7824b8f6f58a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -102,6 +105,12 @@
     <ClCompile Include="ZoneManager.cpp">
       <Filter>소스 파일\Zone</Filter>
     </ClCompile>
+    <ClCompile Include="DungeonManager.cpp">
+      <Filter>소스 파일\Dungeon</Filter>
+    </ClCompile>
+    <ClCompile Include="DungeonBase.cpp">
+      <Filter>소스 파일\Dungeon</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PC.h">
@@ -145,6 +154,12 @@
     </ClInclude>
     <ClInclude Include="ZoneManager.h">
       <Filter>소스 파일\Zone</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonBase.h">
+      <Filter>소스 파일\Dungeon</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonManager.h">
+      <Filter>소스 파일\Dungeon</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

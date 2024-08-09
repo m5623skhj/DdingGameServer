@@ -1,10 +1,11 @@
 #pragma once
+#include "GameServerDefine.h"
 
 class Zone
 {
 public:
 	Zone() = delete;
-	~Zone() = default;
+	virtual ~Zone() = default;
 	explicit Zone(const ZoneId inZoneId);
 
 private:

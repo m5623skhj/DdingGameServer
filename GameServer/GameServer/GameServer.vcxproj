@@ -25,6 +25,8 @@
     <ClCompile Include="..\..\DdingGameServer\RIO_Core\DBJobLazyRunner.cpp" />
     <ClCompile Include="AuthClient.cpp" />
     <ClCompile Include="Creature.cpp" />
+    <ClCompile Include="DungeonBase.cpp" />
+    <ClCompile Include="DungeonManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GameServerImpl.cpp" />
@@ -53,6 +55,8 @@
     <ClInclude Include="..\..\DdingGameServer\RIO_Core\DBJobLazyRunner.h" />
     <ClInclude Include="AuthClient.h" />
     <ClInclude Include="Creature.h" />
+    <ClInclude Include="DungeonBase.h" />
+    <ClInclude Include="DungeonManager.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
     <ClInclude Include="GameServerDefine.h" />
