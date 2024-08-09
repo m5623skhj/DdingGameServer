@@ -6,3 +6,4 @@
 
 using PCDBID = UINT64;
 using GameObjectId = UINT64;
+using ZoneId = int;

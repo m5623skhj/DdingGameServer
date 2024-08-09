@@ -38,6 +38,8 @@
     <ClCompile Include="PCLogic.cpp" />
     <ClCompile Include="PCManager.cpp" />
     <ClCompile Include="PCPacketHandler.cpp" />
+    <ClCompile Include="Zone.cpp" />
+    <ClCompile Include="ZoneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DdingGameServer\RIO_Core\RIO_Core.vcxproj">
@@ -60,6 +62,8 @@
     <ClInclude Include="PC.h" />
     <ClInclude Include="PCManager.h" />
     <ClInclude Include="GameServerImpl.h" />
+    <ClInclude Include="Zone.h" />
+    <ClInclude Include="ZoneManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

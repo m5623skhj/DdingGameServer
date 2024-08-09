@@ -40,6 +40,9 @@
     <Filter Include="DBJobLazyRunner">
       <UniqueIdentifier>{d192118f-7f59-4f91-9385-88ad1add4727}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Zone">
+      <UniqueIdentifier>{8505553e-ab53-49b1-89f7-7b4d2f7da248}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -93,6 +96,12 @@
     <ClCompile Include="..\..\DdingGameServer\RIO_Core\DBJobLazyRunner.cpp">
       <Filter>DBJobLazyRunner</Filter>
     </ClCompile>
+    <ClCompile Include="Zone.cpp">
+      <Filter>소스 파일\Zone</Filter>
+    </ClCompile>
+    <ClCompile Include="ZoneManager.cpp">
+      <Filter>소스 파일\Zone</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PC.h">
@@ -130,6 +139,12 @@
     </ClInclude>
     <ClInclude Include="..\..\DdingGameServer\RIO_Core\DBJobLazyRunner.h">
       <Filter>DBJobLazyRunner</Filter>
+    </ClInclude>
+    <ClInclude Include="Zone.h">
+      <Filter>소스 파일\Zone</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoneManager.h">
+      <Filter>소스 파일\Zone</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
