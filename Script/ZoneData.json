@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "zoneName": "TestZoneName",
+    "minPosition": 
+    {
+      "x": 0,
+      "y": 0
+    },
+    "maxPosition": 
+    {
+      "x": 1000,
+      "y": 1000
+    }
+  }
+]
