@@ -1,5 +1,7 @@
 #pragma once
 
+#include <Windows.h>
+
 #define INVALID_PC_ID 0
 #define INVALID_DATA_ID -1
 #define INVLAID_GAME_OBJECT_ID 0
