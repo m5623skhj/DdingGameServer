@@ -8,3 +8,9 @@ using PCDBID = UINT64;
 using GameObjectId = UINT64;
 using ZoneId = int;
 using DungeonId = int;
+
+struct Position
+{
+	UINT x = 0;
+	UINT y = 0;
+};

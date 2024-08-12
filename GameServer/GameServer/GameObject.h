@@ -1,12 +1,6 @@
 #pragma once
 #include "GameServerDefine.h"
 
-struct Position
-{
-	UINT x = 0;
-	UINT y = 0;
-};
-
 class GameObject
 {
 public:
