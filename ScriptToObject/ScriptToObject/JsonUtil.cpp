@@ -3,6 +3,8 @@
 #include "DataUtil.h"
 #include "Config.h"
 
+#include "ZoneData.h"
+
 #define ADD_TO_CONTAINER(className){ \
 	std::cout << "Start loading : " << #className << ".json" << std::endl; \
 	if(AddToDataContainerFromJsonFile<className>(currentFolder + Configuration::Config::GetInst().jsonScriptFolderPath + #className + ".json") == false) \
@@ -55,6 +57,7 @@ namespace JsonUtil
 
 #pragma region AddToContainer
 
+		ADD_TO_CONTAINER(ZoneData);
 
 #pragma endregion AddToContainer
 
@@ -66,6 +69,7 @@ namespace JsonUtil
 
 #pragma region PostLoad
 
+		POST_LOAD(ZoneData);
 
 #pragma endregion PostLoad
 

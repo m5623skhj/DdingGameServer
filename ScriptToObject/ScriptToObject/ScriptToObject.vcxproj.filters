@@ -22,6 +22,9 @@
     <Filter Include="소스 파일\Config">
       <UniqueIdentifier>{4692b5d7-4c95-4e2f-9820-6cbccbda6784}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\Data">
+      <UniqueIdentifier>{5e3d0788-32f2-4e6c-be4f-9e5fb447240d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -32,6 +35,9 @@
     </ClCompile>
     <ClCompile Include="JsonUtil.cpp">
       <Filter>소스 파일\JsonUtil</Filter>
+    </ClCompile>
+    <ClCompile Include="FromJsonFunction.cpp">
+      <Filter>소스 파일\Data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -52,6 +58,12 @@
     </ClInclude>
     <ClInclude Include="Config.h">
       <Filter>소스 파일\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoneData.h">
+      <Filter>소스 파일\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="FromJsonFunction.h">
+      <Filter>소스 파일\Data</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
