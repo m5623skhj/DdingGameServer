@@ -1,8 +1,8 @@
 #include "PreCompile.h"
 #include "DungeonBase.h"
 
-DungeonBase::DungeonBase(const ZoneId inZoneId, const DungeonId inDungeonId)
+DungeonBase::DungeonBase(const ZoneId inZoneId, const DungeonId inDungeonId, const Position& inMapMin, const Position& inMapMax)
 	: dungeonId(inDungeonId)
-	, Zone(inZoneId)
+	, Zone(inZoneId, inMapMin, inMapMax)
 {
 }
