@@ -9,8 +9,9 @@
 
 using PCDBID = UINT64;
 using GameObjectId = UINT64;
-using ZoneId = int;
-using DungeonId = int;
+using ZoneDataId = int;
+using DungeonDataId = int;
+using NPCDataId = unsigned int;
 
 struct Position
 {

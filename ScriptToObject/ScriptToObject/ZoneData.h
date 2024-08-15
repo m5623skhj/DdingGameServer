@@ -6,7 +6,7 @@
 class ZoneData : public DataObjectBase
 {
 public:
-	ZoneId id;
+	ZoneDataId id;
 	std::string zoneName;
 	Position minPosition;
 	Position maxPosition;
@@ -22,7 +22,7 @@ public:
 		maxPosition = jsonObject["maxPosition"];
 	}
 
-	virtual bool PostLoad()
+	virtual bool PostLoad() override
 	{
 		return true;
 	}

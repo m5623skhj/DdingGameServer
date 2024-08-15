@@ -158,8 +158,10 @@
     <ClInclude Include="DataObjectBase.h" />
     <ClInclude Include="DataRegister.h" />
     <ClInclude Include="DataUtil.h" />
+    <ClInclude Include="DungeonData.h" />
     <ClInclude Include="FromJsonFunction.h" />
     <ClInclude Include="JsonUtil.h" />
+    <ClInclude Include="NPCData.h" />
     <ClInclude Include="ZoneData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

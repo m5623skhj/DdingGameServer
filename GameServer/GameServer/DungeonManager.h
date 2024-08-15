@@ -13,5 +13,5 @@ public:
 	static DungeonManager& GetInst();
 
 private:
-	std::unordered_map<DungeonId, std::shared_ptr<Dungeon>> DungeonMap;
+	std::unordered_map<DungeonDataId, std::shared_ptr<Dungeon>> DungeonMap;
 };

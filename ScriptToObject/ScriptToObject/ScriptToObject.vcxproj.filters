@@ -65,5 +65,11 @@
     <ClInclude Include="FromJsonFunction.h">
       <Filter>소스 파일\Data</Filter>
     </ClInclude>
+    <ClInclude Include="DungeonData.h">
+      <Filter>소스 파일\Data</Filter>
+    </ClInclude>
+    <ClInclude Include="NPCData.h">
+      <Filter>소스 파일\Data</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

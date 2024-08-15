@@ -13,5 +13,5 @@ public:
 	static ZoneManager& GetInst();
 
 private:
-	std::unordered_map<ZoneId, std::shared_ptr<Zone>> zoneMap;
+	std::unordered_map<ZoneDataId, std::shared_ptr<Zone>> zoneMap;
 };
