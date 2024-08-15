@@ -4,7 +4,7 @@
 #include <string>
 #include <map>
 #include <list>
-#include <mutex>
+#include <shared_mutex>
 #include "../../DdingGameServer/RIO_Core/EnumType.h"
 #include "../../DdingGameServer/RIO_Core/DefineType.h"
 
@@ -62,7 +62,7 @@ private:
 
 #pragma region BatchedDBJob
 private:
-	std::mutex batchedDBJobMapLock;
+	std::shared_mutex batchedDBJobMapLock;
 	std::map<DBJobKey, std::shared_ptr<BatchedDBJob>> batchedDBJobMap;
 #pragma endregion BatchedDBJob
 };

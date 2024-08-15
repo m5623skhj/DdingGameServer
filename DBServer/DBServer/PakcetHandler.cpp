@@ -9,7 +9,7 @@ using namespace std;
 
 void DBServer::InsertBatchJob(DBJobKey jobKey, const DBJobStart& job)
 {
-	std::lock_guard lock(batchedDBJobMapLock);
+	std::lock_guard<shared_mutex> lock(batchedDBJobMapLock);
 	batchedDBJobMap.insert({ jobKey, make_shared<BatchedDBJob>(job.batchSize, job.sessionId) });
 }
 
@@ -47,7 +47,7 @@ void DBServer::AddItemForJobStart(UINT64 requestSessionId, DBJobKey jobKey, PACK
 {
 	std::shared_ptr<BatchedDBJob> batchedJob = nullptr;
 	{
-		std::lock_guard lock(batchedDBJobMapLock);
+		std::lock_guard<shared_mutex> lock(batchedDBJobMapLock);
 		const auto& iter = batchedDBJobMap.find(jobKey);
 		if (iter == batchedDBJobMap.end())
 		{
@@ -123,7 +123,7 @@ void DBServer::DoBatchedJob(UINT64 requestSessionId, DBJobKey jobKey, std::share
 
 bool DBServer::IsBatchJobWaitingJob(DBJobKey jobKey)
 {
-	std::lock_guard lock(batchedDBJobMapLock);
+	std::shared_lock<shared_mutex> lock(batchedDBJobMapLock);
 	const auto& iter = batchedDBJobMap.find(jobKey);
 	if (iter == batchedDBJobMap.end())
 	{

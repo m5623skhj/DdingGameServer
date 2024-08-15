@@ -2,7 +2,7 @@
 #include <unordered_map>
 #include "GameServerDefine.h"
 #include <memory>
-#include <mutex>
+#include <shared_mutex>
 
 class GameObject;
 
@@ -26,5 +26,5 @@ public:
 private:
 	std::atomic<GameObjectId> objectIdGenerator = 1;
 	std::unordered_map<GameObjectId, std::shared_ptr<GameObject>> objectMap;
-	std::mutex objectMapLock;
+	std::shared_mutex objectMapLock;
 };

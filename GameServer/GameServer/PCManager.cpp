@@ -18,7 +18,7 @@ void PCManager::InsertPC(RIOSession& session, PCDBID id)
 	}
 
 	{
-		std::lock_guard lock(sessionIdToPCMapLock);
+		std::lock_guard<std::shared_mutex> lock(sessionIdToPCMapLock);
 		const auto& insertResult = sessionIdToPCMap.insert({ session.GetSessionId(), pc});
 		if (insertResult.second == false)
 		{
@@ -27,7 +27,7 @@ void PCManager::InsertPC(RIOSession& session, PCDBID id)
 		}
 	}
 	{
-		std::lock_guard lock(pcIdToPCMapLock);
+		std::lock_guard<std::shared_mutex> lock(pcIdToPCMapLock);
 		const auto& insertResult = pcIdToPCMap.insert({ pc->GetPCId(), pc});
 		if (insertResult.second == false)
 		{
@@ -75,7 +75,7 @@ void PCManager::ErasePCByPCId(PCDBID pcId)
 {
 	SessionId sessionId = INVALID_SESSION_ID;
 	{
-		std::lock_guard lock(pcIdToPCMapLock);
+		std::lock_guard<std::shared_mutex> lock(pcIdToPCMapLock);
 		auto iter = pcIdToPCMap.find(pcId);
 		if (iter == pcIdToPCMap.end())
 		{
@@ -87,7 +87,7 @@ void PCManager::ErasePCByPCId(PCDBID pcId)
 	}
 
 	{
-		std::lock_guard lock(sessionIdToPCMapLock);
+		std::lock_guard<std::shared_mutex> lock(sessionIdToPCMapLock);
 		auto iter = sessionIdToPCMap.find(sessionId);
 		if (iter == sessionIdToPCMap.end())
 		{
@@ -100,7 +100,7 @@ void PCManager::ErasePCByPCId(PCDBID pcId)
 
 std::shared_ptr<PC> PCManager::FindPCBySessionId(SessionId sessionId)
 {
-	std::lock_guard<std::mutex> lock(sessionIdToPCMapLock);
+	std::shared_lock<std::shared_mutex> lock(sessionIdToPCMapLock);
 	auto findIter = sessionIdToPCMap.find(sessionId);
 	if (findIter == sessionIdToPCMap.end())
 	{
@@ -112,7 +112,7 @@ std::shared_ptr<PC> PCManager::FindPCBySessionId(SessionId sessionId)
 
 std::shared_ptr<PC> PCManager::FindPCByPCId(PCDBID pcId)
 {
-	std::lock_guard<std::mutex> lock(pcIdToPCMapLock);
+	std::shared_lock<std::shared_mutex> lock(pcIdToPCMapLock);
 	auto findIter = pcIdToPCMap.find(pcId);
 	if (findIter == pcIdToPCMap.end())
 	{

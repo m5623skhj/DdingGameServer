@@ -1,7 +1,7 @@
 #pragma once
 #include <unordered_map>
 #include <memory>
-#include <mutex>
+#include <shared_mutex>
 #include "GameServerDefine.h"
 #include "DefineType.h"
 
@@ -28,8 +28,8 @@ public:
 
 private:
 	std::unordered_map<SessionId, std::shared_ptr<PC>> sessionIdToPCMap;
-	std::mutex sessionIdToPCMapLock;
+	std::shared_mutex sessionIdToPCMapLock;
 
 	std::unordered_map<PCDBID, std::shared_ptr<PC>> pcIdToPCMap;
-	std::mutex pcIdToPCMapLock;
+	std::shared_mutex pcIdToPCMapLock;
 };

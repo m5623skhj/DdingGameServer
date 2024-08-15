@@ -11,19 +11,19 @@ GameObjectManager& GameObjectManager::GetInst()
 
 void GameObjectManager::InsertGameObject(std::shared_ptr<GameObject> object)
 {
-	std::lock_guard lock(objectMapLock);
+	std::lock_guard<std::shared_mutex> lock(objectMapLock);
 	objectMap.insert({ object->GetGameObjectId(), object });
 }
 
 void GameObjectManager::EraseGameObject(GameObjectId gameObjectId)
 {
-	std::lock_guard lock(objectMapLock);
+	std::lock_guard<std::shared_mutex> lock(objectMapLock);
 	objectMap.erase(gameObjectId);
 }
 
 std::shared_ptr<GameObject> GameObjectManager::FindObject(GameObjectId gameObjectId)
 {
-	std::lock_guard lock(objectMapLock);
+	std::shared_lock lock(objectMapLock);
 	auto findIter = objectMap.find(gameObjectId);
 	if (findIter == objectMap.end())
 	{
@@ -36,7 +36,7 @@ std::shared_ptr<GameObject> GameObjectManager::FindObject(GameObjectId gameObjec
 template<typename T>
 std::shared_ptr<T> GameObjectManager::FindObject(GameObjectId gameObjectId)
 {
-	std::lock_guard lock(objectMapLock);
+	std::shared_lock lock(objectMapLock);
 	auto findIter = objectMap.find(gameObjectId);
 	if (findIter == objectMap.end())
 	{
