@@ -1,7 +1,7 @@
 #pragma once
 
 #include <map>
-#include <mutex>
+#include <shared_mutex>
 #include <functional>
 
 using CheckSameCount = WORD;
@@ -31,7 +31,7 @@ private:
 	std::thread checkerThread;
 
 	std::map<std::thread::id, const UpdateCountGetter&> checkerMap;
-	mutable std::mutex lock;
+	mutable std::shared_mutex lock;
 		
 	// 20 seconds
 	CheckSameCount maxCheckCount = 20000;

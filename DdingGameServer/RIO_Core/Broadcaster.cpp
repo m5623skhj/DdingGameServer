@@ -22,7 +22,7 @@ void Broadcaster::BraodcastToAllSession(IGameAndClientPacket&& packet)
 	std::list<SessionId> sessionIdList;
 	packet.PacketToBuffer(*buffer);
 	{
-		std::lock_guard<std::mutex> guardLock(sessionSetLock);
+		std::shared_lock<std::shared_mutex> guardLock(sessionSetLock);
 		for (const auto& sessionId : sessionIdSet)
 		{
 			sessionIdList.push_back(sessionId);
@@ -75,7 +75,7 @@ void Broadcaster::BraodcastToAllSession(NetBuffer& packet)
 void Broadcaster::OnSessionEntered(SessionId enteredSessionId)
 {
 	{
-		std::lock_guard<std::mutex> guardLock(sessionSetLock);
+		std::lock_guard<std::shared_mutex> guardLock(sessionSetLock);
 		sessionIdSet.insert(enteredSessionId);
 	}
 }
@@ -83,7 +83,7 @@ void Broadcaster::OnSessionEntered(SessionId enteredSessionId)
 void Broadcaster::OnSessionLeaved(SessionId enteredSessionId)
 {
 	{
-		std::lock_guard<std::mutex> guardLock(sessionSetLock);
+		std::lock_guard<std::shared_mutex> guardLock(sessionSetLock);
 		sessionIdSet.erase(enteredSessionId);
 	}
 }

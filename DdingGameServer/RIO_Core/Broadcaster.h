@@ -1,6 +1,6 @@
 #pragma once
 #include <set>
-#include <mutex>
+#include <shared_mutex>
 #include "DefineType.h"
 #include "Protocol.h"
 #include "NetServerSerializeBuffer.h"
@@ -30,6 +30,6 @@ private:
 	void OnSessionLeaved(SessionId enteredSessionId);
 
 private:
-	std::mutex sessionSetLock;
+	std::shared_mutex sessionSetLock;
 	std::set<SessionId> sessionIdSet;
 };

@@ -4,7 +4,7 @@
 #include "EnumType.h"
 #include "DefineType.h"
 #include <unordered_map>
-#include <mutex>
+#include <shared_mutex>
 #include "LanServerSerializeBuf.h"
 #include "RIOSession.h"
 #include "Protocol.h"
@@ -131,5 +131,5 @@ private:
 
 	// 관리의 용이성을 위해서 일반 DBJob도 BatchedDBJob에 넣어서 보냄
 	std::unordered_map<DBJobKey, std::shared_ptr<BatchedDBJob>> jobMap;
-	std::mutex jobMapLock;
+	std::shared_mutex jobMapLock;
 };

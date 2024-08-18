@@ -120,7 +120,7 @@ DBJobManager& DBJobManager::GetInst()
 
 void DBJobManager::RegisterDBJob(std::shared_ptr<BatchedDBJob> job)
 {
-	std::lock_guard<std::mutex> guardLock(jobMapLock);
+	std::lock_guard<std::shared_mutex> guardLock(jobMapLock);
 	DBJobKey key = jobKey.fetch_add(1);
 
 	jobMap.insert({ key, job });
@@ -128,7 +128,7 @@ void DBJobManager::RegisterDBJob(std::shared_ptr<BatchedDBJob> job)
 
 std::shared_ptr<BatchedDBJob> DBJobManager::GetRegistedDBJob(DBJobKey jobKey)
 {
-	std::lock_guard<std::mutex> guardLock(jobMapLock);
+	std::shared_lock<std::shared_mutex> guardLock(jobMapLock);
 	auto iter = jobMap.find(jobKey);
 	if (iter == jobMap.end())
 	{
@@ -140,7 +140,7 @@ std::shared_ptr<BatchedDBJob> DBJobManager::GetRegistedDBJob(DBJobKey jobKey)
 
 void DBJobManager::DeregisterDBJob(DBJobKey jobKey)
 {
-	std::lock_guard<std::mutex> guardLock(jobMapLock);
+	std::lock_guard<std::shared_mutex> guardLock(jobMapLock);
 	jobMap.erase(jobKey);
 }
 
