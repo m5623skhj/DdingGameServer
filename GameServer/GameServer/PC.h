@@ -23,8 +23,8 @@ public:
 	void Disconnect();
 
 public:
-	SessionId GetSessionId() const { return pcDBID; }
-	PCDBID GetPCId() const { return session.GetSessionId(); }
+	SessionId GetSessionId() const { return session.GetSessionId(); }
+	PCDBID GetPCId() const { return pcDBID; }
 
 public:
 	virtual void OnEnterWorld() override;
@@ -36,7 +36,9 @@ public:
 public:
 	bool LoadFromDB();
 	bool OnLoadFromDB();
-	void FinalizeOnLoadFromDB();
+	bool FinalizeLoadFromDB();
+	bool OnFinalizeLoadFromDB();
+	bool OnDBLoadCompleted();
 
 public:
 	void UpdateByPing();
@@ -49,6 +51,16 @@ private:
 
 private:
 	std::priority_queue<DBJobTimeLazyRunner, std::vector<DBJobTimeLazyRunner>, std::less<DBJobTimeLazyRunner>> timeLazyRunnerHolder;
+
+private:
+	// Enter the number of SPs that need to be loaded from the DB
+	// If there is nothing to load, enter 0
+	static const int16_t totalDBLoadCount{0};
+	// Enter the number of SPs that need to be loaded from the FinalizeLoad DB
+	// If there is nothing to load, enter 0
+	static const int16_t totalDBFinalizeLoadCount{0};
+
+	std::atomic_int16_t dbLoadCount{};
 
 private:
 	PCDBID pcDBID;
