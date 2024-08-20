@@ -111,6 +111,9 @@
     <ClCompile Include="DungeonBase.cpp">
       <Filter>소스 파일\Dungeon</Filter>
     </ClCompile>
+    <ClCompile Include="ZoneTile.cpp">
+      <Filter>소스 파일\Zone</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PC.h">
@@ -160,6 +163,9 @@
     </ClInclude>
     <ClInclude Include="DungeonManager.h">
       <Filter>소스 파일\Dungeon</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoneTile.h">
+      <Filter>소스 파일\Zone</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
