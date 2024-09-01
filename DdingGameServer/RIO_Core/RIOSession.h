@@ -16,7 +16,7 @@ class IGameAndClientPacket;
 struct IOContext : RIO_BUF
 {
 	IOContext() = default;
-	~IOContext() = default;
+	virtual ~IOContext() = default;
 
 	void InitContext(SessionId inOwnerSessionId, RIO_OPERATION_TYPE inIOType);
 
