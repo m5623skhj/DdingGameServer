@@ -62,17 +62,15 @@ void DBConnectionPool::FreeConnection(DBConnection& connection)
 
 bool DBConnectionPool::Initialize() 
 {
-	SQLHENV enviromentHandle;
-	SQLRETURN sqlReturn;
-
-	sqlReturn = SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &enviromentHandle);
+	SQLHENV environmentHandle;
+	SQLRETURN sqlReturn = SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &environmentHandle);
 	if (sqlReturn != SQL_SUCCESS)
 	{
 		std::cout << "env handle alloc Failed : " << sqlReturn << std::endl;
 		return false;
 	}
 
-	sqlReturn = SQLSetEnvAttr(enviromentHandle, SQL_ATTR_ODBC_VERSION, (void*)SQL_OV_ODBC3, 0);
+	sqlReturn = SQLSetEnvAttr(environmentHandle, SQL_ATTR_ODBC_VERSION, (void*)SQL_OV_ODBC3, 0);
 	if (sqlReturn != SQL_SUCCESS)
 	{
 		std::cout << "SQLSetEnvAttr() Failed : " << sqlReturn << std::endl;
@@ -83,7 +81,7 @@ bool DBConnectionPool::Initialize()
 	{
 		DBConnection conn;
 
-		sqlReturn = SQLAllocHandle(SQL_HANDLE_DBC, enviromentHandle, &conn.dbcHandle);
+		sqlReturn = SQLAllocHandle(SQL_HANDLE_DBC, environmentHandle, &conn.dbcHandle);
 		if (sqlReturn != SQL_SUCCESS)
 		{
 			std::cout << "dbc handle alloc Failed : " << sqlReturn << std::endl;
@@ -93,7 +91,7 @@ bool DBConnectionPool::Initialize()
 		sqlReturn = SQLDriverConnect(conn.dbcHandle, NULL, (SQLWCHAR*)connectionString.c_str(), SQL_NTS, NULL, 0, NULL, SQL_DRIVER_COMPLETE);
 		if (ODBCUtil::SQLIsSuccess(sqlReturn) == false)
 		{
-			std::cout << "ConnectSQLDriver() falied" << std::endl;
+			std::cout << "ConnectSQLDriver() flied" << std::endl;
 			return false;
 		}
 
@@ -107,18 +105,8 @@ bool DBConnectionPool::Initialize()
 		connectionList.push_back(conn);
 	}
 
-	SQLFreeHandle(SQL_HANDLE_ENV, enviromentHandle);
+	SQLFreeHandle(SQL_HANDLE_ENV, environmentHandle);
 	return true;
-}
-
-ODBCConnector::ODBCConnector()
-{
-
-}
-
-ODBCConnector::~ODBCConnector()
-{
-
 }
 
 ODBCConnector& ODBCConnector::GetInst()
@@ -135,17 +123,15 @@ bool ODBCConnector::ConnectDB(const std::wstring& optionFileName)
 		return false;
 	}
 
-	SQLHENV enviromentHandle;
-	SQLRETURN sqlReturn;
-
-	sqlReturn = SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &enviromentHandle);
+	SQLHENV environmentHandle;
+	SQLRETURN sqlReturn = SQLAllocHandle(SQL_HANDLE_ENV, SQL_NULL_HANDLE, &environmentHandle);
 	if (sqlReturn != SQL_SUCCESS)
 	{
 		std::cout << "env handle alloc Failed : " << sqlReturn << std::endl;
 		return false;
 	}
 
-	sqlReturn = SQLSetEnvAttr(enviromentHandle, SQL_ATTR_ODBC_VERSION, (void*)SQL_OV_ODBC3, 0);
+	sqlReturn = SQLSetEnvAttr(environmentHandle, SQL_ATTR_ODBC_VERSION, (void*)SQL_OV_ODBC3, 0);
 	if (sqlReturn != SQL_SUCCESS)
 	{
 		std::cout << "SQLSetEnvAttr() Failed : " << sqlReturn << std::endl;
@@ -154,7 +140,7 @@ bool ODBCConnector::ConnectDB(const std::wstring& optionFileName)
 
 	DBConnection conn;
 
-	sqlReturn = SQLAllocHandle(SQL_HANDLE_DBC, enviromentHandle, &conn.dbcHandle);
+	sqlReturn = SQLAllocHandle(SQL_HANDLE_DBC, environmentHandle, &conn.dbcHandle);
 	if (sqlReturn != SQL_SUCCESS)
 	{
 		std::cout << "dbc handle alloc Failed : " << sqlReturn << std::endl;
@@ -164,7 +150,7 @@ bool ODBCConnector::ConnectDB(const std::wstring& optionFileName)
 	sqlReturn = SQLDriverConnect(conn.dbcHandle, NULL, (SQLWCHAR*)GetDBConnectionString().c_str(), SQL_NTS, NULL, 0, NULL, SQL_DRIVER_COMPLETE);
 	if (ODBCUtil::SQLIsSuccess(sqlReturn) == false)
 	{
-		std::cout << "ConnectSQLDriver() falied" << std::endl;
+		std::cout << "ConnectSQLDriver() failed" << std::endl;
 		return false;
 	}
 
@@ -176,7 +162,7 @@ bool ODBCConnector::ConnectDB(const std::wstring& optionFileName)
 	}
 
 	defaultConnection = conn;
-	SQLFreeHandle(SQL_HANDLE_ENV, enviromentHandle);
+	SQLFreeHandle(SQL_HANDLE_ENV, environmentHandle);
 
 	if (connectionPool.Initialize(GetDBConnectionString(), connectionPoolSize) == false)
 	{
@@ -235,12 +221,12 @@ bool ODBCConnector::MakeProcedureMetaData()
 	return true;
 }
 
-SQLHSTMT ODBCConnector::GetDefaultStmtHandle()
+SQLHSTMT ODBCConnector::GetDefaultStmtHandle() const
 {
 	return defaultConnection.stmtHandle;
 }
 
-SQLHDBC ODBCConnector::GetDefaultDBCHandle()
+SQLHDBC ODBCConnector::GetDefaultDBCHandle() const
 {
 	return defaultConnection.dbcHandle;
 }
@@ -280,7 +266,7 @@ bool ODBCConnector::OptionParsing(const std::wstring& optionFileName)
 	return true;
 }
 
-const std::wstring ODBCConnector::GetDBConnectionString()
+std::wstring ODBCConnector::GetDBConnectionString() const
 {
 	std::wstring connectString;
 	connectString += L"DRIVER=";
@@ -297,7 +283,7 @@ const std::wstring ODBCConnector::GetDBConnectionString()
 	return connectString;
 }
 
-const ProcedureInfo * const ODBCConnector::GetProcedureInfo(ProcedureName procedureName) const
+const ProcedureInfo* ODBCConnector::GetProcedureInfo(ProcedureName procedureName) const
 {
 	return metaData->GetProcedureInfo(procedureName);
 }

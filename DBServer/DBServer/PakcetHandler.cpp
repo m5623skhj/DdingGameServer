@@ -13,7 +13,7 @@ void DBServer::InsertBatchJob(DBJobKey jobKey, const DBJobStart& job)
 	batchedDBJobMap.insert({ jobKey, make_shared<BatchedDBJob>(job.batchSize, job.sessionId) });
 }
 
-void DBServer::HandlePacket(UINT64 requestSessionId, PACKET_ID packetId, CSerializationBuf* recvBuffer)
+void DBServer::HandlePacket(const UINT64 requestSessionId, PACKET_ID packetId, CSerializationBuf* recvBuffer)
 {
 	DBJobKey key = INVALID_DB_JOB_KEY;
 	*recvBuffer >> key;
@@ -43,18 +43,18 @@ void DBServer::HandlePacket(UINT64 requestSessionId, PACKET_ID packetId, CSerial
 	}
 }
 
-void DBServer::AddItemForJobStart(UINT64 requestSessionId, DBJobKey jobKey, PACKET_ID packetId, CSerializationBuf* recvBuffer)
+void DBServer::AddItemForJobStart(const UINT64 requestSessionId, const DBJobKey jobKey, PACKET_ID packetId, CSerializationBuf* recvBuffer)
 {
 	std::shared_ptr<BatchedDBJob> batchedJob = nullptr;
 	{
 		std::lock_guard<shared_mutex> lock(batchedDBJobMapLock);
-		const auto& iter = batchedDBJobMap.find(jobKey);
-		if (iter == batchedDBJobMap.end())
+		const auto& itor = batchedDBJobMap.find(jobKey);
+		if (itor == batchedDBJobMap.end())
 		{
 			return;
 		}
 
-		batchedJob = iter->second;
+		batchedJob = itor->second;
 		batchedDBJobMap.erase(jobKey);
 	}
 
@@ -64,14 +64,14 @@ void DBServer::AddItemForJobStart(UINT64 requestSessionId, DBJobKey jobKey, PACK
 	}
 
 	CSerializationBuf::AddRefCount(recvBuffer);
-	batchedJob->bufferList.push_back(std::make_pair(packetId, recvBuffer));
+	batchedJob->bufferList.emplace_back(packetId, recvBuffer);
 	if (batchedJob->batchSize == batchedJob->bufferList.size())
 	{
 		DoBatchedJob(requestSessionId, jobKey, batchedJob);
 	}
 }
 
-void DBServer::DoBatchedJob(UINT64 requestSessionId, DBJobKey jobKey, std::shared_ptr<BatchedDBJob> batchedJob)
+void DBServer::DoBatchedJob(const UINT64 requestSessionId, const DBJobKey jobKey, const std::shared_ptr<BatchedDBJob>& batchedJob)
 {
 	bool isSuccess = true;
 
@@ -88,10 +88,10 @@ void DBServer::DoBatchedJob(UINT64 requestSessionId, DBJobKey jobKey, std::share
 		g_Dump.Crash();
 	}
 
-	for (auto& job : batchedJob->bufferList)
+	for (const auto& [packetId, buffer] : batchedJob->bufferList)
 	{
-		auto result = DBJobHandleImpl(requestSessionId, batchedJob->sessionId, static_cast<PACKET_ID>(job.first), conn.value(), job.second);
-		CSerializationBuf::Free(job.second);
+		auto result = DBJobHandleImpl(requestSessionId, batchedJob->sessionId, static_cast<PACKET_ID>(packetId), conn.value(), buffer);
+		CSerializationBuf::Free(buffer);
 
 		if (isSuccess == false)
 		{
@@ -121,11 +121,10 @@ void DBServer::DoBatchedJob(UINT64 requestSessionId, DBJobKey jobKey, std::share
 	connector.FreeConnection(conn.value());
 }
 
-bool DBServer::IsBatchJobWaitingJob(DBJobKey jobKey)
+bool DBServer::IsBatchJobWaitingJob(const DBJobKey jobKey)
 {
 	std::shared_lock<shared_mutex> lock(batchedDBJobMapLock);
-	const auto& iter = batchedDBJobMap.find(jobKey);
-	if (iter == batchedDBJobMap.end())
+	if (const auto& itor = batchedDBJobMap.find(jobKey); itor == batchedDBJobMap.end())
 	{
 		return false;
 	}

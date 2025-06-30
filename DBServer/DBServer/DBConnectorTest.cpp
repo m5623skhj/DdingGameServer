@@ -69,20 +69,20 @@ TEST(DBConnectorTest, ProcedureParameterTest)
 		ASSERT_NE(matchedProcedureResultColumnInfo, resultPropertyMap.end());
 
 		std::vector<std::pair<std::string, ProcedureTypeName>> dbInputProperties;
-		char UTF8_name[256], UTF8_dataTypeName[256];
-		for (const auto& inputColmun : matchedProcedureInfo->inputColumnInfoList)
+		char utf8Name[256], UTF8_dataTypeName[256];
+		for (const auto& inputColumn : matchedProcedureInfo->inputColumnInfoList)
 		{
-			UTF16ToUTF8(inputColmun.name.c_str(), UTF8_name);
-			UTF16ToUTF8(inputColmun.dataTypeName.c_str(), UTF8_dataTypeName);
-			dbInputProperties.emplace_back(std::make_pair(UTF8_name, UTF8_dataTypeName));
+			UTF16ToUTF8(inputColumn.name.c_str(), utf8Name);
+			UTF16ToUTF8(inputColumn.dataTypeName.c_str(), UTF8_dataTypeName);
+			dbInputProperties.emplace_back(utf8Name, UTF8_dataTypeName);
 		}
 		
 		std::vector<std::pair<std::string, ProcedureTypeName>> dbResultProperties;
-		for (const auto& resultColmun : matchedProcedureInfo->resultColumnInfoList)
+		for (const auto& resultColumn : matchedProcedureInfo->resultColumnInfoList)
 		{
-			UTF16ToUTF8(resultColmun.name.c_str(), UTF8_name);
-			UTF16ToUTF8(resultColmun.dataTypeName.c_str(), UTF8_dataTypeName);
-			dbResultProperties.emplace_back(std::make_pair(UTF8_name, UTF8_dataTypeName));
+			UTF16ToUTF8(resultColumn.name.c_str(), utf8Name);
+			UTF16ToUTF8(resultColumn.dataTypeName.c_str(), UTF8_dataTypeName);
+			dbResultProperties.emplace_back(utf8Name, UTF8_dataTypeName);
 		}
 
 		bool isMatched = true;
@@ -95,7 +95,7 @@ TEST(DBConnectorTest, ProcedureParameterTest)
 		EXPECT_TRUE(isMatched);
 	}
 
-	if (notMatchedProcedureList.size() > 0u)
+	if (!notMatchedProcedureList.empty())
 	{
 		std::cout << std::endl;
 		std::cout << "---------------------------------------" << std::endl;

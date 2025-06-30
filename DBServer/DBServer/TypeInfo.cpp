@@ -10,7 +10,7 @@ void TypeInfo::AddProperty(const Property& inProperty)
 	std::string propertyName(inProperty.GetName());
 	if (propertyMap.empty() == false)
 	{
-		if (propertyMap.find(propertyName) != propertyMap.end())
+		if (propertyMap.contains(propertyName))
 		{
 			return;
 		}
@@ -22,9 +22,9 @@ void TypeInfo::AddProperty(const Property& inProperty)
 
 void TypeInfo::GetAllProperties(OUT std::vector<std::pair<PropertyName, PropertyTypeName>>& propertyList) const
 {
-	for (const auto& it : propertyMap)
+	for (const auto& itor : propertyMap)
 	{
-		propertyList.emplace_back(std::make_pair(it.first, it.second.GetTypeName()));
+		propertyList.emplace_back(itor.first, itor.second.GetTypeName());
 	}
 }
 
@@ -33,7 +33,7 @@ std::vector<PropertyTypeName> TypeInfo::GetAllPropertyTypeName() const
 	return propertyTypeNameList;
 }
 
-size_t TypeInfo::GetNumOfProperty()
+size_t TypeInfo::GetNumOfProperty() const
 {
 	return propertyMap.size();
 }

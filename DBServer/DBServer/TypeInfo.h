@@ -126,7 +126,7 @@ public:
 	void GetAllProperties(OUT std::vector<std::pair<PropertyName, PropertyTypeName>>& propertyList) const;
 	std::vector<PropertyTypeName> GetAllPropertyTypeName() const;
 
-	size_t GetNumOfProperty();
+	size_t GetNumOfProperty() const;
 
 private:
 	using PropertyMap = std::map<PropertyName, const Property>;

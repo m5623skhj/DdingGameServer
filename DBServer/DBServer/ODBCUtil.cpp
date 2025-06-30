@@ -6,22 +6,22 @@
 
 namespace ODBCUtil
 {
-	void PrintSQLErrorMessage(SQLHSTMT stmtHandle)
+	static void PrintSQLErrorMessage(SQLHSTMT stmtHandle)
 	{
 		SQLWCHAR SqlState[6];
 		SQLWCHAR Msg[SQL_MAX_MESSAGE_LENGTH];
 		SQLINTEGER NativeError;
 		SQLSMALLINT MsgLen;
-		SQLRETURN rc;
 
-		rc = SQLGetDiagRec(SQL_HANDLE_STMT, stmtHandle, 1, SqlState, &NativeError, Msg, sizeof(Msg), &MsgLen);
-		std::wstring errorMessage = Msg;
-		if (SQL_SUCCEEDED(rc)) {
+		SQLRETURN rc = SQLGetDiagRec(SQL_HANDLE_STMT, stmtHandle, 1, SqlState, &NativeError, Msg, sizeof(Msg), &MsgLen);
+		const std::wstring errorMessage = Msg;
+		if (SQL_SUCCEEDED(rc)) 
+		{
 			std::wcout << L"SQL error message : " << errorMessage << std::endl;
 		}
 	}
 
-	bool SQLIsSuccess(SQLRETURN returnValue)
+	static bool SQLIsSuccess(SQLRETURN returnValue)
 	{
 		if (returnValue == SQL_SUCCESS || returnValue == SQL_SUCCESS_WITH_INFO)
 		{
@@ -31,7 +31,7 @@ namespace ODBCUtil
 		return false;
 	}
 
-	bool IsSameType(const std::string& lhs, const std::string& rhs)
+	static bool IsSameType(const std::string& lhs, const std::string& rhs)
 	{
 		// string
 		if (lhs == "FString")
@@ -86,7 +86,7 @@ namespace ODBCUtil
 		return false;
 	}
 
-	std::wstring GetDataTypeName(SQLSMALLINT inDataType)
+	static std::wstring GetDataTypeName(SQLSMALLINT inDataType)
 	{
 		switch (inDataType)
 		{
@@ -110,7 +110,7 @@ namespace ODBCUtil
 		}
 	}
 
-	bool DBSendQuery(const std::wstring& query, SQLHSTMT& stmtHandle)
+	static bool DBSendQuery(const std::wstring& query, const SQLHSTMT& stmtHandle)
 	{
 		if (SQLExecute(stmtHandle) != SQL_SUCCESS)
 		{
@@ -121,7 +121,7 @@ namespace ODBCUtil
 		return true;
 	}
 
-	bool DBSendQueryDirect(const std::wstring& query, SQLHSTMT& stmtHandle)
+	static bool DBSendQueryDirect(const std::wstring& query, const SQLHSTMT& stmtHandle)
 	{
 		if (ODBCUtil::SQLIsSuccess(SQLExecDirect(stmtHandle, (SQLWCHAR*)query.c_str(), SQL_NTS)) == false)
 		{
@@ -132,7 +132,7 @@ namespace ODBCUtil
 		return true;
 	}
 
-	bool DBSendQueryWithPrepare(const std::wstring& query, SQLHSTMT& stmtHandle)
+	static bool DBSendQueryWithPrepare(const std::wstring& query, const SQLHSTMT& stmtHandle)
 	{
 		if (SQLPrepare(stmtHandle, (SQLWCHAR*)query.c_str(), SQL_NTS) != SQL_SUCCESS)
 		{

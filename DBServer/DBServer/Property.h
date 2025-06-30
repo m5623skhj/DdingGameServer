@@ -41,14 +41,15 @@ public:
 		T* value = nullptr;
 	};
 
+	[[nodiscard]]
 	const TypeInfo& GetTypeInfo() const
 	{
 		return type;
 	}
 
-	Property(const char* inName, const PropertyTypeName& inTypeName, TypeInfo& owner)
+	Property(const char* inName, PropertyTypeName inTypeName, TypeInfo& owner)
 		: name(inName)
-		, typeName(inTypeName)
+		, typeName(std::move(inTypeName))
 		, type(owner)
 	{
 		owner.AddProperty(*this);

@@ -7,8 +7,8 @@
 #include <sqlext.h>
 #include <cstring>
 
-ColumnInfo::ColumnInfo(SQLTCHAR* inName, SQLSMALLINT inType,
-	SQLINTEGER inDataType, SQLTCHAR* inDataTypeName, SQLULEN inColumnSize)
+ColumnInfo::ColumnInfo(SQLTCHAR* inName, const SQLSMALLINT inType,
+	const SQLINTEGER inDataType, SQLTCHAR* inDataTypeName, const SQLULEN inColumnSize)
 	: name(reinterpret_cast<WCHAR*>(inName))
 	, columnType(inType)
 	, dataType(inDataType)
@@ -18,7 +18,7 @@ ColumnInfo::ColumnInfo(SQLTCHAR* inName, SQLSMALLINT inType,
 }
 
 ColumnInfo::ColumnInfo(SQLTCHAR* inName, SQLSMALLINT inType,
-	SQLINTEGER inDataType, std::wstring inDataTypeName, SQLULEN inColumnSize)
+	const SQLINTEGER inDataType, const std::wstring& inDataTypeName, const SQLULEN inColumnSize)
 	: name(reinterpret_cast<WCHAR*>(inName))
 	, columnType(inType)
 	, dataType(inDataType)
@@ -27,7 +27,7 @@ ColumnInfo::ColumnInfo(SQLTCHAR* inName, SQLSMALLINT inType,
 {
 }
 
-bool ProcedureInfo::SettingDefaultSPMaker(SQLHSTMT stmtHandle)
+bool ProcedureInfo::SettingDefaultSPMaker(const SQLHSTMT stmtHandle) const
 {
 	int cnt = 1;
 	for (const auto& inputColumn : inputColumnInfoList)
@@ -50,7 +50,7 @@ bool ProcedureInfo::SettingDefaultSPMaker(SQLHSTMT stmtHandle)
 	return true;
 }
 
-std::shared_ptr<void> ProcedureInfo::GetDefaultValue(short dataType)
+std::shared_ptr<void> ProcedureInfo::GetDefaultValue(const short dataType)
 {
 	if (dataType == SQL_NUMERIC || dataType == SQL_DECIMAL || dataType == SQL_INTEGER)
 	{
@@ -80,12 +80,12 @@ std::shared_ptr<void> ProcedureInfo::GetDefaultValue(short dataType)
 	return nullptr;
 }
 
-ODBCMetaData::ODBCMetaData(const std::wstring& inCatalogName)
-	: catalogName(inCatalogName)
+ODBCMetaData::ODBCMetaData(std::wstring inCatalogName)
+	: catalogName(std::move(inCatalogName))
 {
 }
 
-bool ODBCMetaData::GetProcedureNameFromDB(ODBCConnector& connector, WCHAR* catalogName, WCHAR* schemaName, OUT std::set<ProcedureName>& procedureNameList)
+bool ODBCMetaData::GetProcedureNameFromDB(const ODBCConnector& connector, WCHAR* catalogName, WCHAR* schemaName, OUT std::set<ProcedureName>& procedureNameList)
 {
 	auto stmtHandle = connector.GetDefaultStmtHandle();
 	if (stmtHandle == nullptr)
@@ -101,10 +101,10 @@ bool ODBCMetaData::GetProcedureNameFromDB(ODBCConnector& connector, WCHAR* catal
 	SQLCHAR procedureName[256];
 	ZeroMemory(procedureName, sizeof(procedureName));
 
-	SQLRETURN ret;
 	while (SQLFetch(stmtHandle) == SQL_SUCCESS)
 	{
-		ret = SQLGetData(stmtHandle, COLUMN_NUMBER::PROCEDURE_NAME, SQL_C_CHAR, procedureName, sizeof(procedureName), nullptr);
+		SQLRETURN ret = SQLGetData(stmtHandle, COLUMN_NUMBER::PROCEDURE_NAME, SQL_C_CHAR, procedureName,
+		                           sizeof(procedureName), nullptr);
 		if (ODBCUtil::SQLIsSuccess(ret) == false)
 		{
 			return false;
@@ -122,7 +122,7 @@ bool ODBCMetaData::GetProcedureNameFromDB(ODBCConnector& connector, WCHAR* catal
 	return true;
 }
 
-bool ODBCMetaData::MakeProcedureColumnInfoFromDB(ODBCConnector& connector, const std::set<ProcedureName>& procedureNameList)
+bool ODBCMetaData::MakeProcedureColumnInfoFromDB(const ODBCConnector& connector, const std::set<ProcedureName>& procedureNameList)
 {
 	auto stmtHandle = connector.GetDefaultStmtHandle();
 	// auto commit mode off
@@ -193,7 +193,7 @@ bool ODBCMetaData::MakeProcedureColumnInfoFromDB(ODBCConnector& connector, const
 	return true;
 }
 
-bool ODBCMetaData::MakeInputColumnToProcedureInfo(SQLHSTMT stmtHandle, const ProcedureName& procedureName, const WCHAR* procedureNameBuffer, OUT std::shared_ptr<ProcedureInfo> outProcdureInfo)
+bool ODBCMetaData::MakeInputColumnToProcedureInfo(SQLHSTMT stmtHandle, const ProcedureName& procedureName, const WCHAR* procedureNameBuffer, const std::shared_ptr<ProcedureInfo>& outProcedureInfo)
 {
 	auto ret = SQLProcedureColumns(stmtHandle, NULL, 0, NULL, 0, (SQLWCHAR*)procedureNameBuffer, SQL_NTS, NULL, 0);
 	if (ODBCUtil::SQLIsSuccess(ret) == false)
@@ -243,9 +243,9 @@ bool ODBCMetaData::MakeInputColumnToProcedureInfo(SQLHSTMT stmtHandle, const Pro
 		return false;
 	}
 
-	outProcdureInfo->sql = L"{CALL ";
-	outProcdureInfo->sql += procedureNameBuffer;
-	outProcdureInfo->sql += L"(";
+	outProcedureInfo->sql = L"{CALL ";
+	outProcedureInfo->sql += procedureNameBuffer;
+	outProcedureInfo->sql += L"(";
 
 	bool isFirstParam = true;
 	while (true)
@@ -264,23 +264,23 @@ bool ODBCMetaData::MakeInputColumnToProcedureInfo(SQLHSTMT stmtHandle, const Pro
 			}
 			else
 			{
-				outProcdureInfo->sql += L", ";
+				outProcedureInfo->sql += L", ";
 			}
 
-			outProcdureInfo->inputColumnInfoList.emplace_back(ColumnInfo(
-				columnInfo.name, columnInfo.columnType, columnInfo.dataType, columnInfo.dataTypeName, columnInfo.columnSize));
+			outProcedureInfo->inputColumnInfoList.emplace_back(
+				columnInfo.name, columnInfo.columnType, columnInfo.dataType, columnInfo.dataTypeName, columnInfo.columnSize);
 
-			outProcdureInfo->sql += L"?";
+			outProcedureInfo->sql += L"?";
 		}
 	}
-	outProcdureInfo->sql += L")}";
+	outProcedureInfo->sql += L")}";
 
 	SQLCloseCursor(stmtHandle);
 
 	return true;
 }
 
-bool ODBCMetaData::MakeOutputColumnToProcedureInfo(SQLHSTMT stmtHandle, const ProcedureName& procedureName, OUT std::shared_ptr<ProcedureInfo> procdureInfo)
+bool ODBCMetaData::MakeOutputColumnToProcedureInfo(SQLHSTMT stmtHandle, const ProcedureName& procedureName, const std::shared_ptr<ProcedureInfo>& procedureInfo)
 {
 	SQLSMALLINT columnCount = 0;
 	SQLRETURN ret = SQLNumResultCols(stmtHandle, &columnCount);
@@ -318,21 +318,21 @@ bool ODBCMetaData::MakeOutputColumnToProcedureInfo(SQLHSTMT stmtHandle, const Pr
 			return false;
 		}
 
-		procdureInfo->resultColumnInfoList.emplace_back(ColumnInfo(
-			resultColumn.name, resultColumn.dataType, resultColumn.dataType, ODBCUtil::GetDataTypeName(resultColumn.dataType), resultColumn.columnSize));
+		procedureInfo->resultColumnInfoList.emplace_back(
+			resultColumn.name, resultColumn.dataType, resultColumn.dataType, ODBCUtil::GetDataTypeName(resultColumn.dataType), resultColumn.columnSize);
 	}
 	SQLCloseCursor(stmtHandle);
 
 	return true;
 }
 
-const ProcedureInfo* const ODBCMetaData::GetProcedureInfo(ProcedureName& procedureName) const
+const ProcedureInfo* ODBCMetaData::GetProcedureInfo(const ProcedureName& procedureName) const
 {
-	auto it = procedureInfoMap.find(procedureName);
-	if (it == procedureInfoMap.end())
+	const auto itor = procedureInfoMap.find(procedureName);
+	if (itor == procedureInfoMap.end())
 	{
 		return nullptr;
 	}
 
-	return it->second.get();
+	return itor->second.get();
 }

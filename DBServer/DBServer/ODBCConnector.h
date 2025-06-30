@@ -46,8 +46,8 @@ private:
 class ODBCConnector
 {
 private:
-	ODBCConnector();
-	~ODBCConnector();
+	ODBCConnector() = default;
+	~ODBCConnector() = default;
 
 	ODBCConnector(const ODBCConnector&) = delete;
 	ODBCConnector& operator=(const ODBCConnector&) = delete;
@@ -109,7 +109,7 @@ public:
 	}
 
 	template <typename... Args>
-	bool CallSPDirect(SQLHSTMT& stmtHandle, const ProcedureInfo* procedureInfo, Args&... args)
+	static bool CallSPDirect(SQLHSTMT& stmtHandle, const ProcedureInfo* procedureInfo, Args&... args)
 	{
 		if (procedureInfo == nullptr)
 		{
@@ -213,15 +213,18 @@ public:
 
 private:
 	bool MakeProcedureFromDB();
-	bool MakeProcedureMetaData();
+	static bool MakeProcedureMetaData();
 
 private:
 	bool OptionParsing(const std::wstring& optionFileName);
-	const std::wstring GetDBConnectionString();
+	[[nodiscard]]
+	std::wstring GetDBConnectionString() const;
 
 public:
-	SQLHSTMT GetDefaultStmtHandle();
-	SQLHDBC GetDefaultDBCHandle();
+	[[nodiscard]]
+	SQLHSTMT GetDefaultStmtHandle() const;
+	[[nodiscard]]
+	SQLHDBC GetDefaultDBCHandle() const;
 	std::optional<DBConnection> GetConnection();
 	void FreeConnection(DBConnection& connection);
 
@@ -230,7 +233,8 @@ private:
 	DBConnection defaultConnection;
 
 public:
-	const ProcedureInfo * const GetProcedureInfo(ProcedureName procedureName) const;
+	[[nodiscard]]
+	const ProcedureInfo* GetProcedureInfo(ProcedureName procedureName) const;
 
 private:
 	std::unique_ptr<ODBCMetaData> metaData;

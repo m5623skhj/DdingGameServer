@@ -206,38 +206,38 @@ namespace ODBCUtil
 		public:
 			SQLSMALLINT GetCType(const std::string& typeString)
 			{
-				auto findIter = cTypeMap.find(typeString);
-				if (findIter == cTypeMap.end())
+				const auto findItor = cTypeMap.find(typeString);
+				if (findItor == cTypeMap.end())
 				{
 					return 0;
 				}
 
-				return findIter->second;
+				return findItor->second;
 			}
 
 			SQLSMALLINT GetSQLType(const std::string& typeString)
 			{
-				auto findIter = sqlTypeMap.find(typeString);
-				if (findIter == sqlTypeMap.end())
+				const auto findItor = sqlTypeMap.find(typeString);
+				if (findItor == sqlTypeMap.end())
 				{
 					return 0;
 				}
 
-				return findIter->second;
+				return findItor->second;
 			}
 
 			SQLLEN GetBufferSize(const std::string& typeString)
 			{
-				auto findIter = columnSizeMap.find(typeString);
-				if (findIter == columnSizeMap.end())
+				const auto findItor = columnSizeMap.find(typeString);
+				if (findItor == columnSizeMap.end())
 				{
 					return 0;
 				}
 
-				return findIter->second;
+				return findItor->second;
 			}
 
-			SQLPOINTER GetPointerFromPointerTypeString(const std::string& typeString, const void* input)
+			static SQLPOINTER GetPointerFromPointerTypeString(const std::string& typeString, const void* input)
 			{
 				if (typeString == "FWString")
 				{
@@ -279,7 +279,7 @@ namespace ODBCUtil
 		return true;
 	}
 
-	bool DBSendQuery(const std::wstring& query, SQLHSTMT& stmtHandle);
-	bool DBSendQueryDirect(const std::wstring& query, SQLHSTMT& stmtHandle);
-	bool DBSendQueryWithPrepare(const std::wstring& query, SQLHSTMT& stmtHandle);
+	bool DBSendQuery(const std::wstring& query, const SQLHSTMT& stmtHandle);
+	bool DBSendQueryDirect(const std::wstring& query, const SQLHSTMT& stmtHandle);
+	bool DBSendQueryWithPrepare(const std::wstring& query, const SQLHSTMT& stmtHandle);
 }
